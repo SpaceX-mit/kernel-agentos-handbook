@@ -1,5 +1,68 @@
 # Changelog
 
+## 4.1.0 (2026-04-29) — V5 futures: self-improving harness substrate
+
+**Six new modules under `packages/kbot/src/futures/`** drawn from frontier research published in late April 2026. Each is opt-in, additive, reversible. None changes default agent behavior unless explicitly invoked. **+95 tests, all stub-driven (zero LLM calls in CI).**
+
+See [V5_FUTURES_PLAN.md](./V5_FUTURES_PLAN.md) for the full plan and [src/futures/README.md](./src/futures/README.md) for how the modules compose.
+
+### `futures/harness/` — self-improving harness substrate (Sylph.AI Algorithm 1+2, arXiv 2604.21003)
+The unifying frame: **kbot becomes a self-improving harness, not a collection of tools.** Inner loop (`runEvolutionLoop`): Worker.execute → Evaluator.evaluate → EvolutionAgent.evolve → record. Outer loop (`runMetaEvolution`): aggregates per-task results across multiple tasks. `CriticEvaluator` adapts the existing `critic-gate.ts` to satisfy the Evaluator interface — the long-flagged critic finally has a steady job. `NoopEvolutionAgent` ships the substrate (trace history, harness versioning, regression detection, best-harness tracking, revert-on-threshold, early-stop) without claiming to rewrite the harness yet. JSONL persistence at `~/.kbot/futures/harness/<task-id>.jsonl`. 7 tests.
+
+### `futures/skill-graph/` — graph formalism (Tencent Hunyuan SkillSynth, arXiv 2604.25727)
+Skill nodes + scenario nodes + weighted edges. Path through graph = candidate workflow. `samplePath` (deterministic with seed), `findPaths` (DFS with depth limit), `pathLengthDistribution` (Monte Carlo stats), `pathToTask` synthesizes a Task from a sampled path — directly compatible with `harness/` evaluation tasks. 11 tests.
+
+### `futures/latent-state/` — typed envelope (Recursive MAS, arXiv 2604.25917)
+`LatentEnvelope` wire format for inter-agent handoffs. Carries text today, structured payloads when models support it, mixed when both. Each envelope is sha256-hashed (stable-key JSON ordering) and carries a provenance trail; `serialize`/`deserialize` round-trip and detect tampering, `merge` combines envelopes from the same sender/receiver pair. Future-proofs `a2a.ts` and `agent-protocol.ts` for latent-state transfer when models support it. 13 tests.
+
+### `futures/forecast/` — predictions module
+Project growth signals (npm/GitHub/users/tools/traces) forward at 1d/7d/30d/90d horizons. Linear and exponential least-squares fits with r²-driven model selection and a flat fallback for low-variance series. ±2σ confidence bounds, horizon-vs-history guard. `synthesizeForecasts` ranks signals by absolute slope; `formatForecast` and `narrative` produce markdown summaries. Pure functions; consumes a generic `Signal[]` so it can be wired to `growth.ts` (or any other source) later. 21 tests.
+
+### `futures/persona/` — privilege scoping (Cequence Agent Personas)
+Type-checked per-persona scopes for tool invocation. Each persona declares `Scope[]` with `ArgRule` constraints (type/enum/regex deny-pattern/min/max), optional sliding-window rate limits, and a max-blast-radius cap (`none < read-only < sandboxed < destructive`). `canInvoke(persona, tool, args)` returns `Verdict { allowed, reason?, matchedScope? }`; `enforce()` throws `PermissionDeniedError` on denial; `mergePersonas()` unions scopes and takes max blast radius. Three reference personas: `RESEARCHER` (read-only), `CODER` (sandboxed; bash 60/min, denies `rm -rf /` / `curl|sh` / `git push --force`), `COMPUTER_USE` (destructive; 30/min on mouse/keyboard/app actions). Standalone — wiring into `permissions.ts` is 4.2 work. 29 tests.
+
+### `futures/debate/` — asymmetric debate (Plurai BARRED, arXiv 2604.25203)
+Two LLMs argue opposite sides of a candidate input ("safe to allow" vs "must block") across up to four alternating rounds; a third LLM judges. `LLMClient` is fully injectable — the module never imports a provider SDK, keeping CI free of live LLM calls via stub clients. `synthesizeTrainingData` fans inputs through the runner; `writeJsonl` does atomic write at `~/.kbot/futures/debate/<date>.jsonl`. Wires the foundation for synthesizing critic-gate guardrail training data. 13 tests.
+
+### Infrastructure
+- `src/futures/index.ts` — namespaced public surface (`harness`, `skillGraph`, `latentState`, `forecast`, `persona`, `debate`)
+- `src/futures/README.md` — architecture overview with composition diagram
+- `V5_FUTURES_PLAN.md` — the full plan that drove this build
+
+### What's NOT in this release (deliberately)
+- Real EvolutionAgent codegen — interface shipped, implementation deferred to 4.3+
+- Recursive MAS latent-thought training — needs model-side support
+- TCOD on-policy distillation — needs custom local model + GPU
+- Wiring `forecast/` into the `growth_summary` tool — 4.2 work
+- Wiring `persona/` into `permissions.ts` — 4.2 work
+- Meta-evolution outer loop's first real task — 4.2 work
+
+### Stats
+- 1069 tests passing across 56 test files (was 974 / 50 at 4.0.1)
+- 95 new tests, all stub-driven, deterministic, ~150 ms total in `src/futures/`
+- ~3,500 LOC of new TypeScript + Markdown across 6 modules
+- Zero modifications to existing kbot subsystems — all additive under `src/futures/`
+
+## 4.0.1 (2026-04-29) — Cache-warmth + benchmarks + jcode integration
+
+A focused follow-up to 4.0 ship, responding to jcode (1jehuang/jcode, 840 stars, viral on TikTok with cherry-picked benchmarks).
+
+### Added
+- `src/cache-warmth.ts` — Anthropic prompt-cache TTL warning. Tracks per-(model, prompt-hash) call timestamps; warns once per cold event when next call lands >5 min after the cache went cold. Token-cost signal that jcode shipped this week (commit 2d865f4); kbot now has parity. Disabled via `KBOT_CACHE_WARMTH_WARN=off`. Wired into `streaming.ts` at the Anthropic call site.
+- `BENCHMARKS.md` — methodology-explicit performance comparison vs Claude Code, Codex CLI, Aider, OpenCode, jcode. Real n=5 cold-start numbers (kbot 91ms beats aider 396ms / opencode 519ms; loses to claude 73ms / codex 56ms / jcode ~14ms-cited). Cost-per-task, tool surface depth, local-first availability axes where kbot wins.
+- `templates/jcode-mcp-snippet.json` + `templates/jcode-integration.md` — drop-in MCP config + composition guide so jcode users can wrap kbot as a backend.
+- `research/jcode-analysis.md` — strategic analysis from the deep-research agent.
+- README — new "Benchmarks" section linking BENCHMARKS.md and the jcode integration doc.
+
+### Deferred to 4.1
+Three jcode-borrow agents stalled on stream timeouts; deferred:
+- Embedding-driven skill auto-injection
+- Agent grep with file-structure injection
+- Cross-harness session import
+
+### Tests
+974 passing across 50 files (was 965 / 49). +9 from cache-warmth.test.ts. Typecheck clean.
+
 ## 4.0.0 (2026-04-28) — Evidence-driven curation
 
 **670+ tools → ~100 specialist skills.** Every kept skill is backed by telemetry, agent reference, or test coverage. See [RELEASE_NOTES_4_0.md](./RELEASE_NOTES_4_0.md) for the full data + reasoning.
