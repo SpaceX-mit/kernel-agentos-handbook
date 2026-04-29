@@ -2,7 +2,86 @@
 
 > This file persists context between Claude Code sessions.
 
-## Current Session (2026-04-29) — V5 RESEARCH + FUTURES PLAN
+## Current Session (2026-04-28 → 04-29 overnight) — THE BIG BUILD: V5 EXECUTION + 4-ISSUE EDITORIAL DROP + KERNEL.MD SUPERSESSION
+
+### Headline
+The plan from the previous V5-research session got built tonight, plus four magazine issues, plus the canonical project doc rewrite. Roughly 18 hours of execution against the work the prior session had set up.
+
+### What shipped (kbot)
+
+**Seven npm releases** in sequence:
+- `3.99.32` — wave 1 of 2026-04 capability swarm: image_thoughtful, channels family (Slack full + 5 stubs), file library, workspace agents, parallel computer-use coordinator, security agent, plugin integrity manifest. 7 modules, 76 new tests.
+- `3.99.33` — wave 2 wiring: Office channel adapter, Anthropic Managed Agents adapter (`managed-agents-2026-04-01` beta header), plugin-sdk integrity, hierarchical planner integration, security agent wired into guardian/hacker, computer.ts rewired to Coordinator.
+- `3.99.34` — Claude Code / Cursor / Zed integration: `kbot setup-*` CLIs, `.claude/skills/kbot.md` pre-authorization skill (the Harrison fix), 15 MCP description audit reframings.
+- `3.99.35` — LLaDA2.0-Uni local provider + `local_image_thoughtful` tool (no OpenAI key needed for image gen).
+- **`4.0.0`** — evidence-driven curation. 670+ tools → 105 specialty skills, 61 deprecated, 630 cut. Five Phase A discovery agents produced telemetry/test-refs/daemon-deps/external-surface/forge-readiness CSVs at `packages/kbot/CURATION_DISCOVERY/CURATION_DECISION.csv`. Source files stay on disk (reversible); only `LAZY_MODULE_IMPORTS` got pruned. Forge load-path bug fixed (forged tools now survive restart). Vocab refresh: user-facing copy says "skills" where the OAI/Claude Code framing fits.
+- `4.0.1` — cache-warmth (Anthropic prompt-cache TTL warning, jcode borrow), `BENCHMARKS.md` (methodology-explicit n=5 cold-start vs claude/codex/aider/opencode/jcode), `templates/jcode-mcp-snippet.json` (kbot wraps as backend for jcode users), `research/jcode-analysis.md`.
+- **`4.1.0`** — V5 futures substrate. Six modules under `packages/kbot/src/futures/`: harness (Sylph 2604.21003), skill-graph (Tencent 2604.25727), latent-state (Stanford+UIUC+NVIDIA+MIT 2604.25917), forecast (in-house), persona (Cequence press signal), debate (Plurai 2604.25203). 95 tests, all stub-driven, deterministic, ~150ms total. Net **+338 tests** session-over-session (731 → 1069).
+
+### What shipped (kernel.chat magazine)
+
+Four issues drafted, registered, deployed:
+- **372 — THE AUDIT** (postmark dateline fired for the first time: ROOM 503 · IV·26; new `ledger` stock + `ledger-rule` layout + `graphite` accent)
+- **373 — ON COMPOSITION** (cream + asymmetric-left + no ornament; the editorial-neighbours framework applied at the AI-tools layer)
+- **374 — AGAINST VIRAL BENCHMARKS** (ivory + classic + new `asterisk-stamp` ornament; jcode anatomy without naming the engineer)
+- **375 — THE SIX BORROWS** (cream + new `numbered-catalog` layout + dossier element; credit-page for the v5 build)
+
+Two corrections deployed after first publish (372's count-of-counts line dropped, 375's "Cequence Security" → "Cequence").
+
+### Design-language extensions
+
+- **WIRED decoded** as second editorial neighbour in `docs/design-language.md` — four transferable mechanics (methods sidebar adjacent to claim, numbered references at foot of long features, pull-quote with the number not the sentence, tomato-tinted inline footnote markers). Magazine now has two complete neighbours decoded (PAPERSKY + WIRED).
+- **All four PAPERSKY-starred mechanics now in active use** (postmark dateline was the unfired one until 372).
+- **Type extensions:** `IssueStock` += `'ledger'`; `IssueCoverLayout` += `'ledger-rule'` + `'numbered-catalog'`; `IssueCoverOrnament` += `'asterisk-stamp'`; `IssueRecord.coverPostmark?: { place, date }` (first-class support); `INK_SEEDS` += `graphite` (#3F3D3A).
+- **Stock cabinet** — explicit register documented for what each paper signals (cream/ivory/butter/kraft/ink/ledger).
+
+### Doc supersession
+
+**KERNEL.md** (335 lines) now the canonical project reference; **CLAUDE.md** (64 lines, was 673) reduced to a shim pointing at KERNEL.md. Old framing was "kbot is the product, web is the companion" — wrong now that the magazine is a working publication. New framing: *one publication on two media*, the same editor's discipline applied to a tool registry and a table of contents.
+
+### Real user signal
+
+**Harrison McCormick** (Pro user, second time he's been the canary) iMessaged 4/27 that "Claude is refusing to help me use the agent it had me build, citing academic dishonesty." That triggered wave 3 (kbot.md skill + setup CLIs + MCP description audit). Same-night fix; he can `npm i -g @kernel.chat/kbot && kbot setup-claude-code` to land in a working integration. Texts to him are drafted but not sent yet.
+
+### Pattern that worked
+
+1. Read research first (the night before's session set up V5_FUTURES_PLAN.md so this session could just execute)
+2. Plan in writing — every release commit cites numbers and reasoning
+3. Swarm-dispatch parallel agents on non-overlapping work (separate files, separate scopes); keep scope tight per agent — stream timeouts come from sprawling context
+4. Foreground the integration step (registration, typecheck, deploy)
+5. Ship with evidence (audit CSVs, RELEASE_NOTES, CHANGELOG, methodology docs)
+
+### Known timeouts / agent failures
+
+Stream-idle timeouts hit ~5 agents this session on the bigger scopes. Recovery pattern: check what survived on disk, tight-rescope, salvage in foreground. The stalled agents were always over-scoped, never the deterministic-stub ones. Going forward: cap per-agent scope at one-module / ≤500 LOC / single-purpose.
+
+### Open in the queue
+
+- **Skill injector** (jcode borrow C) — embedding-driven skill auto-injection. Stalled this session, deferred to 4.2.
+- **Smart grep** (jcode borrow B) — file-structure injection. Stalled, deferred.
+- **Cross-harness session import** (jcode borrow D) — Claude Code → kbot session resume. Stalled, deferred.
+- **`forecast/` → `growth_summary` wiring** — substrate exists, integration is 4.2 work.
+- **`persona/` → `permissions.ts` wiring** — substrate exists, integration is 4.2 work.
+- **Real EvolutionAgent** — interface shipped, codegen implementation is 4.3+.
+- **Deprecation removal runway** — 4.1 (lab-*) → 4.2 (stream-*) → 4.3 (engine-*) → 4.4 (misc) → 4.5 (forge_tool migration).
+- **Harrison upgrade text** — drafted in conversation, not sent.
+- **Social post about the cut** — could pair the audit story (672 → 105 with public CSV) with the four-issue drop. Not drafted.
+
+### Live state at session end
+
+- **kbot v4.1.0** on npm, latest tag, 1069 tests passing, 56 test files
+- **kernel.chat ISSUE 375 — THE SIX BORROWS** is the live cover at https://kernel.chat
+- **GitHub:** main at `7e154a64` (KERNEL.md supersession). gh-pages at `b26e1f6` (post-corrections deploy). 13 stars, 2 forks, 0 open PRs.
+- **npm downloads (all-time):** 25,828 total since first publish 2026-03-04 (56 days). Last 30 days: 11,401.
+
+### Recommended next session opener
+
+> "Pick from: (1) Send Harrison the upgrade text + draft the social post about the 4.0 cut. (2) Wire forecast → growth_summary as the first 4.2 substrate-to-product hop. (3) Skill injector salvage with tighter agent scope. (4) Start drafting ISSUE 376 (subject open — could be the postmark mechanic at a different geography, or the WIRED decode applied to a specific data-journalism piece kbot has the receipts for)."
+
+### Previous session notes follow below
+---
+
+## Prior Session (2026-04-29) — V5 RESEARCH + FUTURES PLAN
 
 ### What happened
 - Verified live state: kbot is at **v4.0.1**, published 2026-04-29 (CLAUDE.md was at 3.60.0 / 3.99.21 — stale). Real npm downloads ~1,266/wk, not the 4,806 stated.
