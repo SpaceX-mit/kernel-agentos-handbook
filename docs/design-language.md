@@ -237,6 +237,75 @@ the catalog is for when an issue's subject calls for them.
 
 ---
 
+## Issue identity catalog
+
+> **Principle.** Every issue has its own identity. Every issue
+> carries its own set of design decisions, catalogued here.
+> Continuity does not come from uniformity — it comes from
+> documented per-issue choices that future issues can reach
+> for, vary against, or refuse on purpose.
+
+The catalog below is the run's working memory. Each row is one
+issue's identity sheet: what stock, what layout, what ornament,
+what accent, what mechanics it exercised, what new vocabulary
+it introduced. Adding a new issue means adding a row.
+
+The author-notes block at the top of each `src/content/issues/<n>.ts`
+file is the long version. This table is the index.
+
+| # | Stock | Layout | Ornament | Seal / Postmark | Accent | Spread | Mechanics exercised | New to the design language |
+|---|---|---|---|---|---|---|---|---|
+| 360 | cream | classic | — | — | tomato | — | The anchor identity | first issue |
+| 361 | butter | classic | — | — | tomato | — | Summer reading register | `butter` stock signal |
+| 362 | cream | classic | — | — | tomato | — | Vacation / quiet | — |
+| 363 | cream | classic | — | — | tomato | — | Style register | — |
+| 364 | cream | classic | — | seal: FORECAST | cobalt | forecast | First forecast spread; cobalt accent | `forecast` spread type, `cobalt` ink seed |
+| 365 | kraft | classic | — | — | tomato | — | Craft register | `kraft` stock signal |
+| 366 | cream | classic | ink-spread | — | tomato | dispatch | Ornament debut | `ink-spread` ornament, `dispatch` spread type |
+| 367 | ivory | classic | — | seal: SIEVE | cobalt | essay | First sieve / preselection essay | `ivory` stock register |
+| 368 | cream | asymmetric-left | — | — | tomato | essay | First Anthropic-Labs profile | `asymmetric-left` layout |
+| 369 | cream | classic | warty-spots | seal: SHEDD · IV·26 | brick | dispatch | Specimen ornament | `warty-spots` ornament, `brick` ink seed |
+| 370 | cream | monument-hero | — | seal: FORECAST · IV·26 | tomato | forecast | **Restraint** ★ + **single-glyph thread (★)** ★ + **place-and-route** ★ — three of four PAPERSKY mechanics ratified | `monument-hero` layout, the asterisk (★) as system glyph |
+| 371 | ink | asymmetric-left | flash-burn | seal: AFTER HOURS · APR 2026 | tomato | essay | Cinematographer profile; flash ornament | `ink` stock, `flash-burn` ornament |
+| **372** | **ledger** | **ledger-rule** | — | **postmark: ROOM 503 · IV·26** | **graphite** | essay | **Postmark dateline ★** — the unfired fourth PAPERSKY mechanic, fired here | `ledger` stock, `ledger-rule` layout, `graphite` ink seed, `coverPostmark` field |
+| 373 | cream | asymmetric-left | — | — | tomato | essay | Editorial-neighbours framework applied at the AI-tools layer; restraint by absence | first under-decorated cover (no ornament + no seal + no accent override) |
+| 374 | ivory | classic | **asterisk-stamp** | — | tomato | essay | Numbers-with-methodology piece; first WIRED-mechanic exercise (methods sidebar adjacent to claim) | `asterisk-stamp` ornament |
+| 375 | cream | **numbered-catalog** | — | seal: CREDITED · SIX BORROWS | tomato | essay | Place-and-route at the references layer; first **dossier** + **references** spread elements (WIRED's methods + numbered references mechanics) | `numbered-catalog` layout, `dossier` spread element, `references` block as credit page |
+
+★ marks an issue that ratified a PAPERSKY-starred mechanic into
+active service. Three are now ratified across the run; the
+asterisk in the row marker is the magazine's own bookkeeping.
+
+### How to add a row
+
+When publishing a new issue:
+
+1. Build the issue file at `src/content/issues/<n>.ts` — author
+   notes at top explain the identity decisions in long form.
+2. Add a row to the catalog above with the issue's identity at
+   a glance.
+3. If the issue introduces new design vocabulary (a stock, a
+   layout, an ornament, an accent seed, a spread element, a
+   mechanic), document the introduction in the row's
+   "New to the design language" column AND extend the relevant
+   type union (`IssueStock`, `IssueCoverLayout`,
+   `IssueCoverOrnament`, etc.).
+4. If the issue exercises a previously-unfired starred mechanic,
+   mark the row with ★ and note the ratification.
+
+### What this catalog is not
+
+It is not a style enforcement table. Two issues with `cream` +
+`classic` are not interchangeable; the difference is in the
+spread, the prose, the headline, and the ornament-or-absence-of.
+The catalog records *which surface decisions an issue made* so
+the next issue can choose against the run with eyes open. The
+discipline is the same as the editorial-neighbours framework:
+collect the references, decode them, borrow without imitating,
+make the next thing distinctly itself.
+
+---
+
 ## The system
 
 ### Tokens (`src/index.css:118-150`)
