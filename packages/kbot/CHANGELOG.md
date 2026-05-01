@@ -1,5 +1,31 @@
 # Changelog
 
+## 4.2.0 (2026-04-30) — Persona-scoped permissions: second substrate-to-product hop
+
+The `futures/persona/` substrate (shipped as code-only in v4.1.0) is now wired into kbot's live permission chain. Pass `--persona researcher`, `--persona coder`, or `--persona computer-use` (or set `KBOT_PERSONA`) to bound a session's tool surface to a typed scope set with deny-patterns, rate limits, and blast-radius caps.
+
+### Added
+- **`--persona <id>` CLI flag** + `KBOT_PERSONA` env override
+- Persona check fires *before* the existing destructive-op confirmation in `permissions.ts:checkPermission` and `tool-pipeline.ts:permissionMiddleware`
+- Fail-fast denial format: `Persona '<id>' denies '<toolName>': <reason>`
+- 10 new tests in `src/permissions.test.ts` — researcher / coder / computer-use scenarios + deny-pattern + rate-limit + blast-radius
+
+### Three personas live (from registry shipped in 4.1.0)
+- `RESEARCHER` — read-only (read_file, grep, glob, web_search, papers_search, kbot_search, arxiv_search, github_read_file/repo_info/search/trending/activity/issues)
+- `CODER` — sandboxed (read tools + write_file/edit_file/multi_file_write + bash with deny-pattern on `rm -rf /` / `curl|sh` / `git push --force` + 60/min rate limit)
+- `COMPUTER_USE` — destructive opt-in (mouse/keyboard/app actions + 30/min rate limit; researcher tools NOT in scope)
+
+### Untouched (deliberately)
+- `src/futures/persona/` substrate unchanged — this is the wire-in
+- Default behavior unchanged for sessions without `--persona`
+- `forecast_summary` from 4.1.1 still ships as-is
+
+### Deferred to 4.2.1
+- Mid-session `/persona <id>` REPL command (the dispatcher in cli.ts is sprawling; clean handler exceeded the 200-LOC budget for this hop)
+
+### Tests
+- 1086 passing across 58 test files (was 1077 / 57 at 4.1.1). +10 from this hop.
+
 ## 4.1.1 (2026-04-29) — forecast_summary: first 4.2 substrate-to-product hop
 
 Wires the v5 `futures/forecast/` substrate (shipped in 4.1.0 as standalone code) into the growth tool surface as a new opt-in tool.

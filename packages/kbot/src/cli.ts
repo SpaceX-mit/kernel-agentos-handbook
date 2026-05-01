@@ -83,6 +83,7 @@ async function main(): Promise<void> {
     .option('--lite', 'Lightweight mode — skip heavy tools (auto-enabled on Replit)')
     .option('--safe', 'Confirm destructive operations')
     .option('--strict', 'Confirm ALL operations')
+    .option('--persona <id>', 'Scope tool access to a persona (researcher, coder, computer-use)')
     .option('--ollama-launch', 'Auto-configure for ollama launch (sets Ollama as provider)')
     .argument('[prompt...]', 'One-shot prompt')
     .helpOption('-h, --help', 'display help for command')
@@ -4617,7 +4618,7 @@ async function main(): Promise<void> {
 
   // Permission mode: autonomous by default, users opt-in to confirmations
   {
-    const { setPermissionMode } = await import('./permissions.js')
+    const { setPermissionMode, setActivePersona } = await import('./permissions.js')
     if (opts.yes) {
       // --yes / -y: skip all confirmations (for scripts & CI)
       setPermissionMode('permissive')
@@ -4628,6 +4629,18 @@ async function main(): Promise<void> {
     } else {
       // DEFAULT: permissive — kbot acts autonomously, no confirmation prompts
       setPermissionMode('permissive')
+    }
+
+    // Persona scoping (v4.2.0). Optional. Falls back to env var.
+    const personaId = (opts.persona as string | undefined) || process.env.KBOT_PERSONA || null
+    if (personaId) {
+      try {
+        setActivePersona(personaId)
+        if (!opts.quiet && !opts.pipe) printInfo(`Persona: ${personaId}`)
+      } catch (err) {
+        printError((err as Error).message)
+        process.exit(1)
+      }
     }
   }
 
