@@ -2,7 +2,94 @@
 
 > This file persists context between Claude Code sessions.
 
-## Current Session (2026-05-09) — MAY-NEWS RESPONSE: SECURITY-AUDIT SKILLS + AGENT SDK ADAPTER + REVIEW SPREAD
+## Current Session (2026-05-09 evening) — PEEKABOO INTEGRATION: AX-FIRST NATIVE AUTOMATION + ISSUE 380 (THREE IDIOMS)
+
+### Headline
+Wired Peekaboo (https://github.com/openclaw/Peekaboo) into kbot end-to-end across three layers in a single sprint via parallel-agent swarm: provider-agnostic adapter, six registered `peekaboo_*` tools, additive AX-first fallback in the existing `mouse_click` / `keyboard_type` flow, and the editorial that names what just changed. Six agents dispatched; all returned green.
+
+### What shipped (kbot v4.4.0)
+
+**1. `src/adapters/peekaboo/` — bidirectional adapter (5 files, 629 LOC)**
+- `types.ts` — `PeekabooSnapshot`, `PeekabooElement`, the five command result types, `PeekabooOutcome<T>` discriminated-union helper.
+- `runner.ts` — `runPeekaboo(args, opts)` via `execFile`, `peekabooAvailable()` probe, `PEEKABOO_BIN` env override.
+- `commands.ts` — `see`, `click`, `type_`, `setValue`, `performAction`, `agent` — all return `PeekabooOutcome<T>`.
+- `index.ts` — public surface.
+- `adapter.test.ts` — 13 deterministic tests, `vi.mock('node:child_process')` for stubbing.
+
+**2. `src/tools/peekaboo.ts` — six registered kbot tools**
+- `peekaboo_see` / `peekaboo_click` / `peekaboo_type` / `peekaboo_set_value` / `peekaboo_perform_action` / `peekaboo_agent`.
+- All `tier: 'free'`, all return `string`, never throw — `outcomeToString` collapses `PeekabooOutcome` to either pretty JSON or `Error: ...`.
+- Binary presence guarded via `peekabooAvailable()`.
+- Approval flow: `requireApproval(app)` checks `~/.kbot/computer-use/<app>.lock` (Coordinator-managed). `computer.ts` does not export `approvedApps`/`isAppApproved`/`claimApp`, so this is a fail-closed check rather than a direct in-process integration. Limitation documented inline.
+- 12 vitest tests. Registered in `swarm-2026-04.ts`.
+
+**3. `src/tools/computer.ts` — additive AX-first fallback**
+- Imports `peekabooAvailable`, `see`, `click`, `type_` from the adapter.
+- Module-level `peekabooReady()` cached probe with `KBOT_DISABLE_PEEKABOO=1` escape hatch.
+- `mouse_click` (lines ~520–538): on `darwin` + binary present, captures snapshot, attempts AX click via `peekabooClick`; falls through to AppleScript+cliclick on any failure.
+- `keyboard_type` (lines ~739–752): same pattern with `peekabooType`.
+- New `peekaboo_status` tool reports `available` / `disabled-via-env` / `not-on-PATH`.
+- 6/6 existing computer.test.ts pass — no regressions, no signature changes.
+
+**4. `skills/native-automation/peekaboo-snapshot-act/SKILL.md` (91 lines)**
+- Names the doctrine: web=DOM, audio=OSC, native=AX. Snapshot-then-act over screenshot-and-guess.
+- Iron Laws: ONE SNAPSHOT, MANY ACTIONS / ELEMENT ID OVER COORDINATES / PERFORM-ACTION OVER CLICK.
+- Five phases: Approve & focus → Capture surface → Choose the right verb → Reuse the snapshot → Fall back gracefully.
+
+### What shipped (magazine)
+
+**ISSUE 380 — THREE IDIOMS (cobalt + cream + asymmetric-left + asterisk-stamp + NOTED · IDIOMS · V·26)**
+- Essay spread, three numbered sections (DOM / OSC / Accessibility), closing recognition that surface-published structure is the right input shape, kbot v4.4.0 / Peekaboo news in a small `— MARGIN —` block at the end.
+- Adjacent to the 376/377/378 filed-pattern arc but verb shifts from FILED to NOTED — a recognition, not a filing.
+- First binding of cobalt as the structural-argument accent.
+
+### Collision recovery
+ISSUE 379 — ON BECOMING A REAL MAGAZINE was deployed by the user (commit `5f16579e`) mid-swarm; the issue agent's brief was already in flight and overwrote 379.ts with THREE IDIOMS content. Recovered: `git checkout HEAD -- src/content/issues/379.ts` restored the deployed essay byte-for-byte, THREE IDIOMS preserved at `380.ts` with all identifiers renumbered, registered behind 379 in `index.ts`. No data loss.
+
+### Test math
+- New: **25 tests** (13 adapter + 12 tool wrapper), all green.
+- Regression: 6/6 computer.test.ts still pass; no existing tests modified.
+- Type-check: clean across both site and kbot package.
+
+### Install state (this Mac)
+- `peekaboo` 3.0.0-beta4 at `/opt/homebrew/bin/peekaboo` (via `brew install steipete/tap/peekaboo`).
+- Project `.mcp.json` registers `peekaboo: peekaboo mcp` (committed, travels with repo).
+- User-level `~/.claude.json` registers same (every Claude Code session on this Mac picks it up). Connection verified ✓.
+- Macos perms inherit from Claude Code's existing Screen Recording + Accessibility grants — no extra prompt.
+
+### Decisions worth remembering
+- `npx -y @steipete/peekaboo` does NOT spawn the MCP server — that's the CLI. The MCP entry point is `peekaboo mcp` (subcommand), not a separate bin. Both `.mcp.json` and the `claude mcp add` invocation must use `peekaboo mcp` (or the explicit `peekaboo-mcp.js` bin from the npm package if going npx-only).
+- The kbot adapter is provider-agnostic by design (no runtime dep on `@steipete/peekaboo`) — matches the agent-sdk adapter posture from the prior session.
+- AX-first fallback is gated behind `darwin` + binary present + non-empty app arg — Linux behavior bit-for-bit unchanged. Escape hatch is `KBOT_DISABLE_PEEKABOO=1`.
+
+### Open ends for next session
+- Apply the AX-first pattern to additional computer.ts tools (currently only `mouse_click` and `keyboard_type` get it). Candidates: `mouse_drag`, `keyboard_combo`, `app_focus`.
+- Surface `peekaboo_agent` through a dedicated SKILL.md so its handoff semantics (delegate to peekaboo's own agent loop) are explicit.
+- The `requireApproval` limitation in `peekaboo.ts` calls for a small `computer.ts` refactor: export `isAppApproved` so direct in-process gating is possible. Low risk, high clarity gain.
+
+### Files touched (this session)
+```
+A packages/kbot/src/adapters/peekaboo/types.ts
+A packages/kbot/src/adapters/peekaboo/runner.ts
+A packages/kbot/src/adapters/peekaboo/commands.ts
+A packages/kbot/src/adapters/peekaboo/index.ts
+A packages/kbot/src/adapters/peekaboo/adapter.test.ts
+A packages/kbot/src/tools/peekaboo.ts
+A packages/kbot/src/tools/peekaboo.test.ts
+M packages/kbot/src/tools/computer.ts            (additive AX-first + peekaboo_status)
+M packages/kbot/src/tools/swarm-2026-04.ts       (register peekaboo tools)
+M packages/kbot/package.json                      (4.3.0 → 4.4.0)
+A packages/kbot/skills/native-automation/peekaboo-snapshot-act/SKILL.md
+A src/content/issues/380.ts                       (THREE IDIOMS)
+M src/content/issues/index.ts                     (register ISSUE_380)
+M .mcp.json                                       (peekaboo entry)
+M ~/.claude.json                                  (user-scope MCP, outside repo)
+M SCRATCHPAD.md                                   (this entry)
+```
+
+---
+
+## Earlier Today (2026-05-09 morning) — MAY-NEWS RESPONSE: SECURITY-AUDIT SKILLS + AGENT SDK ADAPTER + REVIEW SPREAD
 
 ### Headline
 Started as a "where's AI at right now" question, ended as a build sprint against the May 2026 news cycle. Two new things land on `claude/ai-current-state-8f4vr`: a security-audit skill family (the BYOK/local-first answer to Project Glasswing + Claude Mythos) and an Agent SDK adapter (the schema-only response to Anthropic opening the Agent SDK to external developers).

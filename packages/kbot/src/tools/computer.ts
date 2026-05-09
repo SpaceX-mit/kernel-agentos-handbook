@@ -18,8 +18,24 @@ import { join } from 'node:path'
 import { readFileSync, writeFileSync, unlinkSync, existsSync, mkdirSync, rmSync } from 'node:fs'
 import { registerTool } from './index.js'
 import { Coordinator } from '../computer-use-coordinator.js'
+import {
+  peekabooAvailable,
+  see as peekabooSee,
+  click as peekabooClick,
+  type_ as peekabooType,
+} from '../adapters/peekaboo/index.js'
 
 const platform = process.platform
+
+// ── Peekaboo AX-first fallback ───────────────────────────────────
+// When the peekaboo CLI is installed, try AX-aware automation before
+// synthetic input. Cached at module-load, refreshed if env hint changes.
+let _peekabooReady: Promise<boolean> | null = null
+function peekabooReady(): Promise<boolean> {
+  if (process.env.KBOT_DISABLE_PEEKABOO === '1') return Promise.resolve(false)
+  if (!_peekabooReady) _peekabooReady = peekabooAvailable().catch(() => false)
+  return _peekabooReady
+}
 const LOCK_DIR = join(homedir(), '.kbot')
 // Legacy single-session lock path. Retained as a constant for back-compat
 // with any callers that referenced it; the actual locking is now performed
@@ -502,6 +518,26 @@ export function registerComputerTools(): void {
 
       try {
 
+      // AX-first fallback: when peekaboo is on PATH, try AX-aware click
+      // before synthetic input. Falls through to AppleScript+cliclick on
+      // any failure so existing behavior is preserved.
+      if (platform === 'darwin' && app && await peekabooReady()) {
+        try {
+          const snap = await peekabooSee({ app })
+          if (snap.ok) {
+            const target = (args.element_id ?? args.label ?? null) as string | null
+            if (target) {
+              const result = await peekabooClick({
+                snapshot: snap.snapshot,
+                on: String(target),
+              })
+              if (result.ok) return `clicked via AX: ${target}`
+              // fall through to synthetic on AX failure
+            }
+          }
+        } catch { /* fall through */ }
+      }
+
       if (platform === 'darwin') {
         try {
           if (button === 'double') {
@@ -717,6 +753,21 @@ export function registerComputerTools(): void {
       try {
         const text = String(args.text)
         if (!text) return 'Error: text is required'
+
+        // AX-first fallback: when peekaboo is on PATH, try AX-aware typing
+        // before synthetic keystrokes. Falls through to AppleScript on any
+        // failure so existing behavior is preserved.
+        if (platform === 'darwin' && await peekabooReady()) {
+          try {
+            const clear = args.clear === true
+            const delayMs = typeof args.delayMs === 'number' ? args.delayMs : undefined
+            const result = await peekabooType({ text, clear, delayMs })
+            if (result.ok) {
+              return `Typed via AX: ${text.slice(0, 80)}${text.length > 80 ? '...' : ''}`
+            }
+            // fall through to synthetic on AX failure
+          } catch { /* fall through */ }
+        }
 
         if (platform === 'darwin') {
           const escaped = escapeAppleScript(text)
@@ -1082,6 +1133,24 @@ export function registerComputerTools(): void {
         ? ` Released app locks: ${released.join(', ')}.`
         : ''
       return `Computer use session ended.${releasedNote}`
+    },
+  })
+
+  // ── Peekaboo status (AX-first diagnostics) ──
+
+  registerTool({
+    name: 'peekaboo_status',
+    description: 'Report whether the AX-first peekaboo CLI is available on PATH for accessibility-aware automation.',
+    parameters: {},
+    tier: 'free',
+    async execute() {
+      if (process.env.KBOT_DISABLE_PEEKABOO === '1') {
+        return 'AX-first unavailable (disabled via KBOT_DISABLE_PEEKABOO=1)'
+      }
+      const ready = await peekabooReady()
+      return ready
+        ? 'AX-first available via peekaboo'
+        : 'AX-first unavailable (peekaboo CLI not on PATH)'
     },
   })
 }

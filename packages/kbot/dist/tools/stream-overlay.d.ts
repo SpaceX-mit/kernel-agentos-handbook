@@ -46,6 +46,15 @@ export declare class StreamOverlay {
     private renderTicker;
     private tickHighlight;
     private renderHighlight;
+    /**
+     * The folio strip — magazine masthead translated into broadcast chrome.
+     * Layout (left → right):
+     *   ★  KERNEL.CHAT · LIVE  ·  VIEWERS {n}  ·  UPTIME {t}  ·  CHAT {n}/MIN  ·  BIOME {b}    LIVE TRANSMISSION · 生放送
+     *
+     * Single hairline above. Cream ground. Ink type. Tomato spot on the
+     * leading ★ and the live tagline. Mirrors `.pop-folio` on the site,
+     * minus the issue-number monument — broadcasts don't carry issues.
+     */
     private renderInfoBar;
 }
 export declare function getOverlay(): StreamOverlay;

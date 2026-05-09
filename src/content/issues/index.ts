@@ -32,6 +32,7 @@ import { ISSUE_376 } from './376'
 import { ISSUE_377 } from './377'
 import { ISSUE_378 } from './378'
 import { ISSUE_379 } from './379'
+import { ISSUE_380 } from './380'
 
 // Re-export accent types so issue files can import from a single place.
 export type { IssueAccent, InkSeedName, InkSeed } from './accents'
@@ -632,6 +633,7 @@ export const ALL_ISSUES: IssueRecord[] = [
   ISSUE_377,
   ISSUE_378,
   ISSUE_379,
+  ISSUE_380,
 ]
 
 /** The latest published issue — drives the landing cover. */
