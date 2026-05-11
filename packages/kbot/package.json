@@ -1,7 +1,7 @@
 {
   "name": "@kernel.chat/kbot",
-  "version": "4.4.1",
-  "description": "Open-source terminal AI agent. 100+ specialist skills, 35 specialist agents, 20 providers. Dreams, learns, watches your system. Controls your phone. Fully local, fully sovereign. MIT. v4.0 — evidence-based curation.",
+  "version": "4.5.0",
+  "description": "Open-source terminal AI agent. 100+ specialist skills + audit-grade finance infra via @kernel.chat/kbot-finance. Content-addressed envelopes, hash-chained audit log, jurisdiction-aware regulatory verifier. The AI Intelligence Layer never produces the number. Fully local, fully sovereign. MIT.",
   "type": "module",
   "repository": {
     "type": "git",
@@ -75,7 +75,7 @@
   "author": "kernel.chat group",
   "license": "MIT",
   "dependencies": {
-    "@kernel.chat/kbot-finance": "file:../kbot-finance",
+    "@kernel.chat/kbot-finance": "^0.2.0",
     "@modelcontextprotocol/sdk": "^1.0.0",
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
