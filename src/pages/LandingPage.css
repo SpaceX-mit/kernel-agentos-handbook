@@ -1184,3 +1184,198 @@
   margin-top: 0.35rem;
 }
 
+/* ────────────────────────────────────────────────────────────
+   THE VERSO — back cover surface
+   See: docs/back-cover-spec.md
+   One still-life subject per issue, fixed layout. The setup
+   never changes; the subject rotates.
+   ──────────────────────────────────────────────────────────── */
+
+.pop-back-cover-route {
+  max-width: 720px;
+  margin: 2rem auto;
+}
+
+.pop-back-cover-route-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--issue-accent-whisper, rgba(0, 0, 0, 0.12));
+}
+
+.pop-back-cover {
+  aspect-ratio: 3 / 4;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 2.5rem 2rem 1.5rem 2rem;
+  position: relative;
+  background-color: var(--stock-bg, #F4EFE3);
+}
+
+.pop-back-cover--ledger { background-color: #E7E4DA; }
+.pop-back-cover--cream  { background-color: #F4EFE3; }
+.pop-back-cover--butter { background-color: #F2E8C9; }
+.pop-back-cover--kraft  { background-color: #C9B68B; }
+.pop-back-cover--ivory  { background-color: #FAF6EC; }
+.pop-back-cover--ink    { background-color: #1A1814; color: #F4EFE3; }
+
+.pop-back-cover-inner {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.pop-back-cover-subject {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.pop-back-cover-image {
+  max-width: 80%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: brightness(0.98);
+}
+
+.pop-back-cover-placeholder {
+  width: 78%;
+  aspect-ratio: 4 / 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--issue-accent-whisper, rgba(0, 0, 0, 0.18));
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent 0,
+    transparent 6px,
+    rgba(0, 0, 0, 0.025) 6px,
+    rgba(0, 0, 0, 0.025) 7px
+  );
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.pop-back-cover-placeholder-mark {
+  font-family: 'EB Garamond', Garamond, Georgia, serif;
+  font-size: 3.5rem;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--issue-accent-base, #a3543f);
+  opacity: 0.85;
+}
+
+.pop-back-cover-placeholder-label {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink, #1a1814);
+  opacity: 0.7;
+  max-width: 26ch;
+}
+
+.pop-back-cover-placeholder-note {
+  font-family: 'EB Garamond', Garamond, Georgia, serif;
+  font-style: italic;
+  font-size: 11px;
+  color: var(--color-ink, #1a1814);
+  opacity: 0.45;
+}
+
+.pop-back-cover--ink .pop-back-cover-placeholder-label,
+.pop-back-cover--ink .pop-back-cover-placeholder-note {
+  color: #F4EFE3;
+  opacity: 0.7;
+}
+
+.pop-back-cover-caption {
+  text-align: center;
+  display: grid;
+  gap: 0.3rem;
+  min-height: 2rem;
+}
+
+.pop-back-cover-caption-jp {
+  font-family: 'EB Garamond', Garamond, Georgia, serif;
+  font-size: 14px;
+  font-style: italic;
+  margin: 0;
+  color: inherit;
+  opacity: 0.8;
+}
+
+.pop-back-cover-caption-en {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0;
+  color: inherit;
+  opacity: 0.65;
+}
+
+.pop-back-cover-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--issue-accent-whisper, rgba(0, 0, 0, 0.15));
+}
+
+.pop-back-cover-glyph {
+  font-size: 14px;
+  color: var(--issue-accent-base, #a3543f);
+}
+
+.pop-back-cover-dateline {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: inherit;
+  opacity: 0.65;
+}
+
+/* /refusals page wrapper */
+.pop-refusals-page {
+  padding: 2rem 1rem 4rem 1rem;
+}
+
+.pop-refusals-page-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--issue-accent-whisper, rgba(0, 0, 0, 0.12));
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media print {
+  .pop-back-cover-route-foot,
+  .pop-refusals-page-foot {
+    display: none;
+  }
+  .pop-back-cover {
+    max-width: none;
+    width: 100%;
+    aspect-ratio: auto;
+    height: 100vh;
+    page-break-before: always;
+  }
+}
+
