@@ -266,6 +266,25 @@ unless absolutely necessary; stock photography is the visual register the
 magazine has deliberately avoided since the beginning, and the back
 cover is not the place to start using it.
 
+**Addendum (added with ISSUE 381):** a fifth shape exists in practice
+when a real photograph cannot be commissioned in time but the magazine
+wants more presence than the textured-block fallback (1):
+
+5. **AI-generated placeholder.** A generated image, credited honestly
+   in the `photographer` field as the model + service that produced
+   it, with an explicit `placeholder` or `commission pending` tag in
+   the credit string. Held to the same subject-discipline rules of
+   §III: no people, no readable text, single-shadow lighting, neutral
+   background. Replaced as soon as a commissioned shape (4) is in
+   hand. The honesty primitive: never let a placeholder pass as a
+   commissioned photograph in the colophon. ISSUE 381 is the first
+   instance and the precedent — read its `photographer` field for
+   the format.
+
+Shape (5) is permitted, not preferred. The discipline is to move
+toward shape (4) for every back cover on a defined timeline, not to
+stay on shape (5) for the long run.
+
 ## XII. What this is not
 
 - **Not a place for advertising.** The back is editorial surface. If the

@@ -130,13 +130,16 @@ export const ISSUE_381: IssueRecord = {
       gets, on its verso, the physical artefact provenance is
       modelled on — a hand-stamped notary mark on cream paper.
       Ledger stock (front is ink; the back wants the daylight
-      register). Image asset to be commissioned; the renderer falls
-      back to a textured placeholder until it lands. */
+      register). Image shape is "AI-generated placeholder" (shape 5,
+      per spec §XI addendum), credited honestly to the model and
+      tagged as placeholder until a commissioned photograph
+      (shape 4) replaces it. */
   backCover: {
     subject: 'HAND-STAMPED NOTARY MARK ON CREAM PAPER',
     subjectJp: '公証印',
     stock: 'ledger',
-    // image: '/back-covers/381-notary.jpg',  // commissioned, not yet shipped
+    image: '/back-covers/381-notary.jpg',
+    photographer: 'Flux via Pollinations.ai · AI-generated placeholder · commission pending',
   },
 
   headline: {
