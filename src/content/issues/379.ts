@@ -71,11 +71,15 @@ export const ISSUE_379: IssueRecord = {
       type spelling ISSUE. The verso the magazine asked for in
       this exact issue, given retroactively to the issue that
       asked for it. Cream stock — the artefact's natural surface
-      and the issue's own front register. */
+      and the issue's own front register. Image is shape (5)
+      AI-generated placeholder per spec §XI addendum; commission
+      pending. */
   backCover: {
     subject: "PRINTER'S COMPOSING STICK WITH WOOD-TYPE 'ISSUE'",
     subjectJp: '組版用ステッキ',
     stock: 'cream',
+    image: '/back-covers/379-back.jpg',
+    photographer: 'Flux via Pollinations.ai · AI-generated placeholder · commission pending',
   },
 
   coverSeal: {

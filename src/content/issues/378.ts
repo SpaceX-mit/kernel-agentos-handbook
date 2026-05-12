@@ -123,11 +123,14 @@ export const ISSUE_378: IssueRecord = {
       cloth. The piece is a review/inspection; the back is the
       inspection tool. Ledger stock gives the verso the
       daylight-bench register that pairs with the front's
-      gradebook olive. */
+      gradebook olive. Image is shape (5) AI-generated
+      placeholder per spec §XI addendum; commission pending. */
   backCover: {
     subject: "JEWELER'S LOUPE ON A FOLDED SHOP CLOTH",
     subjectJp: '宝石用ルーペ',
     stock: 'ledger',
+    image: '/back-covers/378-back.jpg',
+    photographer: 'Flux via Pollinations.ai · AI-generated placeholder · commission pending',
   },
 
   headline: {
