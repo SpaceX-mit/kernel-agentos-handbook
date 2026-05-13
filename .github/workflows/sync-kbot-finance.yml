@@ -1,0 +1,105 @@
+name: Sync kbot-finance to standalone repo
+
+# Mirrors packages/kbot-finance/** from this monorepo to the standalone
+# repo at github.com/isaacsight/kbot-finance whenever the subtree
+# changes on main. Source of truth stays here; standalone repo stays a
+# clean public mirror suitable for Replit one-click + focused discovery.
+#
+# Requires a repo secret: KBOT_FINANCE_MIRROR_PAT
+#   - Create a fine-scoped Personal Access Token at:
+#       https://github.com/settings/personal-access-tokens/new
+#   - Repository access: only "isaacsight/kbot-finance"
+#   - Permissions: Contents → Read and write
+#   - Add as a secret named KBOT_FINANCE_MIRROR_PAT at:
+#       https://github.com/isaacsight/kernel/settings/secrets/actions/new
+#
+# Until the secret exists this workflow fails fast with a clear error.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/kbot-finance/**'
+      - '.github/workflows/sync-kbot-finance.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: sync-kbot-finance
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Subtree-split and push to standalone
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout monorepo (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify mirror token is set
+        env:
+          MIRROR_TOKEN: ${{ secrets.KBOT_FINANCE_MIRROR_PAT }}
+        run: |
+          if [ -z "$MIRROR_TOKEN" ]; then
+            echo "::error::Secret KBOT_FINANCE_MIRROR_PAT is not set."
+            echo "Create a fine-scoped PAT on github.com/settings/personal-access-tokens/new:"
+            echo "  - Repository access: isaacsight/kbot-finance only"
+            echo "  - Permissions: Contents → Read and write"
+            echo "Add as a secret named KBOT_FINANCE_MIRROR_PAT on this repo's Actions settings."
+            exit 1
+          fi
+          echo "Token present (length=${#MIRROR_TOKEN})."
+
+      - name: Configure git identity
+        run: |
+          git config user.name "kernel.chat sync bot"
+          git config user.email "noreply@kernel.chat"
+
+      - name: Subtree-split packages/kbot-finance
+        run: |
+          set -euo pipefail
+          git subtree split --prefix=packages/kbot-finance -b kbot-finance-mirror
+          echo "Split head: $(git rev-parse kbot-finance-mirror)"
+
+      - name: Push to standalone mirror
+        env:
+          MIRROR_TOKEN: ${{ secrets.KBOT_FINANCE_MIRROR_PAT }}
+        run: |
+          set -euo pipefail
+          git push \
+            "https://x-access-token:${MIRROR_TOKEN}@github.com/isaacsight/kbot-finance.git" \
+            "kbot-finance-mirror:main" --force-with-lease
+
+      - name: Confirm mirror state
+        env:
+          MIRROR_TOKEN: ${{ secrets.KBOT_FINANCE_MIRROR_PAT }}
+        run: |
+          set -euo pipefail
+          LATEST_LOCAL=$(git rev-parse kbot-finance-mirror)
+          LATEST_REMOTE=$(curl -sS -H "Authorization: token ${MIRROR_TOKEN}" \
+            "https://api.github.com/repos/isaacsight/kbot-finance/commits/main" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin)['sha'])")
+          echo "Local subtree HEAD: $LATEST_LOCAL"
+          echo "Remote mirror HEAD: $LATEST_REMOTE"
+          if [ "$LATEST_LOCAL" != "$LATEST_REMOTE" ]; then
+            echo "::warning::Local subtree HEAD does not match remote mirror HEAD."
+            echo "::warning::This is normal on the first run; subsequent runs should match."
+          fi
+
+  notify-on-failure:
+    name: Notify on failure
+    runs-on: ubuntu-latest
+    needs: sync
+    if: failure()
+    steps:
+      - name: Log the failure
+        run: |
+          echo "::error::The kbot-finance mirror sync failed."
+          echo "Check the sync job log above for the specific error."
+          echo "Most common: KBOT_FINANCE_MIRROR_PAT secret missing or expired."
+          echo "Manual fallback: run locally —"
+          echo "  git subtree split --prefix=packages/kbot-finance -b kf-sync"
+          echo "  git push https://github.com/isaacsight/kbot-finance.git kf-sync:main"
+          echo "  git branch -D kf-sync"
