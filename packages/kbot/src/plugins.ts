@@ -161,15 +161,19 @@ export async function loadPlugins(
 
   ensurePluginsDir(pluginsDir)
 
-  // Security: reject plugins if directory is world/group-writable
-  try {
-    const dirStat = statSync(pluginsDir)
-    if ((dirStat.mode & 0o022) !== 0) {
-      if (verbose) console.error('  ⚠ Plugin directory is writable by others — skipping plugins for security')
+  // Security: reject plugins if directory is world/group-writable.
+  // POSIX-only; NTFS doesn't expose POSIX mode bits so this check would
+  // always fail on Windows. NTFS ACLs govern access there instead.
+  if (process.platform !== 'win32') {
+    try {
+      const dirStat = statSync(pluginsDir)
+      if ((dirStat.mode & 0o022) !== 0) {
+        if (verbose) console.error('  ⚠ Plugin directory is writable by others — skipping plugins for security')
+        return []
+      }
+    } catch {
       return []
     }
-  } catch {
-    return []
   }
 
   // Integrity gate — runs BEFORE any file is imported. Throws IntegrityError
