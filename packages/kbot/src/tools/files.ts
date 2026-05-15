@@ -2,13 +2,32 @@
 // All operations are local — zero API calls.
 // Supports diff-before-apply in normal/strict modes.
 
-import { readFileSync, writeFileSync, existsSync, statSync, mkdirSync } from 'node:fs'
-import { execSync } from 'node:child_process'
-import { dirname, basename, resolve } from 'node:path'
+import { readFileSync, writeFileSync, existsSync, statSync, mkdirSync, readdirSync } from 'node:fs'
+import { dirname, basename, resolve, join, relative } from 'node:path'
 import { homedir } from 'node:os'
 import chalk from 'chalk'
+import picomatch from 'picomatch'
 import { registerTool } from './index.js'
 import { getPermissionMode } from '../permissions.js'
+
+/** Skip these directory names when walking — common heavy / irrelevant trees. */
+const WALK_SKIP = new Set(['node_modules', '.git', 'dist', '.next', '.turbo', '.cache'])
+
+/** Recursively yield file paths under a directory. Skips heavy dirs. */
+function* walkFiles(dir: string): Generator<string> {
+  let entries
+  try {
+    entries = readdirSync(dir, { withFileTypes: true })
+  } catch {
+    return
+  }
+  for (const e of entries) {
+    if (WALK_SKIP.has(e.name)) continue
+    const full = join(dir, e.name)
+    if (e.isDirectory()) yield* walkFiles(full)
+    else if (e.isFile()) yield full
+  }
+}
 
 /** Resolve a file path: expand ~ and make absolute relative to cwd */
 function resolvePath(p: string): string {
@@ -214,27 +233,23 @@ export function registerFileTools(): void {
     async execute(args) {
       const pattern = String(args.pattern)
       const cwd = args.path ? resolvePath(String(args.path)) : process.cwd()
-      // Sanitize pattern: only allow safe glob characters (prevent shell injection)
-      // Note: {} are valid glob syntax (e.g., *.{ts,tsx}), so we allow them
+      // Sanitize pattern: only allow safe glob characters. The check is now
+      // belt-and-suspenders — picomatch is regex-based, not shell-based, so
+      // injection is structurally impossible — but the test suite asserts it.
       if (/[;&|`$()!\\]/.test(pattern)) {
         return 'Error: Pattern contains unsafe characters'
       }
       try {
-        // Use find with properly quoted pattern
-        const safePattern = pattern.replace(/'/g, "'\\''")
-        const result = execSync(
-          `find "${cwd}" -path '*/${safePattern}' -type f 2>/dev/null | head -50`,
-          { encoding: 'utf-8', timeout: 10000 }
-        ).trim()
-        if (!result) {
-          // Fallback: use Node.js glob instead of shell expansion
-          const result2 = execSync(
-            `find "${cwd}" -name '${safePattern}' -type f 2>/dev/null | head -50`,
-            { encoding: 'utf-8', timeout: 10000 }
-          ).trim()
-          return result2 || 'No files found'
+        const match = picomatch(pattern, { dot: false, matchBase: true })
+        const results: string[] = []
+        for (const file of walkFiles(cwd)) {
+          const rel = relative(cwd, file)
+          if (match(rel) || match(basename(file))) {
+            results.push(file)
+            if (results.length >= 50) break
+          }
         }
-        return result
+        return results.length ? results.join('\n') : 'No files found'
       } catch {
         return 'No files found matching pattern'
       }
@@ -255,18 +270,44 @@ export function registerFileTools(): void {
       const searchPath = args.path ? resolvePath(String(args.path)) : '.'
       // Validate type flag: only allow alphanumeric file type names (prevent flag injection)
       const fileType = args.type ? String(args.type).replace(/[^a-zA-Z0-9]/g, '') : ''
-      const typeFlag = fileType ? `--type ${fileType}` : ''
+      const typeExt = fileType ? '.' + fileType : null
+
+      let re: RegExp
+      try {
+        re = new RegExp(pattern)
+      } catch {
+        return 'Error: Invalid regex pattern'
+      }
+
+      const results: string[] = []
+      const searchFile = (filepath: string): void => {
+        if (typeExt && !filepath.endsWith(typeExt)) return
+        if (results.length >= 30) return
+        let content: string
+        try {
+          content = readFileSync(filepath, 'utf-8')
+        } catch {
+          return // unreadable / binary
+        }
+        const lines = content.split('\n')
+        for (let i = 0; i < lines.length; i++) {
+          if (re.test(lines[i])) {
+            results.push(`${filepath}:${i + 1}:${lines[i]}`)
+            if (results.length >= 30) return
+          }
+        }
+      }
 
       try {
-        // Escape single quotes in pattern for safe shell embedding
-        const safePattern = pattern.replace(/'/g, "'\\''")
-        // Prefer ripgrep, fall back to grep
-        const cmd = existsSync('/usr/bin/rg') || existsSync('/usr/local/bin/rg') || existsSync('/opt/homebrew/bin/rg')
-          ? `rg -n --max-count 30 ${typeFlag} '${safePattern}' "${searchPath}" 2>/dev/null`
-          : `grep -rn --include='*.${fileType || '*'}' '${safePattern}' "${searchPath}" 2>/dev/null | head -30`
-
-        const result = execSync(cmd, { encoding: 'utf-8', timeout: 15000 }).trim()
-        return result || 'No matches found'
+        if (existsSync(searchPath) && statSync(searchPath).isFile()) {
+          searchFile(searchPath)
+        } else {
+          for (const file of walkFiles(searchPath)) {
+            searchFile(file)
+            if (results.length >= 30) break
+          }
+        }
+        return results.length ? results.join('\n') : 'No matches found'
       } catch {
         return 'No matches found'
       }
@@ -318,10 +359,24 @@ export function registerFileTools(): void {
     async execute(args) {
       const dir = args.path ? resolvePath(String(args.path)) : '.'
       try {
-        const result = execSync(`ls -la "${dir}" 2>/dev/null | head -50`, {
-          encoding: 'utf-8', timeout: 5000,
-        }).trim()
-        return result || 'Empty directory'
+        const entries = readdirSync(dir, { withFileTypes: true })
+        if (entries.length === 0) return 'Empty directory'
+        const lines = entries
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .slice(0, 50)
+          .map((e) => {
+            const type = e.isDirectory() ? 'd' : e.isSymbolicLink() ? 'l' : '-'
+            let size = '       -'
+            if (e.isFile()) {
+              try {
+                size = statSync(join(dir, e.name)).size.toString().padStart(8)
+              } catch {
+                size = '       ?'
+              }
+            }
+            return `${type} ${size}  ${e.name}${e.isDirectory() ? '/' : ''}`
+          })
+        return lines.join('\n')
       } catch {
         return `Error: Cannot list directory: ${dir}`
       }
