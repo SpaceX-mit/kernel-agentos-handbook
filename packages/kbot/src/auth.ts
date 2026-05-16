@@ -23,6 +23,7 @@ const LMSTUDIO_HOST = process.env.LMSTUDIO_HOST || 'http://localhost:1234'
 const JAN_HOST = process.env.JAN_HOST || 'http://localhost:1337'
 const KBOT_LOCAL_HOST = process.env.KBOT_LOCAL_HOST || 'http://127.0.0.1:18789'
 const LLADA_HOST = process.env.KBOT_LLADA_URL || 'http://localhost:8000'
+const HERMES_HOST = process.env.HERMES_HOST || 'http://localhost:8000'
 
 // ── All supported providers ──
 
@@ -48,6 +49,7 @@ export type ByokProvider =
   | 'kbot-local'   // kbot local gateway (local AI assistant)
   | 'llada'        // LLaDA2.0-Uni (local unified diffusion LLM, multimodal + image gen)
   | 'embedded'     // Embedded llama.cpp (no external service needed)
+  | 'hermes'       // Hermes Agent (NousResearch) — self-improving agent, agentskills.io-compatible
 
 export interface ProviderConfig {
   name: string             // Display name
@@ -284,6 +286,24 @@ export const PROVIDERS: Record<ByokProvider, ProviderConfig> = {
     outputCost: 0,
     authHeader: 'bearer',
   },
+  hermes: {
+    // Hermes Agent (NousResearch) — self-improving open-source agent with
+    // skills, FTS5 cross-session memory, dream-style consolidation, and an
+    // OpenAI-compatible HTTP API server (see hermes-agent.nousresearch.com).
+    // kbot uses Hermes as a delegate: kbot orchestrates; Hermes executes
+    // long-form research and skill-heavy workflows where its mature skill
+    // system is the better fit. Run locally via `hermes gateway` (default
+    // port 8000) or override via HERMES_HOST env var.
+    name: 'Hermes Agent (Local)',
+    apiUrl: `${HERMES_HOST}/v1/chat/completions`,
+    apiStyle: 'openai',
+    defaultModel: 'hermes',          // Hermes routes internally to whichever model the user configured
+    fastModel: 'hermes',
+    inputCost: 0,                     // Hermes is local; the user pays for whatever upstream provider Hermes itself uses
+    outputCost: 0,
+    authHeader: 'bearer',             // Hermes' API server accepts any bearer; OpenAI-compatible convention
+    models: ['hermes'],
+  },
   llada: {
     // LLaDA2.0-Uni — Inclusion AI unified discrete-diffusion multimodal LLM.
     // Local, $0 path to image generation + multimodal understanding.
@@ -451,16 +471,17 @@ const ENV_KEYS: Array<{ env: string; provider: ByokProvider }> = [
   { env: 'OPENROUTER_API_KEY',  provider: 'openrouter' },
   { env: 'OLLAMA_API_KEY',      provider: 'ollama' },
   { env: 'KBOT_LOCAL_API_KEY',   provider: 'kbot-local' },
+  { env: 'HERMES_API_KEY',      provider: 'hermes' },
 ]
 
 /** Check if a provider is local (runs on this machine, may still need a token) */
 export function isLocalProvider(provider: ByokProvider): boolean {
-  return provider === 'ollama' || provider === 'kbot-local' || provider === 'lmstudio' || provider === 'jan' || provider === 'embedded' || provider === 'llada'
+  return provider === 'ollama' || provider === 'kbot-local' || provider === 'lmstudio' || provider === 'jan' || provider === 'embedded' || provider === 'llada' || provider === 'hermes'
 }
 
 /** Check if a provider needs no API key at all */
 export function isKeylessProvider(provider: ByokProvider): boolean {
-  return provider === 'ollama' || provider === 'lmstudio' || provider === 'jan' || provider === 'embedded' || provider === 'llada'
+  return provider === 'ollama' || provider === 'lmstudio' || provider === 'jan' || provider === 'embedded' || provider === 'llada' || provider === 'hermes'
 }
 
 /** Check if BYOK mode is enabled (via env var or config) */

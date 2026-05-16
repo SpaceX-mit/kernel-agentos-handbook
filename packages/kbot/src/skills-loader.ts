@@ -14,6 +14,10 @@
 // Discovery locations (in priority order):
 //   1. ./.kbot/skills/   — project-specific
 //   2. ~/.kbot/skills/   — user global (includes imported Hermes/Claude skills)
+//   3. ~/.hermes/skills/ — Hermes Agent's skill store, scanned natively when present
+//      (Hermes + kbot share the agentskills.io format, so cross-loading works
+//      without translation; provides Phase 3 of the kbot↔Hermes integration)
+//   4. $KBOT_EXTRA_SKILLS_DIRS — colon-separated additional roots (advanced)
 //
 // Token budget: 2000 tokens max. When a message is provided, skills are
 // scored for relevance and only the top matches are injected — so a user
@@ -105,10 +109,15 @@ export function discoverSkillFiles(projectRoot: string): SkillFile[] {
   //   1. project-local — most specific, author's own
   //   2. bundled       — kbot-curated skills shipping with the package
   //   3. user-global   — includes imported third-party skills (symlinks)
+  //   4. hermes-shared — Hermes Agent's skill store (agentskills.io-compatible,
+  //                      cross-loadable). Skipped silently when not present.
+  //   5. extra roots   — KBOT_EXTRA_SKILLS_DIRS, colon-separated, advanced use.
   const locations = [
     join(projectRoot, '.kbot', 'skills'),
     getBundledSkillsDir(),
     join(homedir(), '.kbot', 'skills'),
+    join(homedir(), '.hermes', 'skills'),
+    ...(process.env.KBOT_EXTRA_SKILLS_DIRS?.split(':').filter(Boolean) ?? []),
   ]
 
   const skills: SkillFile[] = []

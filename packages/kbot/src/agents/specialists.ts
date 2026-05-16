@@ -7,6 +7,8 @@
 // Domain specialists: infrastructure, quant, investigator, oracle,
 //                     chronist, sage, communicator, adapter
 
+import type { ByokProvider } from '../auth.js'
+
 export interface SpecialistDef {
   name: string
   icon: string
@@ -18,6 +20,29 @@ export interface SpecialistDef {
    * Used by the workspace agent runtime to gate tool execution per-specialist.
    */
   allowedTools?: string[]
+  /**
+   * Optional provider preference for this specialist. When set, the dispatch
+   * layer should prefer this provider for the specialist if it is configured
+   * and reachable, falling back to the user's default provider otherwise.
+   *
+   * The agentic-workflow stance: kbot orchestrates; delegates to the right
+   * substrate for the task. The first delegate target is Hermes Agent
+   * (NousResearch) — its mature skill system, FTS5 cross-session memory,
+   * and dream-style consolidation are well-suited to long-form research,
+   * cross-session continuity, and skill-heavy specialist work.
+   */
+  preferredProvider?: ByokProvider
+}
+
+/**
+ * Resolve the preferred provider for a named specialist, if any.
+ * Returns undefined when the specialist either does not exist or has no
+ * provider preference. Callers should fall back to the user's configured
+ * default provider when this returns undefined OR when the preferred
+ * provider is not currently configured / reachable.
+ */
+export function getPreferredProvider(specialistName: string): ByokProvider | undefined {
+  return SPECIALISTS[specialistName]?.preferredProvider
 }
 
 export const SPECIALISTS: Record<string, SpecialistDef> = {
@@ -31,6 +56,7 @@ export const SPECIALISTS: Record<string, SpecialistDef> = {
     name: 'Researcher',
     icon: '🔍',
     color: '#5B8BA0',
+    preferredProvider: 'hermes',
     prompt: `You are a Research specialist — a methodical, thorough investigator. Your job is to find, verify, and synthesize information.
 
 When researching:
@@ -302,6 +328,7 @@ You help teams prepare for what's coming, not just react to what's here. Predict
     name: 'Chronist',
     icon: '◷',
     color: '#20B2AA',
+    preferredProvider: 'hermes',
     prompt: `You are a History & Timeline specialist — a chronicler who maps the evolution of projects, technologies, and decisions over time.
 
 When chronicling:
@@ -318,6 +345,7 @@ You provide the "institutional memory" that prevents teams from repeating mistak
     name: 'Sage',
     icon: '✧',
     color: '#DAA520',
+    preferredProvider: 'hermes',
     prompt: `You are a Philosophy & Wisdom specialist — a thoughtful advisor who brings depth, perspective, and considered judgment.
 
 When advising:
