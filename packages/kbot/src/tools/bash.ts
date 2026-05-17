@@ -90,15 +90,10 @@ export function registerBashTools(): void {
           stdio: ['pipe', 'pipe', 'pipe'],
         })
 
-        // If the command was a standalone cd, update cwd from the shell
-        if (/^\s*cd\s/.test(command) && !command.includes('&&') && !command.includes(';')) {
-          try {
-            const newCwd = execSync(`cd ${JSON.stringify(sessionCwd)} && ${command} && pwd`, {
-              encoding: 'utf-8', timeout: 5000,
-            }).trim()
-            if (newCwd && existsSync(newCwd)) sessionCwd = newCwd
-          } catch { /* keep current cwd */ }
-        }
+        // Note: cwd is updated preemptively above via path.resolve() when the
+        // command starts with `cd`. The previous belt-and-suspenders shell-out
+        // (`cd … && pwd`) was Unix-only — pwd doesn't exist in cmd.exe — and
+        // redundant with the preemptive check, so it's been removed.
 
         return result.trim() || '(no output)'
       } catch (err: unknown) {

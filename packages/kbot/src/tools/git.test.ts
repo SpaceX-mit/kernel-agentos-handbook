@@ -1,6 +1,6 @@
 // kbot Git Tools Tests
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
-import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, rmSync, writeFileSync, unlinkSync } from 'node:fs'
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { execSync } from 'node:child_process'
@@ -17,6 +17,19 @@ const TEST_DIR = join(tmpdir(), 'kbot-git-test-' + Date.now())
 /** Run a command in the test repo */
 function run(cmd: string): string {
   return execSync(cmd, { cwd: TEST_DIR, encoding: 'utf-8' }).trim()
+}
+
+/** Run a command, swallow failures — cross-platform replacement for `cmd || true` */
+function tryRun(cmd: string): void {
+  try { run(cmd) } catch { /* intentionally swallowed */ }
+}
+
+/** Switch back to the repo's default branch (master OR main) — cross-platform
+ *  replacement for `git checkout master 2>/dev/null || git checkout main 2>/dev/null` */
+function checkoutDefault(): void {
+  try { run('git checkout master') } catch {
+    try { run('git checkout main') } catch { /* neither exists; ignore */ }
+  }
 }
 
 beforeAll(() => {
@@ -122,7 +135,7 @@ describe('git_status', () => {
     expect(result.result).toContain('??')
 
     // Cleanup
-    run('rm newfile.txt')
+    unlinkSync(join(TEST_DIR, 'newfile.txt'))
   })
 })
 
@@ -304,12 +317,12 @@ describe('git_branch', () => {
     expect(branches).toContain('test-branch-create')
 
     // Switch back
-    run('git checkout master 2>/dev/null || git checkout main 2>/dev/null')
+    checkoutDefault()
   })
 
   it('switches to an existing branch', async () => {
     // First ensure the branch exists
-    run('git branch test-branch-switch 2>/dev/null || true')
+    tryRun('git branch test-branch-switch')
 
     const result = await executeTool({
       id: 'gb-2',
@@ -323,7 +336,7 @@ describe('git_branch', () => {
     expect(current).toBe('test-branch-switch')
 
     // Switch back
-    run('git checkout master 2>/dev/null || git checkout main 2>/dev/null')
+    checkoutDefault()
   })
 
   it('returns error for nonexistent branch', async () => {
