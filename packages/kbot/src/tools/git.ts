@@ -1,13 +1,13 @@
 // kbot Git Tools — Git operations executed locally
 // Zero API calls. All operations happen on the local repo.
+//
+// Uses spawnSync with an args array (no shell) so the same code works
+// identically on POSIX and Windows. The previous string-based execSync
+// path required Unix-style single-quote escaping which broke under
+// cmd.exe (treats single quotes as literal characters).
 
-import { execSync } from 'node:child_process'
+import { spawnSync } from 'node:child_process'
 import { registerTool } from './index.js'
-
-/** Escape a string for safe single-quote shell embedding */
-function esc(s: string): string {
-  return `'${s.replace(/'/g, "'\\''")}'`
-}
 
 /** Get the git repo root directory (cached per working directory) */
 const _repoRootCache = new Map<string, string>()
@@ -16,7 +16,9 @@ function getRepoRoot(): string {
   const cached = _repoRootCache.get(cwd)
   if (cached) return cached
   try {
-    const root = execSync('git rev-parse --show-toplevel', { encoding: 'utf-8', timeout: 5_000, cwd }).trim()
+    const res = spawnSync('git', ['rev-parse', '--show-toplevel'], { encoding: 'utf-8', timeout: 5_000, cwd })
+    if (res.status !== 0) return cwd
+    const root = (res.stdout ?? '').trim()
     _repoRootCache.set(cwd, root)
     return root
   } catch {
@@ -24,18 +26,20 @@ function getRepoRoot(): string {
   }
 }
 
-function git(command: string, timeout = 30_000): string {
-  try {
-    return execSync(`git ${command}`, {
-      encoding: 'utf-8',
-      timeout,
-      maxBuffer: 5 * 1024 * 1024,
-      cwd: getRepoRoot(),
-    }).trim()
-  } catch (err: unknown) {
-    const e = err as { stderr?: string; message?: string }
-    throw new Error(e.stderr?.trim() || e.message || 'Git command failed')
+/** Run git with an args array — no shell, no quoting concerns. */
+function git(args: string[], timeout = 30_000): string {
+  const res = spawnSync('git', args, {
+    encoding: 'utf-8',
+    timeout,
+    maxBuffer: 5 * 1024 * 1024,
+    cwd: getRepoRoot(),
+  })
+  if (res.error) throw new Error(res.error.message)
+  if (res.status !== 0) {
+    const stderr = (res.stderr ?? '').toString().trim()
+    throw new Error(stderr || 'Git command failed')
   }
+  return (res.stdout ?? '').toString().trim()
 }
 
 export function registerGitTools(): void {
@@ -45,7 +49,7 @@ export function registerGitTools(): void {
     parameters: {},
     tier: 'free',
     async execute() {
-      return git('status --short')
+      return git(['status', '--short'])
     },
   })
 
@@ -58,9 +62,10 @@ export function registerGitTools(): void {
     },
     tier: 'free',
     async execute(args) {
-      const staged = args.staged ? '--cached' : ''
-      const path = args.path ? `-- ${esc(String(args.path))}` : ''
-      return git(`diff ${staged} ${path}`.trim()) || 'No changes'
+      const cmd: string[] = ['diff']
+      if (args.staged) cmd.push('--cached')
+      if (args.path) cmd.push('--', String(args.path))
+      return git(cmd) || 'No changes'
     },
   })
 
@@ -74,8 +79,9 @@ export function registerGitTools(): void {
     tier: 'free',
     async execute(args) {
       const count = typeof args.count === 'number' ? args.count : 10
-      const format = args.oneline !== false ? '--oneline' : ''
-      return git(`log -${count} ${format}`.trim())
+      const cmd: string[] = ['log', `-${count}`]
+      if (args.oneline !== false) cmd.push('--oneline')
+      return git(cmd)
     },
   })
 
@@ -92,11 +98,10 @@ export function registerGitTools(): void {
       const files = Array.isArray(args.files) ? args.files.map(String) : []
 
       if (files.length > 0) {
-        const quoted = files.map(f => esc(String(f))).join(' ')
-        git(`add -- ${quoted}`)
+        git(['add', '--', ...files])
       }
 
-      return git(`commit -m ${esc(message)}`)
+      return git(['commit', '-m', message])
     },
   })
 
@@ -109,9 +114,11 @@ export function registerGitTools(): void {
     },
     tier: 'free',
     async execute(args) {
-      const name = esc(String(args.name))
-      const create = args.create ? '-b' : ''
-      return git(`checkout ${create} ${name}`.trim())
+      const name = String(args.name)
+      const cmd: string[] = ['checkout']
+      if (args.create) cmd.push('-b')
+      cmd.push(name)
+      return git(cmd)
     },
   })
 
@@ -124,9 +131,10 @@ export function registerGitTools(): void {
     },
     tier: 'free',
     async execute(args) {
-      const remote = esc(args.remote ? String(args.remote) : 'origin')
-      const branch = args.branch ? esc(String(args.branch)) : ''
-      return git(`push ${remote} ${branch}`.trim(), 60_000)
+      const remote = args.remote ? String(args.remote) : 'origin'
+      const cmd: string[] = ['push', remote]
+      if (args.branch) cmd.push(String(args.branch))
+      return git(cmd, 60_000)
     },
   })
 }

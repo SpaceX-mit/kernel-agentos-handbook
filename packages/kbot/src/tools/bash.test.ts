@@ -7,6 +7,15 @@ import { tmpdir } from 'node:os'
 import { executeTool, getTool } from './index.js'
 import { registerBashTools } from './bash.js'
 
+// Many bash-tool tests invoke POSIX shell commands (echo with shell-quoted
+// strings, wc, cat, rm, sleep, $VAR expansion). On Windows the user shell
+// is cmd.exe, which lacks these commands by design. The bash *tool* itself
+// is platform-correct (it forwards whatever command the user passes to the
+// system shell); these tests verify Unix-shell behaviour and are skipped
+// on Windows. Windows test coverage of the bash tool would require a
+// separate set of tests using cmd.exe-native commands.
+const itUnix = it.skipIf(process.platform === 'win32')
+
 // Register once
 registerBashTools()
 
@@ -36,7 +45,7 @@ describe('Bash Tool Registration', () => {
 // ─────────────────────────────────────────────────────────────────────
 
 describe('Bash Execution', () => {
-  it('executes a simple command', async () => {
+  itUnix('executes a simple command', async () => {
     const result = await executeTool({
       id: 'b-1',
       name: 'bash',
@@ -46,7 +55,7 @@ describe('Bash Execution', () => {
     expect(result.result).toBe('hello kbot')
   })
 
-  it('returns stdout from piped commands', async () => {
+  itUnix('returns stdout from piped commands', async () => {
     const result = await executeTool({
       id: 'b-2',
       name: 'bash',
@@ -56,7 +65,7 @@ describe('Bash Execution', () => {
     expect(result.result.trim()).toBe('3')
   })
 
-  it('returns "(no output)" for silent commands', async () => {
+  itUnix('returns "(no output)" for silent commands', async () => {
     const result = await executeTool({
       id: 'b-3',
       name: 'bash',
@@ -94,7 +103,7 @@ describe('Bash Execution', () => {
     expect(result.result).toContain('Exit code')
   })
 
-  it('caps timeout at 600000ms', async () => {
+  itUnix('caps timeout at 600000ms', async () => {
     // Passing a huge timeout should be capped
     const tool = getTool('bash')
     expect(tool).toBeTruthy()
@@ -243,7 +252,7 @@ describe('Bash Safety - Substitution Patterns', () => {
 // ─────────────────────────────────────────────────────────────────────
 
 describe('Bash Safety - Allowed Commands', () => {
-  it('allows rm on normal files (not root/home)', async () => {
+  itUnix('allows rm on normal files (not root/home)', async () => {
     const filePath = join(TEST_DIR, 'deleteme.txt')
     writeFileSync(filePath, 'temp')
 
@@ -277,7 +286,7 @@ describe('Bash Safety - Allowed Commands', () => {
     expect(result.result).toBe('4')
   })
 
-  it('allows cat and standard file operations', async () => {
+  itUnix('allows cat and standard file operations', async () => {
     const filePath = join(TEST_DIR, 'cattest.txt')
     writeFileSync(filePath, 'cat content')
 
@@ -296,7 +305,7 @@ describe('Bash Safety - Allowed Commands', () => {
 // ─────────────────────────────────────────────────────────────────────
 
 describe('Bash Working Directory', () => {
-  it('executes commands in a working directory', async () => {
+  itUnix('executes commands in a working directory', async () => {
     const result = await executeTool({
       id: 'wd-1',
       name: 'bash',
@@ -307,7 +316,7 @@ describe('Bash Working Directory', () => {
     expect(result.result).toMatch(/^\//)
   })
 
-  it('handles environment variables', async () => {
+  itUnix('handles environment variables', async () => {
     const result = await executeTool({
       id: 'wd-2',
       name: 'bash',

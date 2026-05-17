@@ -204,7 +204,7 @@ describe('git_diff', () => {
     // Restore
     run('git checkout -- README.md')
     run('git reset HEAD other.txt')
-    run('rm -f other.txt')
+    tryRun('git rm --force --quiet other.txt')
   })
 })
 
