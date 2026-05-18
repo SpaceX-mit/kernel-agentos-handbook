@@ -1,7 +1,7 @@
 {
   "name": "@kernel.chat/memory-tiers",
-  "version": "1.0.0",
-  "description": "Three-tier generative memory for AI agents: observations → reflections → identity. Based on Stanford's Generative Agents paper. Zero LLM calls.",
+  "version": "1.0.1",
+  "description": "Three-tier generative memory for AI agents: observations \u2192 reflections \u2192 identity. Based on Stanford's Generative Agents paper. Zero LLM calls.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,10 +14,19 @@
   "scripts": {
     "build": "tsc"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
-    "ai-agent", "memory", "generative-agents", "three-tier",
-    "observations", "reflections", "identity", "llm", "kbot"
+    "ai-agent",
+    "memory",
+    "generative-agents",
+    "three-tier",
+    "observations",
+    "reflections",
+    "identity",
+    "llm",
+    "kbot"
   ],
   "license": "MIT",
   "repository": {

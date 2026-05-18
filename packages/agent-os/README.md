@@ -259,6 +259,57 @@ The package is intentionally honest about its `alpha.0` state.
 
 ---
 
+## FAQ
+
+### What is "POSIX for AI agents"?
+
+POSIX standardized the OS-level interface that every Unix program could rely on: file descriptors, processes, signals, permissions, pipes. Before POSIX, every Unix variant had its own incompatible primitives. After POSIX, a program written against the standard ran anywhere.
+
+agent-os is the equivalent move for AI agents. Today every agent framework (LangChain, AutoGen, CrewAI, kbot, Anthropic's harness) reinvents permissions, namespaces, quotas, and audit from scratch. agent-os defines those primitives once, in a substrate any agent platform can sit on top of.
+
+### How does agent-os differ from MCP?
+
+MCP (Model Context Protocol) standardizes how agents call **tools and resources**. agent-os standardizes the **OS layer underneath the agent itself** — what the agent is allowed to do, what it can see, how it's metered, and how its actions get audited.
+
+The two are complementary. An agent runs on agent-os primitives (permissions, quotas, audit), then calls out to MCP servers for tools and data. MCP is the bus; agent-os is the kernel.
+
+### What is taint tracking for AI agents?
+
+Taint tracking marks data flowing into an agent with a provenance label, then refuses actions that would mix tainted data with untainted operations. Originally a Perl security pattern; adapted here for the agent threat model where prompt injection from untrusted sources (web pages, emails, documents) can override an agent's instructions.
+
+In agent-os, `chexec` is the taint-aware exec primitive: every command an agent issues carries the taint set of its inputs. The kernel refuses any exec where a tainted input would be used in a sensitive operation (filesystem write outside the namespace, network request to an unfamiliar host, credential vault access). EchoLeak-class attacks become structurally hard rather than merely caught.
+
+### What does `chexec` do?
+
+`chexec` is the agent-OS analog of `execve` but with capability + taint enforcement. When an agent wants to run a command (shell, MCP tool call, internal function), it passes the request through `chexec`. The kernel:
+
+1. Verifies the agent's signed capability token (`acap`) authorizes the operation
+2. Walks the taint graph of the inputs
+3. Checks the operation against the agent's namespace boundaries
+4. Charges the operation against the agent's quota (`ulimit-tok`)
+5. Records the operation in the content-addressed audit log
+6. Executes if all checks pass; refuses with a reason code otherwise
+
+The result is that every agent action is bounded, metered, and replayable. A malicious or buggy agent cannot escape its namespace or exceed its quota.
+
+### Why "agent-OS" instead of "AI agent framework"?
+
+A framework is a library you compose your agent against. An operating system is a substrate your agent runs on top of, without knowing it. The substrate distinction matters because (a) the substrate is portable across frameworks — your agent built on LangChain and your agent built on kbot can both run on agent-os without rewrite — and (b) the substrate is auditable at one place, not N places per framework.
+
+The naming move ("POSIX for AI agents") makes the abstraction level explicit. We're not building another agent framework; we're building the layer those frameworks should all sit on.
+
+### How does this relate to provenance engineering and orchestration engineering?
+
+These are three of the six disciplines in the agentic engineering field map ([`docs/agentic-engineering.md`](../../docs/agentic-engineering.md)):
+
+- **agent-OS** (this package): system primitives the agent runs on
+- **Provenance engineering** ([`kbot-finance`](../kbot-finance/)): the substrate that makes actions provable and replayable
+- **Orchestration engineering** ([`kbot-orchestrator`](../kbot-orchestrator/)): pipelines that route work between agents and humans
+
+The three stack. agent-os provides the kernel primitives; provenance engineering provides the audit substrate the kernel writes through; orchestration engineering provides the pipeline layer that drives multi-agent outcomes through both.
+
+---
+
 ## License
 
 Apache 2.0. Built for the same open-core + commercial-premium shape

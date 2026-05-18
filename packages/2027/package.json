@@ -1,0 +1,15 @@
+{
+  "name": "2027",
+  "version": "1.0.0",
+  "description": "An agentic wavetable synthesizer built for AI control. VST3 + CLAP plugin powered by [nih-plug](https://github.com/robbert-vdh/nih-plug).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "jzz": "^1.9.6"
+  }
+}

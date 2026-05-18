@@ -1,7 +1,7 @@
 {
   "name": "@kernel.chat/tool-forge",
-  "version": "1.0.0",
-  "description": "Runtime tool creation for AI agents. Define new tools from natural language descriptions at runtime — no restart needed. The agent builds its own tools.",
+  "version": "1.0.1",
+  "description": "Runtime tool creation for AI agents. Define new tools from natural language descriptions at runtime \u2014 no restart needed. The agent builds its own tools.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,9 +11,21 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "scripts": { "build": "tsc" },
-  "files": ["dist"],
-  "keywords": ["ai-agent", "tool-creation", "runtime", "forge", "dynamic-tools", "llm", "kbot"],
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "ai-agent",
+    "tool-creation",
+    "runtime",
+    "forge",
+    "dynamic-tools",
+    "llm",
+    "kbot"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",

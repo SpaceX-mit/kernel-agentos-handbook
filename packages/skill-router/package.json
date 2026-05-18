@@ -1,6 +1,6 @@
 {
   "name": "@kernel.chat/skill-router",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Bayesian skill-rating router for AI agents. Routes tasks to the best specialist using TrueSkill-style ratings that improve with every interaction. Zero LLM calls.",
   "type": "module",
   "main": "./dist/index.js",
