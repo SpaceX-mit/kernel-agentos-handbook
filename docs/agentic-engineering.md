@@ -54,7 +54,7 @@ It is not ML engineering. ML engineering is upstream — training, fine-tuning, 
 
 ## The discipline map
 
-Six disciplines sit inside the field as of mid-2026. Three are now coined and held by kernel.chat; three remain open.
+Six disciplines sit inside the field as of mid-2026. Four are now coined and held by kernel.chat; two remain open (skill curation and evaluation). A seventh discipline — agent fidelity engineering — was coined in ISSUE 389 and is listed below.
 
 ### 1. Substrate — provenance engineering
 
@@ -86,7 +86,13 @@ The discipline of measuring whether agents are getting better at real work. METR
 
 Not a kernel.chat focus. Other parties carry it well.
 
-### 6. Operations — currently unnamed
+### 6. Agent fidelity — agent fidelity engineering
+
+The discipline of distinguishing operator-policy refusal (where locally-controlled BYOK agents legitimately surpass cloud agents) from third-party-harm refusal (which all agents should enforce regardless of operator consent), and encoding the distinction in substrate. The reference role is [`packages/kbot-orchestrator/AGENT_FIDELITY_ROLE.md`](../packages/kbot-orchestrator/AGENT_FIDELITY_ROLE.md); reference implementation primitives are roadmap for `@kernel.chat/kbot-orchestrator` v0.3.
+
+Coined and held by kernel.chat (ISSUE 389, May 18 2026). Open to fork.
+
+### 7. Operations — currently unnamed
 
 The discipline of running agents in production: cost containment, latency budgets, error recovery, incident response, on-call shape, observability. Closest existing analogue is SRE; the agent-specific version doesn't have a name. Practitioners exist at every company running agents at scale.
 
