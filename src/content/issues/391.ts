@@ -77,7 +77,7 @@ export const ISSUE_391: IssueRecord = {
     subjectJp: '電信機の圧盤',
     stock: 'ivory',
     image: '/back-covers/391-teletype.jpg',
-    photographer: 'Flux via Pollinations.ai · AI-generated placeholder · commission pending',
+    photographer: 'Flux via Pollinations.ai · AI-generated',
   },
 
   headline: {
