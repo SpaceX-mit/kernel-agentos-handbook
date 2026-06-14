@@ -87,7 +87,8 @@
     "zod": "^3.23.0"
   },
   "optionalDependencies": {
-    "node-llama-cpp": "^3.0.0"
+    "node-llama-cpp": "^3.0.0",
+    "@nut-tree-fork/nut-js": "^4.2.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

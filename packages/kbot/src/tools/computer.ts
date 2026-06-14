@@ -10,6 +10,9 @@
 // Requires explicit opt-in via --computer-use flag.
 // macOS: AppleScript + screencapture + cliclick fallback
 // Linux: xdotool + import/gnome-screenshot
+// Windows: nut.js native backend (optional dep @nut-tree-fork/nut-js) for
+//   screenshot/click/scroll/drag/type/key/screen_info. Window management and
+//   app launch are not yet wired on Windows.
 
 import { execSync, exec } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
@@ -24,6 +27,16 @@ import {
   click as peekabooClick,
   type_ as peekabooType,
 } from '../adapters/peekaboo/index.js'
+import {
+  nutAvailable,
+  nutScreenshot,
+  nutClick,
+  nutScroll,
+  nutDrag,
+  nutType,
+  nutKey,
+  nutScreenInfo,
+} from '../adapters/nutjs/index.js'
 
 const platform = process.platform
 
@@ -188,7 +201,7 @@ function formatPermissionGuide(perms: { accessibility: boolean; screenRecording:
 }
 
 /** Verify permissions once per session */
-function ensurePermissions(): string | null {
+async function ensurePermissions(): Promise<string | null> {
   if (permissionsVerified) return null
 
   if (platform === 'darwin') {
@@ -203,8 +216,13 @@ function ensurePermissions(): string | null {
     } catch {
       return 'Error: Computer use on Linux requires xdotool. Install with: sudo apt install xdotool'
     }
+  } else if (platform === 'win32') {
+    // Windows control runs through the nut.js native backend (optional dep).
+    if (!(await nutAvailable())) {
+      return 'Error: Computer use on Windows requires nut.js. Install with: npm i @nut-tree-fork/nut-js'
+    }
   } else {
-    return 'Error: Computer use is only supported on macOS and Linux.'
+    return 'Error: Computer use is only supported on macOS, Linux, and Windows.'
   }
 
   permissionsVerified = true
@@ -291,7 +309,7 @@ export function registerComputerTools(): void {
       const lockErr = ensureLock()
       if (lockErr) return `Error: ${lockErr}`
 
-      const permErr = ensurePermissions()
+      const permErr = await ensurePermissions()
       if (permErr) return permErr
 
       const approvedList = getApprovedApps()
@@ -457,6 +475,16 @@ export function registerComputerTools(): void {
               execSync(`gnome-screenshot -f ${tmpPath}`, { timeout: 10_000 })
             }
           }
+        } else if (platform === 'win32') {
+          const shot = await nutScreenshot(args.region ? String(args.region) : undefined)
+          if (!shot.ok) return `Error: ${shot.error}`
+          return JSON.stringify({
+            type: 'image',
+            format: 'png',
+            size_bytes: shot.bytes,
+            width_hint: args.region ? String(args.region) : 'full screen',
+            base64: shot.base64,
+          })
         } else {
           return 'Error: Computer use not supported on this platform'
         }
@@ -574,6 +602,9 @@ export function registerComputerTools(): void {
         } catch {
           return 'Error: Click requires xdotool (apt install xdotool)'
         }
+      } else if (platform === 'win32') {
+        const r = await nutClick(x, y, button)
+        return r.ok ? `Clicked ${button} at (${x}, ${y})` : `Error: ${r.error}`
       }
       return 'Error: Unsupported platform'
 
@@ -657,6 +688,11 @@ export function registerComputerTools(): void {
         } catch {
           return 'Error: Scroll requires xdotool'
         }
+      } else if (platform === 'win32') {
+        const sx = args.x !== undefined ? Math.round(Number(args.x)) : undefined
+        const sy = args.y !== undefined ? Math.round(Number(args.y)) : undefined
+        const r = await nutScroll(direction, amount, sx, sy)
+        return r.ok ? `Scrolled ${direction} by ${amount}` : `Error: ${r.error}`
       }
       return 'Error: Unsupported platform'
       } finally {
@@ -723,6 +759,9 @@ export function registerComputerTools(): void {
         } catch {
           return 'Error: Drag requires xdotool'
         }
+      } else if (platform === 'win32') {
+        const r = await nutDrag(fx, fy, tx, ty)
+        return r.ok ? `Dragged from (${fx},${fy}) to (${tx},${ty})` : `Error: ${r.error}`
       }
       return 'Error: Unsupported platform'
       } finally {
@@ -784,6 +823,11 @@ export function registerComputerTools(): void {
           } catch {
             return 'Error: Typing requires xdotool'
           }
+        } else if (platform === 'win32') {
+          const r = await nutType(text)
+          return r.ok
+            ? `Typed: ${text.slice(0, 80)}${text.length > 80 ? '...' : ''}`
+            : `Error: ${r.error}`
         }
         return 'Error: Unsupported platform'
       } finally {
@@ -863,6 +907,9 @@ export function registerComputerTools(): void {
         } catch {
           return 'Error: Key press requires xdotool'
         }
+      } else if (platform === 'win32') {
+        const r = await nutKey(key)
+        return r.ok ? `Pressed: ${key}` : `Error: ${r.error}`
       }
       return 'Error: Unsupported platform'
       } finally {
@@ -1103,6 +1150,14 @@ export function registerComputerTools(): void {
         } catch { info.push('Mouse: unknown') }
 
         info.push(`Frontmost: ${getFrontmostApp()}`)
+      } else if (platform === 'win32') {
+        const r = await nutScreenInfo()
+        if (r.ok) {
+          info.push(`Display: ${r.width}x${r.height}`)
+          info.push(`Mouse: ${r.mouse}`)
+        } else {
+          info.push(`Display: ${r.error}`)
+        }
       }
 
       info.push(`Platform: ${platform}`)
