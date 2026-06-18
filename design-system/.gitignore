@@ -1,0 +1,16 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Scratch / preview artifacts from the design tool
+scraps/
+.thumbnail
+
+# NOTE — the generated design-system artifacts are intentionally COMMITTED:
+#   _ds_bundle.js · _ds_manifest.json · _adherence.oxlintrc.json
+# The component cards + UI kits load _ds_bundle.js, so keeping them lets the
+# Design System tab / cards render outside the design tool. Delete these lines
+# (and the files) only if you want a pure-source skill with no prebuilt bundle.

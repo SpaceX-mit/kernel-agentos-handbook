@@ -1,0 +1,53 @@
+<!-- @dsCard group="The Magazine" viewport="1000x2960" name="Cover layouts" subtitle="classic · monument-hero · asymmetric-left · ledger-rule — with ornaments & seals" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { margin: 0; background: var(--pop-ivory); }
+  .lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pop-coffee); padding: 16px 24px 0; }
+  .pop-cover { min-height: 660px; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { IssueCover } = window.KernelChatDesignSystem_52d084;
+  function Demo() {
+    return (
+      <div>
+        <div className="lbl">classic · cream · ink-spread ornament · FORECAST seal</div>
+        <IssueCover
+          issue={{ number: '360', month: 'APRIL', year: '2026', price: '¥0 · BYOK' }}
+          headline={{ prefix: 'The', emphasis: 'Urban Outdoors', suffix: 'Review', swash: 'A terminal companion for city coders.' }}
+          featureJp="都会のコードと、自然のOS" stock="cream" layout="classic"
+          ornament="ink-spread" seal={{ label: 'FORECAST', date: 'IV·26' }} />
+        <div className="lbl">monument-hero · cream — the number is the cover art</div>
+        <IssueCover
+          issue={{ number: '370', month: 'APRIL', year: '2026', price: '¥0 · BYOK' }}
+          headline={{ prefix: 'The', emphasis: 'Forecast', suffix: 'Issue', swash: 'When the theme is the number itself.' }}
+          featureJp="予報号" stock="cream" layout="monument-hero" />
+        <div className="lbl">asymmetric-left · ink · flash-burn ornament · AFTER HOURS seal</div>
+        <IssueCover
+          issue={{ number: '371', month: 'APRIL', year: '2026', price: '¥0 · BYOK' }}
+          headline={{ prefix: 'After', emphasis: 'Hours', suffix: 'in the Terminal', swash: 'A cinematographer profiles the night shift.' }}
+          featureJp="深夜の端末、タングステンの記録" stock="ink" layout="asymmetric-left"
+          ornament="flash-burn" seal={{ label: 'AFTER HOURS', date: 'IV·26' }} />
+        <div className="lbl">ledger-rule · ledger · warty-spots ornament · postmark</div>
+        <IssueCover
+          issue={{ number: '372', month: 'APRIL', year: '2026', price: '¥0 · BYOK' }}
+          headline={{ prefix: 'The', emphasis: 'Audit', suffix: '— Room 503', swash: 'Graph-ruled accountant\u2019s paper, filed under audit.' }}
+          featureJp="監査" stock="ledger" layout="ledger-rule"
+          ornament="warty-spots" seal={{ label: 'ROOM 503', date: 'IV·26' }} />
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

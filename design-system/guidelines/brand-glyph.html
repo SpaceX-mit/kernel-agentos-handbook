@@ -1,0 +1,42 @@
+<!-- @dsCard group="Brand" viewport="700x180" name="System glyph & grammar" subtitle="The asterisk ★ — one recurring mark — plus monument & rules in use" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--pop-cream); color: var(--pop-ink); }
+  .wrap { display: flex; align-items: center; gap: 36px; padding: 26px 34px; }
+  .glyph { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .glyph svg { width: 40px; height: 40px; color: var(--pop-tomato); }
+  .lab { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pop-coffee); }
+  .div { width: 1px; height: 96px; background: var(--pop-hairline-soft); }
+  .stack { display: flex; flex-direction: column; gap: 12px; }
+  .folio-row { display: flex; align-items: center; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="glyph">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+        <line x1="12" y1="3" x2="12" y2="21" />
+        <line x1="4.1" y1="7.5" x2="19.9" y2="16.5" />
+        <line x1="4.1" y1="16.5" x2="19.9" y2="7.5" />
+      </svg>
+      <span class="lab">folio mark</span>
+    </div>
+    <div class="div"></div>
+    <div class="stack">
+      <div class="folio-row">
+        <span class="pop-system-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><line x1="12" y1="3" x2="12" y2="21"/><line x1="4.1" y1="7.5" x2="19.9" y2="16.5"/><line x1="4.1" y1="16.5" x2="19.9" y2="7.5"/></svg></span>
+        <span class="pop-folio">ISSUE 360 · APRIL 2026</span>
+      </div>
+      <hr class="pop-rule pop-rule--tomato" style="width:220px" />
+      <div style="display:flex;gap:20px;align-items:flex-end">
+        <span class="pop-kicker pop-kicker--tomato">FEATURE · 特集</span>
+        <div class="pop-monument"><span>ISSUE</span><strong>360</strong><span>APRIL 2026</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,453 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/editorial/**",
+              "components/motion/**",
+              "components/ornaments/**",
+              "components/spreads/**",
+              "components/structure/**",
+              "ui_kits/archive/**",
+              "ui_kits/inner-page/**",
+              "ui_kits/magazine/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:EB Garamond|Courier Prime))/i]",
+        "message": "Font not provided by the design system. Available: EB Garamond, Courier Prime."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Banner'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|key|ref|className|style|children)$/]",
+        "message": "<Banner> doesn't accept that prop. Declared props: children, variant."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Banner'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:tomato|ink|kraft)$/]",
+        "message": "<Banner> variant must be one of 'tomato' | 'ink' | 'kraft'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CatalogRow'] > JSXAttribute > JSXIdentifier[name!=/^(?:n|en|jp|tag|tagVariant|key|ref|className|style|children)$/]",
+        "message": "<CatalogRow> doesn't accept that prop. Declared props: n, en, jp, tag, tagVariant."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CatalogRow'] > JSXAttribute[name.name='tagVariant'] > Literal[value!=/^(?:tomato|ink|kraft)$/]",
+        "message": "<CatalogRow> tagVariant must be one of 'tomato' | 'ink' | 'kraft'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ColophonIssue'] > JSXAttribute > JSXIdentifier[name!=/^(?:number|month|year|key|ref|className|style|children)$/]",
+        "message": "<ColophonIssue> doesn't accept that prop. Declared props: number, month, year."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IssueMeta'] > JSXAttribute > JSXIdentifier[name!=/^(?:number|month|year|key|ref|className|style|children)$/]",
+        "message": "<IssueMeta> doesn't accept that prop. Declared props: number, month, year."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IssueMeta'] > JSXAttribute > JSXIdentifier[name!=/^(?:number|month|year|key|ref|className|style|children)$/]",
+        "message": "<IssueMeta> doesn't accept that prop. Declared props: number, month, year."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IssueMeta'] > JSXAttribute > JSXIdentifier[name!=/^(?:number|month|year|key|ref|className|style|children)$/]",
+        "message": "<IssueMeta> doesn't accept that prop. Declared props: number, month, year."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='InterviewSubject'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|nameJp|role|roleJp|location|key|ref|className|style|children)$/]",
+        "message": "<InterviewSubject> doesn't accept that prop. Declared props: name, nameJp, role, roleJp, location."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CoverIssue'] > JSXAttribute > JSXIdentifier[name!=/^(?:number|month|year|price|key|ref|className|style|children)$/]",
+        "message": "<CoverIssue> doesn't accept that prop. Declared props: number, month, year, price."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='KernelLoading'] > JSXAttribute > JSXIdentifier[name!=/^(?:size|label|key|ref|className|style|children)$/]",
+        "message": "<KernelLoading> doesn't accept that prop. Declared props: size, label."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Kicker'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|jp|tomato|key|ref|className|style|children)$/]",
+        "message": "<Kicker> doesn't accept that prop. Declared props: children, jp, tomato."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='FrameIssue'] > JSXAttribute > JSXIdentifier[name!=/^(?:number|month|year|tagline|key|ref|className|style|children)$/]",
+        "message": "<FrameIssue> doesn't accept that prop. Declared props: number, month, year, tagline."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Monument'] > JSXAttribute > JSXIdentifier[name!=/^(?:number|month|year|price|key|ref|className|style|children)$/]",
+        "message": "<Monument> doesn't accept that prop. Declared props: number, month, year, price."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PopIcon'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|size|color|key|ref|className|style|children)$/]",
+        "message": "<PopIcon> doesn't accept that prop. Declared props: name, size, color."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PopIcon'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<PopIcon> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PopPathText'] > JSXAttribute > JSXIdentifier[name!=/^(?:text|preset|d|fontSize|color|size|key|ref|className|style|children)$/]",
+        "message": "<PopPathText> doesn't accept that prop. Declared props: text, preset, d, fontSize, color, size."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PopPathText'] > JSXAttribute[name.name='preset'] > Literal[value!=/^(?:arc-top|arc-bottom|wave)$/]",
+        "message": "<PopPathText> preset must be one of 'arc-top' | 'arc-bottom' | 'wave'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PopPathText'] > JSXAttribute[name.name='color'] > Literal[value!=/^(?:tomato|ink|coffee|ivory|current)$/]",
+        "message": "<PopPathText> color must be one of 'tomato' | 'ink' | 'coffee' | 'ivory' | 'current'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PopPathText'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<PopPathText> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PopShape'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|size|color|label|key|ref|className|style|children)$/]",
+        "message": "<PopShape> doesn't accept that prop. Declared props: name, size, color, label."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PopShape'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<PopShape> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PopShape'] > JSXAttribute[name.name='color'] > Literal[value!=/^(?:tomato|ink|coffee|ivory|current)$/]",
+        "message": "<PopShape> color must be one of 'tomato' | 'ink' | 'coffee' | 'ivory' | 'current'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='IssueMeta'] > JSXAttribute > JSXIdentifier[name!=/^(?:number|month|year|key|ref|className|style|children)$/]",
+        "message": "<IssueMeta> doesn't accept that prop. Declared props: number, month, year."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TerminalLine'] > JSXAttribute > JSXIdentifier[name!=/^(?:prompt|agent|text|dim|key|ref|className|style|children)$/]",
+        "message": "<TerminalLine> doesn't accept that prop. Declared props: prompt, agent, text, dim."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Banner": {
+        "replaces": []
+      },
+      "CatalogRow": {
+        "replaces": []
+      },
+      "ColophonIssue": {
+        "replaces": []
+      },
+      "IssueMeta": {
+        "replaces": []
+      },
+      "InterviewSubject": {
+        "replaces": []
+      },
+      "CoverIssue": {
+        "replaces": []
+      },
+      "KernelLoading": {
+        "replaces": []
+      },
+      "Kicker": {
+        "replaces": []
+      },
+      "FrameIssue": {
+        "replaces": []
+      },
+      "Monument": {
+        "replaces": []
+      },
+      "PopIcon": {
+        "replaces": []
+      },
+      "PopPathText": {
+        "replaces": []
+      },
+      "PopShape": {
+        "replaces": []
+      },
+      "TerminalLine": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent-spot",
+      "--border-hairline",
+      "--dark-bg",
+      "--dark-bg-deep",
+      "--dark-bg-elevated",
+      "--dark-bg-surface",
+      "--dark-border",
+      "--dark-link-accent",
+      "--dark-text",
+      "--dark-text-secondary",
+      "--duration-dramatic",
+      "--duration-fast",
+      "--duration-hero",
+      "--duration-instant",
+      "--duration-moderate",
+      "--duration-normal",
+      "--duration-quick",
+      "--duration-settle",
+      "--duration-slow",
+      "--ease-out",
+      "--ease-overshoot",
+      "--ease-settle",
+      "--ease-spring",
+      "--font-meta",
+      "--font-mono",
+      "--font-prose",
+      "--font-serif",
+      "--issue-accent",
+      "--kernel-info",
+      "--kernel-info-bg",
+      "--kernel-success",
+      "--kernel-success-bg",
+      "--kernel-warning",
+      "--kernel-warning-bg",
+      "--letter-spacing-caps",
+      "--letter-spacing-normal",
+      "--letter-spacing-tight",
+      "--letter-spacing-wide",
+      "--line-height-normal",
+      "--line-height-relaxed",
+      "--line-height-tight",
+      "--loop-drift",
+      "--loop-fast",
+      "--loop-normal",
+      "--loop-slow",
+      "--pop-butter",
+      "--pop-cobalt",
+      "--pop-coffee",
+      "--pop-cream",
+      "--pop-hairline",
+      "--pop-hairline-soft",
+      "--pop-ink",
+      "--pop-ivory",
+      "--pop-ivy",
+      "--pop-kraft",
+      "--pop-ledger",
+      "--pop-pool",
+      "--pop-sepia",
+      "--pop-tape",
+      "--pop-term-green",
+      "--pop-term-red",
+      "--pop-term-yellow",
+      "--pop-tomato",
+      "--pop-tomato-soft",
+      "--radius-full",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-sm",
+      "--radius-xs",
+      "--rubin-accent",
+      "--rubin-border",
+      "--rubin-error",
+      "--rubin-error-border",
+      "--rubin-error-light",
+      "--rubin-ink",
+      "--rubin-ink-faint",
+      "--rubin-ink-light",
+      "--rubin-ivory",
+      "--rubin-ivory-cool",
+      "--rubin-ivory-dark",
+      "--rubin-ivory-med",
+      "--rubin-ivory-warm",
+      "--rubin-mono",
+      "--rubin-primary",
+      "--rubin-sepia",
+      "--rubin-serif",
+      "--rubin-slate",
+      "--rubin-slate-muted",
+      "--rubin-text-secondary",
+      "--shadow-block",
+      "--shadow-lg",
+      "--shadow-md",
+      "--shadow-sm",
+      "--space-2xl",
+      "--space-3xl",
+      "--space-4xl",
+      "--space-lg",
+      "--space-md",
+      "--space-sm",
+      "--space-xl",
+      "--space-xs",
+      "--surface-ink",
+      "--surface-page",
+      "--surface-raised",
+      "--surface-sunk",
+      "--text-2xl",
+      "--text-base",
+      "--text-lg",
+      "--text-md",
+      "--text-on-ink",
+      "--text-primary",
+      "--text-secondary",
+      "--text-sm",
+      "--text-xl",
+      "--text-xs",
+      "--weight-black",
+      "--weight-bold",
+      "--weight-medium",
+      "--weight-regular",
+      "--weight-semibold"
+    ],
+    "tokenKinds": {
+      "--rubin-ivory": "color",
+      "--rubin-ivory-warm": "color",
+      "--rubin-ivory-med": "color",
+      "--rubin-ivory-cool": "color",
+      "--rubin-ivory-dark": "color",
+      "--rubin-sepia": "color",
+      "--rubin-slate": "color",
+      "--rubin-ink": "color",
+      "--rubin-ink-faint": "color",
+      "--rubin-ink-light": "color",
+      "--rubin-slate-muted": "color",
+      "--rubin-text-secondary": "font",
+      "--rubin-accent": "color",
+      "--rubin-border": "color",
+      "--rubin-primary": "color",
+      "--rubin-error": "color",
+      "--rubin-error-light": "color",
+      "--rubin-error-border": "color",
+      "--kernel-success": "color",
+      "--kernel-success-bg": "color",
+      "--kernel-warning": "color",
+      "--kernel-warning-bg": "color",
+      "--kernel-info": "color",
+      "--kernel-info-bg": "color",
+      "--pop-ivory": "color",
+      "--pop-cream": "color",
+      "--pop-butter": "color",
+      "--pop-sepia": "color",
+      "--pop-kraft": "color",
+      "--pop-ledger": "color",
+      "--pop-coffee": "color",
+      "--pop-ink": "color",
+      "--pop-tomato": "color",
+      "--pop-tomato-soft": "color",
+      "--pop-cobalt": "color",
+      "--pop-ivy": "color",
+      "--pop-pool": "color",
+      "--pop-hairline": "color",
+      "--pop-hairline-soft": "color",
+      "--pop-tape": "color",
+      "--pop-term-red": "color",
+      "--pop-term-yellow": "color",
+      "--pop-term-green": "color",
+      "--surface-page": "color",
+      "--surface-raised": "color",
+      "--surface-sunk": "color",
+      "--surface-ink": "color",
+      "--border-hairline": "color",
+      "--text-primary": "font",
+      "--text-secondary": "font",
+      "--text-on-ink": "font",
+      "--accent-spot": "color",
+      "--dark-bg": "color",
+      "--dark-bg-elevated": "color",
+      "--dark-bg-surface": "color",
+      "--dark-bg-deep": "color",
+      "--dark-text": "font",
+      "--dark-text-secondary": "font",
+      "--dark-border": "color",
+      "--dark-link-accent": "color",
+      "--font-serif": "font",
+      "--font-mono": "font",
+      "--font-prose": "font",
+      "--font-meta": "font",
+      "--rubin-serif": "color",
+      "--rubin-mono": "color",
+      "--text-xs": "font",
+      "--text-sm": "font",
+      "--text-base": "font",
+      "--text-md": "font",
+      "--text-lg": "font",
+      "--text-xl": "font",
+      "--text-2xl": "font",
+      "--letter-spacing-tight": "font",
+      "--letter-spacing-normal": "font",
+      "--letter-spacing-wide": "font",
+      "--letter-spacing-caps": "font",
+      "--line-height-tight": "font",
+      "--line-height-normal": "font",
+      "--line-height-relaxed": "font",
+      "--weight-regular": "font",
+      "--weight-medium": "font",
+      "--weight-semibold": "font",
+      "--weight-bold": "font",
+      "--weight-black": "font",
+      "--space-xs": "spacing",
+      "--space-sm": "spacing",
+      "--space-md": "spacing",
+      "--space-lg": "spacing",
+      "--space-xl": "spacing",
+      "--space-2xl": "spacing",
+      "--space-3xl": "spacing",
+      "--space-4xl": "spacing",
+      "--radius-xs": "radius",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-full": "radius",
+      "--shadow-sm": "shadow",
+      "--shadow-md": "shadow",
+      "--shadow-lg": "shadow",
+      "--shadow-block": "shadow",
+      "--ease-out": "other",
+      "--ease-settle": "other",
+      "--ease-overshoot": "other",
+      "--ease-spring": "other",
+      "--duration-instant": "other",
+      "--duration-fast": "other",
+      "--duration-quick": "other",
+      "--duration-normal": "other",
+      "--duration-moderate": "other",
+      "--duration-slow": "other",
+      "--duration-dramatic": "other",
+      "--duration-hero": "other",
+      "--duration-settle": "other",
+      "--loop-fast": "other",
+      "--loop-normal": "other",
+      "--loop-slow": "other",
+      "--loop-drift": "other",
+      "--issue-accent": "color"
+    },
+    "fontFamilies": [
+      "Courier Prime",
+      "EB Garamond"
+    ]
+  }
+}

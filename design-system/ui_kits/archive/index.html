@@ -1,0 +1,61 @@
+<!-- @dsCard group="The Magazine" viewport="1000x720" name="The Issue Archive" subtitle="The back-catalog grid — click any spine to open its identity sheet" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>kernel.chat — The Issue Archive</title>
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  html, body { margin: 0; }
+  body { background: var(--pop-ivory); color: var(--pop-ink); font-family: var(--font-serif); }
+  .arc-root { min-height: 100vh; }
+  .arc-head { padding: 56px 48px 8px; }
+  .arc-head-inner { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+  .arc-title { font-size: clamp(40px, 6vw, 76px); margin: 6px 0 0; }
+  .arc-deck { font-size: clamp(18px, 2.2vw, 24px); }
+
+  .arc-body { max-width: 1080px; margin: 0 auto; padding: 36px 48px 56px; }
+
+  /* Detail panel */
+  .arc-detail { display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: start; padding: 28px 32px; background: var(--pop-cream); border: 1px solid var(--pop-hairline-soft); margin-bottom: 32px; }
+  .arc-detail-feature { font-family: var(--font-serif); font-weight: 700; font-size: clamp(28px, 4vw, 44px); line-height: 1.02; letter-spacing: -0.025em; margin: 8px 0 0; }
+  .arc-detail-jp { font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.1em; color: var(--pop-coffee); margin: 6px 0 0; }
+  .arc-detail-note { font-family: var(--font-serif); font-style: italic; font-size: var(--text-base); color: var(--pop-ink); margin: 14px 0 0; max-width: 540px; }
+  .arc-detail-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+
+  /* Grid of spines */
+  .arc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1px; background: var(--pop-hairline-soft); border: 1px solid var(--pop-hairline-soft); }
+  .arc-spine { text-align: left; border: 0; cursor: pointer; padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 4px; min-height: 132px; transition: transform var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out); position: relative; }
+  .arc-spine:hover { transform: translateY(-2px); z-index: 2; box-shadow: var(--shadow-md); }
+  .arc-spine.is-active { outline: 2px solid var(--pop-tomato); outline-offset: -2px; z-index: 3; }
+  .arc-spine-top { display: flex; justify-content: space-between; align-items: baseline; }
+  .arc-spine-num { font-family: var(--font-mono); font-weight: 700; font-size: 22px; font-variant-numeric: tabular-nums; }
+  .arc-spine-spread { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; }
+  .arc-spine-feature { font-family: var(--font-serif); font-weight: 700; font-size: 17px; line-height: 1.08; letter-spacing: -0.015em; margin-top: 6px; }
+  .arc-spine-jp { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; margin-top: auto; }
+  .arc-spine-foot { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; opacity: 0.8; }
+
+  @media (max-width: 760px) {
+    .arc-head { padding: 40px 22px 4px; }
+    .arc-body { padding: 24px 22px 40px; }
+    .arc-detail { grid-template-columns: 1fr; gap: 16px; padding: 22px; }
+  }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="Archive.jsx"></script>
+<script type="text/babel">
+  const mount = () => {
+    if (!window.Archive) return setTimeout(mount, 30);
+    ReactDOM.createRoot(document.getElementById('root')).render(<window.Archive />);
+  };
+  mount();
+</script>
+</body>
+</html>

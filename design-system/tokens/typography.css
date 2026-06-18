@@ -1,0 +1,53 @@
+/* ──────────────────────────────────────────────────────────────
+   kernel.chat — Typography
+   Grammar over typeface. Two faces do everything:
+
+   • EB Garamond  → display headlines + prose body. Italic carries
+     emphasis (and turns tomato in editorial display). Set large,
+     tight, with old-style figures.
+   • Courier Prime → all meta: kickers, folios, banners, code,
+     terminal, catalog numbers, Japanese subtitles. Uppercase +
+     wide tracking is the editorial register.
+
+   Scale is a Major Third (1.25). Body is 20px — the magazine reads
+   like print, not like a web app.
+   ────────────────────────────────────────────────────────────── */
+
+:root {
+    /* Families */
+    --font-serif: "EB Garamond", Georgia, serif;
+    --font-mono:  "Courier Prime", "Courier New", monospace;
+    /* Semantic aliases — use these in components */
+    --font-prose: var(--font-serif);   /* display + body copy */
+    --font-meta:  var(--font-mono);    /* kickers, folios, code, JP */
+    /* Legacy aliases */
+    --rubin-serif: var(--font-serif);
+    --rubin-mono:  var(--font-mono);
+
+    /* Size scale — Major Third (1.25), root body = 20px */
+    --text-xs:   0.64rem;   /* 12.8px — fine print, kickers, folios */
+    --text-sm:   0.8rem;    /* 16px — captions, meta, JP subtitles */
+    --text-base: 1rem;      /* 20px — body prose */
+    --text-md:   1.25rem;   /* 25px — subheadings */
+    --text-lg:   1.563rem;  /* 31.3px — section titles */
+    --text-xl:   1.953rem;  /* 39.1px — page titles */
+    --text-2xl:  2.441rem;  /* 48.8px — hero */
+
+    /* Tracking — meta type lives wide, display lives tight */
+    --letter-spacing-tight:  -0.01em;
+    --letter-spacing-normal:  0.02em;
+    --letter-spacing-wide:    0.08em;
+    --letter-spacing-caps:    0.14em;   /* the editorial mono caps look */
+
+    /* Line height */
+    --line-height-tight:   1.3;
+    --line-height-normal:  1.6;    /* serif prose */
+    --line-height-relaxed: 1.8;
+
+    /* Weights — EB Garamond display goes to 800; meta stays 400/700 */
+    --weight-regular: 400;
+    --weight-medium:  500;
+    --weight-semibold: 600;
+    --weight-bold:    700;
+    --weight-black:   800;
+}

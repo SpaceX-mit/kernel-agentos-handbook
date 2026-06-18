@@ -1,0 +1,53 @@
+/* ──────────────────────────────────────────────────────────────
+   kernel.chat — Inner-page frame + colophon
+   MagazineFrame wraps any inner route with a masthead strip + folio
+   footer so every page reads like a spread of the same publication.
+   Colophon is the shared magazine footer. Lifted from
+   MagazineFrame.{tsx,css} + IssueColophon.tsx.
+   ────────────────────────────────────────────────────────────── */
+
+/* ── Frame ────────────────────────────────────────────────────── */
+.pop-frame { min-height: 100vh; display: flex; flex-direction: column; background: var(--pop-ivory); }
+.pop-frame--dark { background: var(--pop-ink); color: var(--pop-ivory); }
+.pop-frame-inner { max-width: 1000px; margin: 0 auto; width: 100%; padding: 0 48px; box-sizing: border-box; }
+.pop-frame-masthead { padding: 20px 0 0; }
+.pop-frame-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding: 12px 0; }
+.pop-frame-brand { display: flex; flex-direction: column; gap: 2px; background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
+.pop-wordmark-sm { font-family: var(--font-serif); font-weight: 800; font-size: 26px; letter-spacing: -0.05em; color: var(--pop-tomato); line-height: 1; }
+.pop-frame--dark .pop-wordmark-sm { color: var(--pop-tomato); }
+.pop-frame-issue { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.pop-frame--dark .pop-folio { color: var(--pop-sepia); }
+.pop-frame-head { padding: 28px 0 36px; display: flex; flex-direction: column; gap: 10px; }
+.pop-frame-title { font-size: clamp(40px, 6vw, 80px); line-height: 0.95; margin: 6px 0 0; }
+.pop-frame--dark .pop-frame-title { color: var(--pop-ivory); }
+.pop-frame-title-jp { font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.12em; color: var(--pop-coffee); margin: 0; }
+.pop-frame--dark .pop-frame-title-jp { color: var(--pop-sepia); }
+.pop-frame-deck { font-size: clamp(19px, 2.4vw, 26px); margin: 8px 0 0; max-width: 640px; }
+.pop-frame-body { flex: 1; }
+.pop-frame-footer { padding: 24px 0 40px; margin-top: 48px; }
+.pop-frame-footer-row { align-items: center; }
+.pop-frame-footer-actions { display: flex; gap: 18px; }
+.pop-frame-back { background: none; border: 0; cursor: pointer; padding: 0; transition: color var(--duration-fast) var(--ease-out); }
+.pop-frame-back:hover { color: var(--pop-tomato); }
+.pop-frame-back--alt { text-decoration: none; }
+
+@media (max-width: 760px) {
+    .pop-frame-inner { padding: 0 22px; }
+    .pop-frame-row { gap: 8px; }
+    .pop-frame-issue { align-items: flex-start; }
+}
+
+/* ── Colophon ─────────────────────────────────────────────────── */
+.pop-colophon { padding: 40px 0 48px; }
+.pop-colophon .pop-section-inner { max-width: 1000px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px; }
+.pop-colophon-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+.pop-colophon-masthead { display: flex; flex-direction: column; gap: 6px; }
+.pop-monument--sm strong { font-size: 1.7em; }
+.pop-colophon-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.pop-colophon-links a { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--pop-coffee); text-decoration: none; transition: color var(--duration-fast) var(--ease-out); }
+.pop-colophon-links a:hover { color: var(--pop-tomato); }
+.pop-colophon-copy { margin: 0; opacity: 0.7; line-height: 1.6; }
+
+@media (max-width: 760px) {
+    .pop-colophon .pop-section-inner { padding: 0 22px; }
+}

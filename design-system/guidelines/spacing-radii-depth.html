@@ -1,0 +1,38 @@
+<!-- @dsCard group="Spacing" viewport="700x150" name="Radii & depth" subtitle="App chrome rounds & lifts softly; editorial stays square with a hard tomato offset." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--rubin-ivory); font-family: var(--font-mono); }
+  .wrap { display: flex; gap: 26px; padding: 26px 30px; align-items: center; }
+  .group { display: flex; gap: 18px; align-items: center; }
+  .box { width: 64px; height: 64px; background: var(--rubin-ivory-med); border: 1px solid var(--rubin-ivory-dark); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 5px; }
+  .box span { font-size: 9px; color: var(--rubin-slate-muted); }
+  .sh { width: 64px; height: 64px; background: var(--rubin-ivory); border-radius: var(--radius-md); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 5px; }
+  .sh span { font-size: 9px; color: var(--rubin-slate-muted); }
+  .div { width: 1px; height: 64px; background: var(--rubin-ivory-dark); }
+  .term { width: 92px; height: 56px; background: #141210; border: 1px solid var(--pop-coffee); box-shadow: 6px 6px 0 var(--pop-tomato); display: flex; align-items: flex-end; padding: 6px; }
+  .term span { font-size: 9px; color: var(--pop-sepia); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="group">
+      <div class="box" style="border-radius:var(--radius-sm)"><span>6</span></div>
+      <div class="box" style="border-radius:var(--radius-md)"><span>10</span></div>
+      <div class="box" style="border-radius:var(--radius-lg)"><span>20</span></div>
+      <div class="box" style="border-radius:var(--radius-full)"><span>full</span></div>
+    </div>
+    <div class="div"></div>
+    <div class="group">
+      <div class="sh" style="box-shadow:var(--shadow-sm)"><span>sm</span></div>
+      <div class="sh" style="box-shadow:var(--shadow-md)"><span>md</span></div>
+      <div class="sh" style="box-shadow:var(--shadow-lg)"><span>lg</span></div>
+    </div>
+    <div class="div"></div>
+    <div class="term"><span>block · 8 8 0</span></div>
+  </div>
+</body>
+</html>

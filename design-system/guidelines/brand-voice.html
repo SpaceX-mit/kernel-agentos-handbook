@@ -1,0 +1,43 @@
+<!-- @dsCard group="Brand" viewport="700x340" name="Voice & copy" subtitle="How the magazine writes — casing, bilingual, kickers, vocabulary. No emoji." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--rubin-ivory); color: var(--rubin-slate); }
+  .wrap { padding: 24px 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .col { padding: 0 22px; }
+  .col + .col { border-left: 1px solid var(--rubin-ivory-dark); }
+  .h { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .h.do { color: var(--kernel-success); }
+  .h.dont { color: var(--pop-tomato); }
+  .row { margin-bottom: 13px; }
+  .lab { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rubin-slate-muted); margin-bottom: 3px; }
+  .ex { font-family: var(--font-serif); font-size: 15px; line-height: 1.35; }
+  .ex.mono { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; }
+  .ex em { color: var(--pop-tomato); font-style: italic; }
+  .strike { text-decoration: line-through; text-decoration-color: var(--pop-tomato); opacity: 0.6; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="col">
+      <div class="h do">✓ DO</div>
+      <div class="row"><div class="lab">Display — sentence case</div><div class="ex">The <em>Urban Outdoors</em> Review</div></div>
+      <div class="row"><div class="lab">Meta — uppercase, bracketed, bilingual</div><div class="ex mono">[ FEATURE · 特集 ]</div></div>
+      <div class="row"><div class="lab">Magazine vocabulary</div><div class="ex">Bump the <em>issue</em>. File the <em>dispatch</em>. Read the <em>colophon</em>.</div></div>
+      <div class="row"><div class="lab">Catalog numbers — padded, tabular</div><div class="ex mono">001. · 002. · 006.</div></div>
+      <div class="row"><div class="lab">Sign off, italic &amp; placed</div><div class="ex" style="font-style:italic;color:var(--pop-coffee)">Filed from a fifth-floor walk-up.</div></div>
+    </div>
+    <div class="col">
+      <div class="h dont">✕ DON'T</div>
+      <div class="row"><div class="lab">No Title Case Headlines</div><div class="ex strike">The Urban Outdoors Review</div></div>
+      <div class="row"><div class="lab">No emoji, ever (★ is the one glyph)</div><div class="ex strike">Ship it 🚀🔥</div></div>
+      <div class="row"><div class="lab">No app / SaaS voice</div><div class="ex strike">Sign up for our platform today!</div></div>
+      <div class="row"><div class="lab">No changelog framing</div><div class="ex strike">v2.4.1 — bug fixes &amp; improvements</div></div>
+      <div class="row"><div class="lab">Never name the inspiration</div><div class="ex strike">A POPEYE-inspired layout…</div></div>
+    </div>
+  </div>
+</body>
+</html>

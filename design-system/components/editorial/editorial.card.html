@@ -1,0 +1,70 @@
+<!-- @dsCard group="Components" viewport="700x440" name="Editorial primitives" subtitle="Kicker · Banner · Monument · CatalogRow · Terminal" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { margin: 0; background: var(--pop-cream); color: var(--pop-ink); }
+  .pad { padding: 24px 28px; display: flex; flex-direction: column; gap: 22px; }
+  .row { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .lab { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pop-coffee); opacity: 0.7; margin-bottom: 8px; }
+  .block + .block { border-top: 1px solid var(--pop-hairline-soft); padding-top: 18px; }
+  .toc { max-width: 560px; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { Kicker, Banner, Monument, CatalogRow, Terminal } = window.KernelChatDesignSystem_52d084;
+    function Demo() {
+      return (
+        <div className="pad">
+          <div className="block">
+            <div className="lab">Kicker · Banner</div>
+            <div className="row">
+              <Kicker jp="目次">CONTENTS</Kicker>
+              <Kicker tomato jp="特集">FEATURE · 360</Kicker>
+              <Banner>MAGAZINE FOR CITY CODERS</Banner>
+              <Banner variant="kraft">SECURITY</Banner>
+              <Banner variant="ink">SHIP</Banner>
+            </div>
+          </div>
+          <div className="block">
+            <div className="lab">CatalogRow</div>
+            <div className="toc">
+              <CatalogRow n="001" en="Computer-use desktop agent" jp="デスクトップ制御" tag="FEATURE" tagVariant="tomato" />
+              <CatalogRow n="002" en="Max 4 Live device pack (×9)" jp="M4L デバイス" tag="SOUND" />
+              <CatalogRow n="006" en="SSRF protection via dns.lookup()" jp="SSRF 対策" tag="SECURITY" />
+            </div>
+          </div>
+          <div className="block">
+            <div className="row" style={{ alignItems: 'flex-start' }}>
+              <div>
+                <div className="lab">Monument</div>
+                <Monument number="360" month="APRIL" year="2026" price="¥0 · BYOK" />
+              </div>
+              <div style={{ flex: 1, minWidth: 320 }}>
+                <div className="lab">Terminal</div>
+                <Terminal
+                  title="kbot — field report"
+                  lines={[
+                    { prompt: '$', text: 'kbot run synth' },
+                    { agent: '[coder]', text: 'building device pack…', dim: true },
+                    { prompt: '>', text: 'done. 9 devices shipped.' },
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+  </script>
+</body>
+</html>

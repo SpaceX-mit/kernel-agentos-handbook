@@ -1,0 +1,97 @@
+/* ──────────────────────────────────────────────────────────────
+   kernel.chat — Motion
+   The magazine is paper: mostly still, with a few small accents. The
+   character is STILLNESS, not a gallery of effects. Rules:
+     1. Ambient motion is imperceptible — amplitude ≤ 8% opacity or
+        ≤ 4px translate.
+     2. Everything respects prefers-reduced-motion.
+     3. CSS-only — no JS animation libraries, no requestAnimationFrame.
+     4. Animate only opacity and transform (no layout/paint hotspots).
+
+   The two ambient accents — the tomato rule breath (pop-rule--tomato,
+   in editorial.css) and the dateline marquee (pop-marquee, below) —
+   are the whole ambient budget. Entrance motion (settle / fade-up) is
+   one-shot, slightly larger, used on load; the loading constellation
+   is the brand's signature "ink on paper" loader.
+   ────────────────────────────────────────────────────────────── */
+
+/* ── Dateline marquee — JP ticker, drifts ~4px/s ──────────────── */
+.pop-marquee {
+    display: inline-block; overflow: hidden; max-width: 60ch; vertical-align: middle;
+    mask-image: linear-gradient(to right, transparent, #000 12px, #000 calc(100% - 24px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12px, #000 calc(100% - 24px), transparent);
+}
+.pop-marquee-track { display: inline-flex; gap: 3ch; white-space: nowrap; animation: pop-marquee-drift 64s linear infinite; will-change: transform; }
+.pop-marquee-item { flex: 0 0 auto; }
+@keyframes pop-marquee-drift {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(calc(-100% - 3ch)); }
+}
+
+/* ── Entrance — one-shot settle / fade-up (load only) ─────────────
+   Base state is the VISIBLE end-state; animation runs FROM hidden so
+   print, PDF and reduced-motion show content, never a blank frame. */
+@keyframes pop-settle    { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes pop-fade-up   { from { opacity: 0; transform: translateY(6px); }  to { opacity: 1; transform: none; } }
+@keyframes pop-fade-in   { from { opacity: 0; } to { opacity: 1; } }
+
+.pop-anim-settle  { animation: pop-settle    var(--duration-hero, 800ms) var(--ease-settle) both; }
+.pop-anim-fade-up { animation: pop-fade-up    var(--duration-dramatic, 600ms) var(--ease-out) both; }
+.pop-anim-fade-in { animation: pop-fade-in    var(--duration-settle, 1000ms) var(--ease-out) both; }
+/* Stagger helpers — children enter in sequence */
+.pop-anim-d1 { animation-delay: 90ms; }
+.pop-anim-d2 { animation-delay: 180ms; }
+.pop-anim-d3 { animation-delay: 270ms; }
+.pop-anim-d4 { animation-delay: 360ms; }
+.pop-anim-d5 { animation-delay: 450ms; }
+
+/* ── Message slide-in — the one functional micro-motion (8px) ──── */
+@keyframes pop-msg-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.pop-anim-msg { animation: pop-msg-in var(--duration-normal, 300ms) var(--ease-out) both; }
+
+/* ── Typing / thinking dots ───────────────────────────────────── */
+.pop-typing { display: inline-flex; gap: 5px; align-items: center; }
+.pop-typing span { width: 5px; height: 5px; border-radius: 50%; background: var(--pop-tomato); opacity: 0.35; animation: pop-typing 1.2s ease-in-out infinite; }
+.pop-typing span:nth-child(2) { animation-delay: 0.2s; }
+.pop-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pop-typing {
+    0%, 100% { opacity: 0.3; transform: translateY(0); }
+    50%      { opacity: 0.85; transform: translateY(-3px); }
+}
+
+/* ── Loading constellation — "ink on paper" ──────────────────────
+   MACRO: the whole square drifts slowly, like ink diffusing in water.
+   MICRO: each drop trembles fast, surface-tension at the molecular
+   edge. THREADS: breathe at a third rhythm, the binding force. Ported
+   from the production splash (src/index.css, .ka-loading-*). */
+.pop-constellation { position: relative; width: 120px; height: 120px; animation: pop-macro-drift 12s ease-in-out infinite; }
+.pop-constellation-drop { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--rubin-sepia); opacity: 0; }
+.pop-constellation-drop:nth-child(1) { top: 25%; left: 25%; animation: pop-drop-materialize 0.8s var(--ease-out) both,      pop-micro-tremor 0.7s ease-in-out 0.8s infinite; }
+.pop-constellation-drop:nth-child(2) { top: 25%; left: 75%; animation: pop-drop-materialize 0.8s var(--ease-out) 0.1s both, pop-micro-tremor 0.7s ease-in-out 0.9s infinite; }
+.pop-constellation-drop:nth-child(3) { top: 75%; left: 75%; animation: pop-drop-materialize 0.8s var(--ease-out) 0.2s both, pop-micro-tremor 0.7s ease-in-out 1.0s infinite; }
+.pop-constellation-drop:nth-child(4) { top: 75%; left: 25%; animation: pop-drop-materialize 0.8s var(--ease-out) 0.3s both, pop-micro-tremor 0.7s ease-in-out 1.1s infinite; }
+.pop-constellation-thread { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.pop-constellation-thread line { stroke: var(--rubin-sepia); stroke-width: 0.5; opacity: 0; stroke-dasharray: 100; stroke-dashoffset: 100; animation: pop-thread-appear 1.2s var(--ease-out) both, pop-thread-pulse 5s ease-in-out 1.4s infinite; }
+.pop-constellation-thread line:nth-child(1) { animation-delay: 0.3s, 1.5s; }
+.pop-constellation-thread line:nth-child(2) { animation-delay: 0.45s, 1.65s; }
+.pop-constellation-thread line:nth-child(3) { animation-delay: 0.6s, 1.8s; }
+.pop-constellation-thread line:nth-child(4) { animation-delay: 0.75s, 1.95s; }
+
+@keyframes pop-drop-materialize { 0% { opacity: 0; transform: scale(0) translateY(4px); filter: blur(2px); } 100% { opacity: 0.55; transform: scale(1) translateY(0); filter: blur(0); } }
+@keyframes pop-micro-tremor { 0%,100% { transform: translate(0,0); } 25% { transform: translate(0.5px,-0.3px); } 50% { transform: translate(-0.4px,0.5px); } 75% { transform: translate(0.3px,-0.4px); } }
+@keyframes pop-macro-drift { 0% { transform: translate(0,0) rotate(0deg); } 25% { transform: translate(1.5px,-1px) rotate(0.8deg); } 50% { transform: translate(-1px,1.5px) rotate(-0.5deg); } 75% { transform: translate(0.5px,-0.5px) rotate(0.3deg); } 100% { transform: translate(0,0) rotate(0deg); } }
+@keyframes pop-thread-appear { 0% { opacity: 0; stroke-dashoffset: 100; } 100% { opacity: 0.2; stroke-dashoffset: 0; } }
+@keyframes pop-thread-pulse { 0%,100% { opacity: 0.2; } 50% { opacity: 0.08; } }
+
+/* ── Honour stillness ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+    .pop-marquee-track,
+    .pop-anim-settle, .pop-anim-fade-up, .pop-anim-fade-in, .pop-anim-msg,
+    .pop-typing span,
+    .pop-constellation, .pop-constellation-drop, .pop-constellation-thread line {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        stroke-dashoffset: 0 !important;
+    }
+}

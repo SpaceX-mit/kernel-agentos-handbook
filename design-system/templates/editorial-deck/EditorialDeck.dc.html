@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Editorial Deck" description="A kernel.chat magazine-style slide deck — cover, section, contents, big-quote, comparison and colophon slides in the POPEYE editorial grammar." -->
+<helmet>
+  <script src="./ds-base.js"></script>
+</helmet>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1280" height="720" hint-size="100%,100%">
+
+  <!-- ── 1 · COVER ───────────────────────────────────────────── -->
+  <section data-label="Cover" data-screen-label="01" style="width:1280px;height:720px;box-sizing:border-box;background:#F3E9D2;color:#1F1E1D;font-family:'EB Garamond',Georgia,serif;padding:44px 64px;display:flex;flex-direction:column;gap:18px;overflow:hidden;">
+    <div style="display:flex;justify-content:space-between;align-items:center;font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#6B4E3D;">
+      <span>都会に住んで、コードで遊ぶための、自由なスタイルを作ろう。</span>
+      <span style="display:inline-flex;align-items:center;gap:6px;"><span style="color:#E24E1B;">&#10033;</span>ISSUE 360 · APRIL 2026</span>
+    </div>
+    <hr style="border:0;height:1px;background:rgba(31,30,29,0.85);margin:0;" />
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:6px 0;">
+      <h1 style="margin:0;font-weight:800;font-size:128px;line-height:0.85;letter-spacing:-0.06em;color:#E24E1B;text-shadow:2px 2px 0 #6B4E3D,-1px -1px 0 rgba(255,255,255,0.4);">kernel<span style="color:#1F1E1D;font-style:italic;">.</span>chat</h1>
+      <div style="display:flex;gap:16px;align-items:center;">
+        <span style="font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;background:#E24E1B;color:#FAF9F6;padding:5px 14px;border-radius:2px;font-weight:700;">MAGAZINE FOR CITY CODERS</span>
+        <span style="font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#1F1E1D;opacity:0.75;">¥0 · BYOK</span>
+      </div>
+    </div>
+    <hr style="border:0;height:2px;background:#E24E1B;margin:0;" />
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:8px 0;">
+      <span style="font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#E24E1B;">[ FEATURE · 360 ]</span>
+      <h2 style="margin:0;font-weight:700;font-size:72px;line-height:0.94;letter-spacing:-0.03em;color:#1F1E1D;">The <em style="font-style:italic;color:#E24E1B;font-weight:600;">Urban Outdoors</em> Review</h2>
+      <p style="margin:0;font-style:italic;font-weight:500;color:#6B4E3D;font-size:24px;">A terminal companion for city coders.</p>
+      <p style="margin:0;font-family:'Courier Prime',monospace;font-size:14px;letter-spacing:0.12em;color:#6B4E3D;">都会のコードと、自然のOS</p>
+    </div>
+    <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(31,30,29,0.16);padding-top:16px;font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#1F1E1D;">
+      <span style="display:inline-flex;flex-direction:column;gap:2px;"><span>ISSUE</span><strong style="font-size:46px;line-height:0.9;color:#E24E1B;letter-spacing:-0.02em;text-transform:none;">360</strong><span>APRIL 2026</span></span>
+      <span style="display:flex;gap:16px;color:#6B4E3D;"><span>#independent</span><span>#open-source</span><span>#mit-licensed</span></span>
+    </div>
+  </section>
+
+  <!-- ── 2 · SECTION DIVIDER (ink) ───────────────────────────── -->
+  <section data-label="Section" data-screen-label="02" style="width:1280px;height:720px;box-sizing:border-box;background:#1F1E1D;color:#FAF9F6;font-family:'EB Garamond',Georgia,serif;padding:64px;display:flex;flex-direction:column;justify-content:center;gap:20px;overflow:hidden;">
+    <span style="font-family:'Courier Prime',monospace;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:#E24E1B;">[ FIELD REPORT · 実地報告 ]</span>
+    <hr style="border:0;height:2px;background:#E24E1B;max-width:80px;margin:0;" />
+    <h2 style="margin:0;font-weight:700;font-size:104px;line-height:0.92;letter-spacing:-0.035em;color:#FAF9F6;">A day with the <em style="font-style:italic;color:#E24E1B;font-weight:600;">desktop agent</em></h2>
+    <p style="margin:0;font-family:'Courier Prime',monospace;font-size:16px;letter-spacing:0.12em;color:#D4C5A9;">デスクトップ・エージェントと過ごす一日</p>
+  </section>
+
+  <!-- ── 3 · CONTENTS (ivory) ────────────────────────────────── -->
+  <section data-label="Contents" data-screen-label="03" style="width:1280px;height:720px;box-sizing:border-box;background:#FAF9F6;color:#1F1E1D;font-family:'EB Garamond',Georgia,serif;padding:64px 96px;display:flex;flex-direction:column;gap:8px;overflow:hidden;">
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;margin-bottom:24px;">
+      <span style="font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#6B4E3D;">[ CONTENTS · 目次 ]</span>
+      <hr style="border:0;height:2px;background:#E24E1B;max-width:64px;margin:0;" />
+      <h2 style="margin:0;font-weight:700;font-size:60px;letter-spacing:-0.025em;">In this issue</h2>
+    </div>
+    <div style="border-top:1px solid rgba(31,30,29,0.16);">
+      <div style="display:grid;grid-template-columns:64px 1fr auto;gap:18px;align-items:baseline;padding:16px 0;border-bottom:1px solid rgba(31,30,29,0.16);">
+        <span style="font-family:'Courier Prime',monospace;font-size:18px;color:#E24E1B;">001.</span>
+        <span style="font-weight:600;font-size:22px;">Computer-use desktop agent<span style="display:block;font-family:'Courier Prime',monospace;font-size:12px;color:#6B4E3D;letter-spacing:0.04em;margin-top:2px;">デスクトップ制御</span></span>
+        <span style="font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:0.14em;background:#E24E1B;color:#FAF9F6;padding:4px 12px;border-radius:2px;font-weight:700;">FEATURE</span>
+      </div>
+      <div style="display:grid;grid-template-columns:64px 1fr auto;gap:18px;align-items:baseline;padding:16px 0;border-bottom:1px solid rgba(31,30,29,0.16);">
+        <span style="font-family:'Courier Prime',monospace;font-size:18px;color:#E24E1B;">002.</span>
+        <span style="font-weight:600;font-size:22px;">Max 4 Live device pack (×9)<span style="display:block;font-family:'Courier Prime',monospace;font-size:12px;color:#6B4E3D;letter-spacing:0.04em;margin-top:2px;">M4L デバイス</span></span>
+        <span style="font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:0.14em;background:#C8A97E;color:#1F1E1D;padding:4px 12px;border-radius:2px;font-weight:700;">SOUND</span>
+      </div>
+      <div style="display:grid;grid-template-columns:64px 1fr auto;gap:18px;align-items:baseline;padding:16px 0;border-bottom:1px solid rgba(31,30,29,0.16);">
+        <span style="font-family:'Courier Prime',monospace;font-size:18px;color:#E24E1B;">006.</span>
+        <span style="font-weight:600;font-size:22px;">SSRF protection via dns.lookup()<span style="display:block;font-family:'Courier Prime',monospace;font-size:12px;color:#6B4E3D;letter-spacing:0.04em;margin-top:2px;">SSRF 対策</span></span>
+        <span style="font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:0.14em;background:#C8A97E;color:#1F1E1D;padding:4px 12px;border-radius:2px;font-weight:700;">SECURITY</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4 · BIG QUOTE (cream) ───────────────────────────────── -->
+  <section data-label="Quote" data-screen-label="04" style="width:1280px;height:720px;box-sizing:border-box;background:#F3E9D2;color:#1F1E1D;font-family:'EB Garamond',Georgia,serif;padding:96px;display:flex;flex-direction:column;justify-content:center;gap:32px;overflow:hidden;">
+    <span style="font-family:'Courier Prime',monospace;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:#6B4E3D;">[ BULLETIN ]</span>
+    <p style="margin:0;font-style:italic;font-weight:600;font-size:80px;line-height:1.08;letter-spacing:-0.02em;color:#E24E1B;border-left:4px solid #E24E1B;padding-left:36px;">It kept its own field notes. We only had to read them.</p>
+    <p style="margin:0;font-family:'Courier Prime',monospace;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:#6B4E3D;padding-left:40px;">— FIELD REPORT · ISSUE 360</p>
+  </section>
+
+  <!-- ── 5 · COMPARISON (ink) ────────────────────────────────── -->
+  <section data-label="Comparison" data-screen-label="05" style="width:1280px;height:720px;box-sizing:border-box;background:#1F1E1D;color:#FAF9F6;font-family:'EB Garamond',Georgia,serif;padding:64px;display:flex;flex-direction:column;gap:28px;overflow:hidden;">
+    <h2 style="margin:0;font-weight:700;font-size:56px;letter-spacing:-0.03em;text-align:center;">Loud cover, <em style="font-style:italic;color:#E24E1B;font-weight:600;">quiet</em> command line</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;flex:1;align-items:stretch;">
+      <div style="background:#141210;border:1px solid #6B4E3D;box-shadow:8px 8px 0 #E24E1B;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:6px;padding:12px 16px;background:rgba(0,0,0,0.3);border-bottom:1px solid #6B4E3D;">
+          <span style="width:11px;height:11px;border-radius:50%;background:#ff5f57;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:#ffbd2e;"></span>
+          <span style="width:11px;height:11px;border-radius:50%;background:#28c840;"></span>
+          <span style="font-family:'Courier Prime',monospace;font-size:12px;color:#D4C5A9;margin-left:8px;letter-spacing:0.08em;">kbot — desktop agent</span>
+        </div>
+        <div style="padding:22px 24px;font-family:'Courier Prime',monospace;font-size:16px;line-height:1.8;color:#FAF9F6;">
+          <div><span style="color:#E24E1B;font-weight:700;margin-right:8px;">$</span>kbot watch --calendar</div>
+          <div style="color:rgba(250,249,246,0.55);"><span style="color:#4FB5C8;">[kernel] </span>reading today… 3 events</div>
+          <div><span style="color:#E24E1B;font-weight:700;margin-right:8px;">&gt;</span>drafted 3 replies. 1 held.</div>
+          <div style="color:rgba(250,249,246,0.55);"><span style="color:#4FB5C8;">[kernel] </span>inbox at zero.</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:18px;">
+        <p style="margin:0;font-size:26px;line-height:1.5;color:#FAF9F6;">The agent opens at eight, before the coffee. It reads the calendar — not because it was asked to, but because that is where the day starts.</p>
+        <p style="margin:0;font-size:26px;line-height:1.5;color:#D4C5A9;font-style:italic;">A lesser tool fills every silence. This one waits, and answers the question you actually asked.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6 · COLOPHON (cream) ────────────────────────────────── -->
+  <section data-label="Colophon" data-screen-label="06" style="width:1280px;height:720px;box-sizing:border-box;background:#F3E9D2;color:#1F1E1D;font-family:'EB Garamond',Georgia,serif;padding:64px;display:flex;flex-direction:column;justify-content:center;gap:24px;overflow:hidden;">
+    <hr style="border:0;height:1px;background:rgba(31,30,29,0.85);margin:0;" />
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;">
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <span style="font-weight:800;font-size:48px;letter-spacing:-0.05em;color:#E24E1B;line-height:1;">kernel<span style="color:#1F1E1D;font-style:italic;">.</span>chat</span>
+        <span style="font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:#6B4E3D;">MAGAZINE FOR CITY CODERS · 街のコーダーのために</span>
+      </div>
+      <span style="display:inline-flex;flex-direction:column;gap:2px;font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#1F1E1D;text-align:left;"><span>ISSUE</span><strong style="font-size:54px;line-height:0.9;color:#E24E1B;letter-spacing:-0.02em;text-transform:none;">360</strong><span>APRIL 2026</span></span>
+    </div>
+    <hr style="border:0;height:1px;background:rgba(31,30,29,0.16);margin:0;" />
+    <div style="display:flex;gap:28px;font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#6B4E3D;">
+      <span>Back Issues</span><span>The Wall</span><span>The Refusals</span><span>Privacy</span><span>Terms</span>
+    </div>
+    <p style="margin:0;font-family:'Courier Prime',monospace;font-size:13px;letter-spacing:0.1em;color:#6B4E3D;opacity:0.75;">MIT · kernel.chat group · Published monthly.</p>
+  </section>
+
+</x-import>
+</x-dc>
+</body>
+</html>

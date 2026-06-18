@@ -1,0 +1,66 @@
+/* ──────────────────────────────────────────────────────────────
+   kernel.chat — Print ("THE PRESS EDITION")
+   The design begs to be printable. On paper every stock collapses to
+   ink-on-white, tomato survives as the single press spot colour, and
+   interactive chrome is stripped. Cmd/Ctrl+P on any surface produces
+   the zine form. Lifted from the production @media print pass.
+   ────────────────────────────────────────────────────────────── */
+
+@media print {
+    @page { size: A4; margin: 16mm 14mm 18mm; }
+
+    /* Ink on paper — collapse every warm ground */
+    html, body,
+    .pop-landing, .pop-frame, .pop-spread, .pop-cover, .pop-colophon,
+    .pop-stock-cream, .pop-stock-butter, .pop-stock-kraft,
+    .pop-stock-ivory, .pop-stock-ink, .pop-stock-ledger {
+        background: #fff !important;
+        color: #111 !important;
+    }
+
+    /* Tomato is the only colour the press mixes — reassert it.
+       Any per-issue accent collapses to key black on separation. */
+    .pop-landing, .pop-frame, .pop-spread, .pop-cover { --issue-accent: #E24E1B !important; /* @kind color */ }
+    .pop-wordmark, .pop-wordmark-sm, .pop-wordmark-dot,
+    .pop-kicker--tomato, .pop-display em, .pop-catalog-num,
+    .pop-terminal-prompt, .pop-monument strong,
+    .pop-rule--tomato, .pop-banner {
+        color: #E24E1B !important;
+    }
+    .pop-rule--tomato { background: #E24E1B !important; animation: none !important; }
+    .pop-banner { background: #E24E1B !important; color: #fff !important; }
+
+    /* Terminals print as plain ruled blocks */
+    .pop-terminal {
+        background: #fafafa !important; color: #111 !important;
+        border: 1px solid #ccc !important; box-shadow: none !important;
+        page-break-inside: avoid;
+    }
+    .pop-terminal-line, .pop-terminal-dim { color: #333 !important; }
+    .pop-terminal-bar { background: #eee !important; border-bottom: 1px solid #ccc !important; }
+
+    /* Hide interactive chrome */
+    .pop-frame-back, .pop-colophon-links a[role="button"],
+    .mag-spread-picker, .mag-switch-btn, button {
+        display: none !important;
+    }
+
+    /* Expose URLs beside inline links */
+    a[href^="http"]::after, a[href^="mailto:"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.85em; font-family: 'Courier Prime', monospace; color: #666;
+    }
+    .pop-banner a::after, .pop-colophon-links a::after { content: none !important; }
+
+    /* Page-break discipline */
+    .pop-cover, .pop-contents, .pop-spread, .pop-colophon,
+    .pop-frame-masthead, .pop-frame-footer { page-break-inside: avoid; }
+    .pop-section-header, .pop-spread-header, .pop-frame-head { page-break-after: avoid; }
+    .pop-catalog-card, .pop-row, .pop-rv-card, .pop-fc-item, .pop-dp-item { page-break-inside: avoid; }
+
+    /* Point sizes, tighter tracking on press */
+    .pop-display { letter-spacing: -0.015em; }
+    .pop-section-title { font-size: 28pt; }
+    .pop-wordmark { font-size: 56pt; }
+    p { orphans: 3; widows: 3; }
+}

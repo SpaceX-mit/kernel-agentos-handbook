@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>kernel.chat — Design System</title>
+<link rel="icon" href="assets/favicon.svg" />
+<link rel="stylesheet" href="styles.css" />
+<style>
+  /* The gallery dogfoods the system: only design-system tokens, no literals
+     beyond layout scaffolding. */
+  body { margin: 0; background: var(--pop-cream); color: var(--pop-ink);
+         font-family: var(--font-serif); -webkit-font-smoothing: antialiased; }
+  .masthead { background: var(--rubin-ivory); border-bottom: 1px solid var(--pop-hairline);
+              padding: var(--space-3xl) var(--space-xl) var(--space-xl); }
+  .masthead .pop-wordmark { font-family: var(--font-serif); font-weight: 800;
+                            font-size: var(--text-2xl); color: var(--pop-tomato);
+                            letter-spacing: -0.04em; line-height: 1; }
+  .masthead .tag { font-family: var(--font-mono); text-transform: uppercase;
+                   letter-spacing: var(--letter-spacing-caps); font-size: var(--text-xs);
+                   color: var(--rubin-slate-muted); margin-top: var(--space-md); }
+  .masthead .dateline { font-family: var(--font-mono); font-size: var(--text-xs);
+                        letter-spacing: var(--letter-spacing-caps); color: var(--pop-tomato);
+                        margin-top: var(--space-lg); }
+  .masthead .glyph { color: var(--pop-tomato); margin-right: 6px; }
+  .navbar { position: sticky; top: 0; z-index: 9; background: var(--rubin-ivory);
+            border-bottom: 1px solid var(--pop-hairline-soft); padding: var(--space-sm) var(--space-xl);
+            display: flex; flex-wrap: wrap; gap: var(--space-md);
+            font-family: var(--font-mono); font-size: var(--text-xs);
+            text-transform: uppercase; letter-spacing: var(--letter-spacing-wide); }
+  .navbar a { color: var(--rubin-slate); text-decoration: none; padding: 2px 4px; }
+  .navbar a:hover { color: var(--pop-tomato); }
+  main { max-width: 1080px; margin: 0 auto; padding: var(--space-3xl) var(--space-xl) var(--space-4xl); }
+  .group { margin-bottom: var(--space-4xl); }
+  .group-head { display: flex; align-items: center; gap: var(--space-lg); margin-bottom: var(--space-xl); }
+  .group-head .pop-rule { flex: 1; max-width: none; margin: 0; }
+  .group-count { font-family: var(--font-mono); font-size: var(--text-xs);
+                 color: var(--rubin-slate-muted); letter-spacing: var(--letter-spacing-wide); white-space: nowrap; }
+  .card-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
+  .card { margin: 0; border: 1px solid var(--pop-hairline-soft); background: var(--rubin-ivory); }
+  figcaption { padding: var(--space-md) var(--space-lg); border-bottom: 1px solid var(--pop-hairline-soft);
+               display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 4px var(--space-md); }
+  .card-name { font-family: var(--font-mono); font-size: var(--text-sm); text-transform: uppercase;
+               letter-spacing: var(--letter-spacing-wide); color: var(--pop-ink); }
+  .card-vp { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--rubin-slate-muted); }
+  .card-sub { grid-column: 1 / -1; margin: 0; font-family: var(--font-serif);
+              font-size: var(--text-sm); color: var(--rubin-slate-muted); font-style: italic; }
+  .frame-scroll { overflow: auto; background: var(--rubin-ivory-warm); }
+  iframe { border: 0; display: block; }
+  .card-open { display: block; padding: var(--space-sm) var(--space-lg); font-family: var(--font-mono);
+               font-size: var(--text-xs); text-transform: uppercase; letter-spacing: var(--letter-spacing-wide);
+               color: var(--pop-tomato); text-decoration: none; border-top: 1px solid var(--pop-hairline-soft); }
+  .card-open:hover { background: var(--pop-tomato-soft); }
+  .templates { border: 1px solid var(--pop-hairline); background: var(--rubin-ivory); padding: var(--space-xl); }
+  .templates ul { margin: var(--space-md) 0 0; padding-left: var(--space-lg); }
+  .templates li { font-size: var(--text-base); margin-bottom: var(--space-sm); }
+  .templates a { color: var(--pop-ink); text-decoration: none; }
+  .templates a:hover { color: var(--pop-tomato); }
+  .colophon { border-top: 1px solid var(--pop-hairline); margin-top: var(--space-4xl);
+              padding: var(--space-xl); text-align: center; font-family: var(--font-mono);
+              font-size: var(--text-xs); text-transform: uppercase; letter-spacing: var(--letter-spacing-caps);
+              color: var(--rubin-slate-muted); }
+  @media (min-width: 720px) { .card-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="pop-wordmark">kernel.chat</div>
+    <div class="tag">Design System · デザインシステム</div>
+    <div class="dateline"><span class="glyph">&#9733;</span>EDITORIAL GRAMMAR · 25 SPECIMEN CARDS · 17 COMPONENTS</div>
+  </header>
+  <nav class="navbar">
+          <a href="#g-brand">Brand</a>
+          <a href="#g-colors">Colors</a>
+          <a href="#g-type">Type</a>
+          <a href="#g-spacing">Spacing</a>
+          <a href="#g-motion">Motion</a>
+          <a href="#g-components">Components</a>
+          <a href="#g-spreads">Spreads</a>
+          <a href="#g-the-magazine">The Magazine</a>
+          <a href="#templates">Templates</a>
+  </nav>
+  <main>
+      <section class="group" id="g-brand">
+        <header class="group-head">
+          <span class="pop-kicker pop-kicker--tomato">BRAND · ブランド</span>
+          <hr class="pop-rule pop-rule--tomato pop-rule--short" />
+          <span class="group-count">4 cards</span>
+        </header>
+        <div class="card-grid">
+        <figure class="card" id="brand-system-glyph-grammar">
+          <figcaption>
+            <span class="card-name">System glyph &amp; grammar</span>
+            <span class="card-vp">700x180</span>
+            <p class="card-sub">The asterisk ★ — one recurring mark — plus monument &amp; rules in use</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:182px">
+            <iframe loading="lazy" src="guidelines/brand-glyph.html" width="700" height="180"
+                    title="System glyph &amp; grammar" style="width:700px;height:180px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/brand-glyph.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="brand-iconography">
+          <figcaption>
+            <span class="card-name">Iconography</span>
+            <span class="card-vp">700x180</span>
+            <p class="card-sub">Editorial PopIcons (1.75px stroke). The asterisk ★ is the one system glyph. No emoji.</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:182px">
+            <iframe loading="lazy" src="guidelines/brand-iconography.html" width="700" height="180"
+                    title="Iconography" style="width:700px;height:180px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/brand-iconography.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="brand-logo-mark">
+          <figcaption>
+            <span class="card-name">Logo &amp; mark</span>
+            <span class="card-vp">700x180</span>
+            <p class="card-sub">Italic K with the purple ink-drop seed · tomato wordmark</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:182px">
+            <iframe loading="lazy" src="guidelines/brand-logo.html" width="700" height="180"
+                    title="Logo &amp; mark" style="width:700px;height:180px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/brand-logo.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="brand-voice-copy">
+          <figcaption>
+            <span class="card-name">Voice &amp; copy</span>
+            <span class="card-vp">700x340</span>
+            <p class="card-sub">How the magazine writes — casing, bilingual, kickers, vocabulary. No emoji.</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:342px">
+            <iframe loading="lazy" src="guidelines/brand-voice.html" width="700" height="340"
+                    title="Voice &amp; copy" style="width:700px;height:340px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/brand-voice.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        </div>
+      </section>
+      <section class="group" id="g-colors">
+        <header class="group-head">
+          <span class="pop-kicker pop-kicker--tomato">COLORS · 色</span>
+          <hr class="pop-rule pop-rule--tomato pop-rule--short" />
+          <span class="group-count">4 cards</span>
+        </header>
+        <div class="card-grid">
+        <figure class="card" id="colors-brand-accents">
+          <figcaption>
+            <span class="card-name">Brand accents</span>
+            <span class="card-vp">700x150</span>
+            <p class="card-sub">Tomato (the one editorial spot) · the purple logo-mark seed</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:152px">
+            <iframe loading="lazy" src="guidelines/colors-brand.html" width="700" height="150"
+                    title="Brand accents" style="width:700px;height:150px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/colors-brand.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="colors-warm-neutrals">
+          <figcaption>
+            <span class="card-name">Warm neutrals</span>
+            <span class="card-vp">700x150</span>
+            <p class="card-sub">The Rubin ivory→slate ground. Never pure #fff.</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:152px">
+            <iframe loading="lazy" src="guidelines/colors-neutrals.html" width="700" height="150"
+                    title="Warm neutrals" style="width:700px;height:150px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/colors-neutrals.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="colors-semantic">
+          <figcaption>
+            <span class="card-name">Semantic</span>
+            <span class="card-vp">700x130</span>
+            <p class="card-sub">Status colours, each on its 8% wash</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:132px">
+            <iframe loading="lazy" src="guidelines/colors-semantic.html" width="700" height="130"
+                    title="Semantic" style="width:700px;height:130px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/colors-semantic.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="colors-paper-stocks">
+          <figcaption>
+            <span class="card-name">Paper stocks</span>
+            <span class="card-vp">700x170</span>
+            <p class="card-sub">Each warm ground signals an issue register</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:172px">
+            <iframe loading="lazy" src="guidelines/colors-stocks.html" width="700" height="170"
+                    title="Paper stocks" style="width:700px;height:170px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/colors-stocks.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        </div>
+      </section>
+      <section class="group" id="g-type">
+        <header class="group-head">
+          <span class="pop-kicker pop-kicker--tomato">TYPE · 書体</span>
+          <hr class="pop-rule pop-rule--tomato pop-rule--short" />
+          <span class="group-count">4 cards</span>
+        </header>
+        <div class="card-grid">
+        <figure class="card" id="type-body-prose-eb-garamond">
+          <figcaption>
+            <span class="card-name">Body prose — EB Garamond</span>
+            <span class="card-vp">700x230</span>
+            <p class="card-sub">20px serif, 1.6 line-height, old-style figures. Reads like print.</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:232px">
+            <iframe loading="lazy" src="guidelines/type-body.html" width="700" height="230"
+                    title="Body prose — EB Garamond" style="width:700px;height:230px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/type-body.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="type-display-eb-garamond">
+          <figcaption>
+            <span class="card-name">Display — EB Garamond</span>
+            <span class="card-vp">700x230</span>
+            <p class="card-sub">Headlines set tight &amp; large. Italic carries emphasis → tomato.</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:232px">
+            <iframe loading="lazy" src="guidelines/type-display.html" width="700" height="230"
+                    title="Display — EB Garamond" style="width:700px;height:230px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/type-display.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="type-meta-courier-prime">
+          <figcaption>
+            <span class="card-name">Meta — Courier Prime</span>
+            <span class="card-vp">700x230</span>
+            <p class="card-sub">All kickers, folios, banners, JP &amp; code. Uppercase, wide tracking.</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:232px">
+            <iframe loading="lazy" src="guidelines/type-meta.html" width="700" height="230"
+                    title="Meta — Courier Prime" style="width:700px;height:230px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/type-meta.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="type-type-scale">
+          <figcaption>
+            <span class="card-name">Type scale</span>
+            <span class="card-vp">700x250</span>
+            <p class="card-sub">Major Third (1.25) · body = 20px</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:252px">
+            <iframe loading="lazy" src="guidelines/type-scale.html" width="700" height="250"
+                    title="Type scale" style="width:700px;height:250px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/type-scale.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        </div>
+      </section>
+      <section class="group" id="g-spacing">
+        <header class="group-head">
+          <span class="pop-kicker pop-kicker--tomato">SPACING · 余白</span>
+          <hr class="pop-rule pop-rule--tomato pop-rule--short" />
+          <span class="group-count">2 cards</span>
+        </header>
+        <div class="card-grid">
+        <figure class="card" id="spacing-radii-depth">
+          <figcaption>
+            <span class="card-name">Radii &amp; depth</span>
+            <span class="card-vp">700x150</span>
+            <p class="card-sub">App chrome rounds &amp; lifts softly; editorial stays square with a hard tomato offset.</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:152px">
+            <iframe loading="lazy" src="guidelines/spacing-radii-depth.html" width="700" height="150"
+                    title="Radii &amp; depth" style="width:700px;height:150px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/spacing-radii-depth.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="spacing-spacing-scale">
+          <figcaption>
+            <span class="card-name">Spacing scale</span>
+            <span class="card-vp">700x150</span>
+            <p class="card-sub">4 → 64px · the rhythm both products share</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:152px">
+            <iframe loading="lazy" src="guidelines/spacing-scale.html" width="700" height="150"
+                    title="Spacing scale" style="width:700px;height:150px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/spacing-scale.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        </div>
+      </section>
+      <section class="group" id="g-motion">
+        <header class="group-head">
+          <span class="pop-kicker pop-kicker--tomato">MOTION · 動き</span>
+          <hr class="pop-rule pop-rule--tomato pop-rule--short" />
+          <span class="group-count">3 cards</span>
+        </header>
+        <div class="card-grid">
+        <figure class="card" id="motion-kernelloading-component">
+          <figcaption>
+            <span class="card-name">KernelLoading — component</span>
+            <span class="card-vp">700x300</span>
+            <p class="card-sub">The ink-drop constellation loader, mounted from the bundle</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:302px">
+            <iframe loading="lazy" src="components/motion/motion.card.html" width="700" height="300"
+                    title="KernelLoading — component" style="width:700px;height:300px"></iframe>
+          </div>
+          <a class="card-open" href="components/motion/motion.card.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="motion-ambient-accents">
+          <figcaption>
+            <span class="card-name">Ambient accents</span>
+            <span class="card-vp">700x230</span>
+            <p class="card-sub">The whole ambient budget: tomato rule breath + dateline marquee. Imperceptible by design.</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:232px">
+            <iframe loading="lazy" src="guidelines/motion-ambient.html" width="700" height="230"
+                    title="Ambient accents" style="width:700px;height:230px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/motion-ambient.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="motion-loading-constellation-entrance">
+          <figcaption>
+            <span class="card-name">Loading constellation &amp; entrance</span>
+            <span class="card-vp">700x300</span>
+            <p class="card-sub">Ink-on-paper loader (macro drift · micro tremor · thread pulse) + one-shot entrance</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:302px">
+            <iframe loading="lazy" src="guidelines/motion-loader.html" width="700" height="300"
+                    title="Loading constellation &amp; entrance" style="width:700px;height:300px"></iframe>
+          </div>
+          <a class="card-open" href="guidelines/motion-loader.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        </div>
+      </section>
+      <section class="group" id="g-components">
+        <header class="group-head">
+          <span class="pop-kicker pop-kicker--tomato">COMPONENTS · 部品</span>
+          <hr class="pop-rule pop-rule--tomato pop-rule--short" />
+          <span class="group-count">3 cards</span>
+        </header>
+        <div class="card-grid">
+        <figure class="card" id="components-editorial-primitives">
+          <figcaption>
+            <span class="card-name">Editorial primitives</span>
+            <span class="card-vp">700x440</span>
+            <p class="card-sub">Kicker · Banner · Monument · CatalogRow · Terminal</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:442px">
+            <iframe loading="lazy" src="components/editorial/editorial.card.html" width="700" height="440"
+                    title="Editorial primitives" style="width:700px;height:440px"></iframe>
+          </div>
+          <a class="card-open" href="components/editorial/editorial.card.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="components-ornaments-popshape-popicon">
+          <figcaption>
+            <span class="card-name">Ornaments — PopShape &amp; PopIcon</span>
+            <span class="card-vp">700x300</span>
+            <p class="card-sub">Geometric badges + editorial pictograms. Used sparingly.</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:302px">
+            <iframe loading="lazy" src="components/ornaments/ornaments.card.html" width="700" height="300"
+                    title="Ornaments — PopShape &amp; PopIcon" style="width:700px;height:300px"></iframe>
+          </div>
+          <a class="card-open" href="components/ornaments/ornaments.card.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="components-structure-magazineframe-colophon">
+          <figcaption>
+            <span class="card-name">Structure — MagazineFrame &amp; Colophon</span>
+            <span class="card-vp">700x620</span>
+            <p class="card-sub">Inner-page masthead + folio wrapper · the shared footer</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:622px">
+            <iframe loading="lazy" src="components/structure/structure.card.html" width="700" height="620"
+                    title="Structure — MagazineFrame &amp; Colophon" style="width:700px;height:620px"></iframe>
+          </div>
+          <a class="card-open" href="components/structure/structure.card.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        </div>
+      </section>
+      <section class="group" id="g-spreads">
+        <header class="group-head">
+          <span class="pop-kicker pop-kicker--tomato">SPREADS · 見開き</span>
+          <hr class="pop-rule pop-rule--tomato pop-rule--short" />
+          <span class="group-count">1 card</span>
+        </header>
+        <div class="card-grid">
+        <figure class="card" id="spreads-feature-spreads">
+          <figcaption>
+            <span class="card-name">Feature spreads</span>
+            <span class="card-vp">900x2600</span>
+            <p class="card-sub">Interview · Forecast · Dispatch · Review — the four editorial tools</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:622px">
+            <iframe loading="lazy" src="components/spreads/spreads.card.html" width="900" height="2600"
+                    title="Feature spreads" style="width:900px;height:2600px"></iframe>
+          </div>
+          <a class="card-open" href="components/spreads/spreads.card.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        </div>
+      </section>
+      <section class="group" id="g-the-magazine">
+        <header class="group-head">
+          <span class="pop-kicker pop-kicker--tomato">THE MAGAZINE · 雑誌</span>
+          <hr class="pop-rule pop-rule--tomato pop-rule--short" />
+          <span class="group-count">4 cards</span>
+        </header>
+        <div class="card-grid">
+        <figure class="card" id="the-magazine-cover-layouts">
+          <figcaption>
+            <span class="card-name">Cover layouts</span>
+            <span class="card-vp">1000x2960</span>
+            <p class="card-sub">classic · monument-hero · asymmetric-left · ledger-rule — with ornaments &amp; seals</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:622px">
+            <iframe loading="lazy" src="components/structure/covers.card.html" width="1000" height="2960"
+                    title="Cover layouts" style="width:1000px;height:2960px"></iframe>
+          </div>
+          <a class="card-open" href="components/structure/covers.card.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="the-magazine-the-issue-archive">
+          <figcaption>
+            <span class="card-name">The Issue Archive</span>
+            <span class="card-vp">1000x720</span>
+            <p class="card-sub">The back-catalog grid — click any spine to open its identity sheet</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:622px">
+            <iframe loading="lazy" src="ui_kits/archive/index.html" width="1000" height="720"
+                    title="The Issue Archive" style="width:1000px;height:720px"></iframe>
+          </div>
+          <a class="card-open" href="ui_kits/archive/index.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="the-magazine-inner-page-legal">
+          <figcaption>
+            <span class="card-name">Inner page (legal)</span>
+            <span class="card-vp">1000x720</span>
+            <p class="card-sub">MagazineFrame + Colophon + a KernelLoading splash — the inner-page system end to end</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:622px">
+            <iframe loading="lazy" src="ui_kits/inner-page/index.html" width="1000" height="720"
+                    title="Inner page (legal)" style="width:1000px;height:720px"></iframe>
+          </div>
+          <a class="card-open" href="ui_kits/inner-page/index.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        <figure class="card" id="the-magazine-the-magazine-issue-surface">
+          <figcaption>
+            <span class="card-name">The Magazine — issue surface</span>
+            <span class="card-vp">960x720</span>
+            <p class="card-sub">Cover → contents → feature spread → colophon · toggle issues in the colophon</p>
+          </figcaption>
+          <div class="frame-scroll" style="max-height:622px">
+            <iframe loading="lazy" src="ui_kits/magazine/index.html" width="960" height="720"
+                    title="The Magazine — issue surface" style="width:960px;height:720px"></iframe>
+          </div>
+          <a class="card-open" href="ui_kits/magazine/index.html" target="_blank" rel="noopener">open standalone →</a>
+        </figure>
+        </div>
+      </section>
+      <section class="group" id="templates">
+        <header class="group-head">
+          <span class="pop-kicker pop-kicker--tomato">TEMPLATES · ひな型</span>
+          <hr class="pop-rule pop-rule--tomato pop-rule--short" />
+        </header>
+        <div class="templates">
+          <ul>
+          <li><a href="templates/editorial-deck/EditorialDeck.dc.html" target="_blank" rel="noopener"><strong>Editorial Deck</strong> — A kernel.chat magazine-style slide deck — cover, section, contents, big-quote, comparison and colophon slides in the POPEYE editorial grammar.</a></li>
+          </ul>
+        </div>
+      </section>
+  </main>
+  <footer class="colophon">
+    kernel.chat — magazine for city coders · one tomato spot · two faces · one glyph &#9733;
+  </footer>
+</body>
+</html>

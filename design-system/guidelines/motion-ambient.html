@@ -1,0 +1,40 @@
+<!-- @dsCard group="Motion" viewport="700x230" name="Ambient accents" subtitle="The whole ambient budget: tomato rule breath + dateline marquee. Imperceptible by design." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--pop-cream); color: var(--pop-ink); }
+  .wrap { padding: 26px 30px; display: flex; flex-direction: column; gap: 22px; }
+  .lab { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pop-coffee); margin-bottom: 10px; }
+  .rule-demo { max-width: 320px; }
+  .marquee-demo .pop-marquee { max-width: 420px; }
+  .pop-marquee-item { font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.08em; color: var(--pop-coffee); }
+  .typing-demo { display: flex; align-items: center; gap: 12px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="rule-demo">
+      <div class="lab">Tomato rule breath · opacity 0.92↔1.00 · 3.3s (0.3Hz)</div>
+      <hr class="pop-rule pop-rule--tomato" />
+    </div>
+    <div class="marquee-demo">
+      <div class="lab">Dateline marquee · drifts ~4px/s</div>
+      <span class="pop-marquee">
+        <span class="pop-marquee-track">
+          <span class="pop-marquee-item">都会に住んで、コードで遊ぶための、自由なスタイルを作ろう。</span>
+          <span class="pop-marquee-item">都会に住んで、コードで遊ぶための、自由なスタイルを作ろう。</span>
+        </span>
+      </span>
+    </div>
+    <div class="typing-demo">
+      <div>
+        <div class="lab">Thinking dots · functional micro-motion</div>
+        <span class="pop-typing"><span></span><span></span><span></span></span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

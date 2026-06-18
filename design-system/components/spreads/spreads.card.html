@@ -1,0 +1,91 @@
+<!-- @dsCard group="Spreads" viewport="900x2600" name="Feature spreads" subtitle="Interview · Forecast · Dispatch · Review — the four editorial tools" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { margin: 0; background: var(--pop-ivory); }
+  .lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pop-coffee); padding: 18px 24px 0; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { InterviewSpread, ForecastSpread, DispatchSpread, ReviewSpread } = window.KernelChatDesignSystem_52d084;
+  const issue = { number: '371', month: 'APRIL', year: '2026' };
+  function Demo() {
+    return (
+      <div>
+        <div className="lbl">Interview</div>
+        <InterviewSpread
+          title="The night shift" titleJp="夜勤"
+          deck="A cinematographer who shoots in the dark explains the best light."
+          byline="Interview · THE EDITORS · 4,200 words"
+          subject={{ name: 'A. Mori', nameJp: '森', role: 'Cinematographer', roleJp: '撮影監督', location: 'Setagaya, Tokyo' }}
+          intro="She works tungsten — warm, low, forgiving. The screen is the only thing that has to be sharp."
+          exchanges={[
+            { q: 'Why shoot in the dark?', a: 'Because most of the frame should fall into shadow, and most of it wants to. You light the one thing that carries the shot and let the rest go.' },
+            { q: 'And the Kernel runs on the second monitor?', a: 'A quiet pool-blue cursor in the corner, all night. It is the only crew member who never asks to break — and the only one who remembers the shot list.' },
+          ]}
+          signoff="Filed at 4am, between setups, with the tungsten still warm."
+          issue={issue} stock="ivory"
+        />
+        <div className="lbl">Forecast</div>
+        <ForecastSpread
+          title="Six things that happen next" titleJp="次に起こる六つのこと"
+          deck="The forward projection — signals, horizons, and where we'd put our money."
+          byline="Forecast · THE EDITORS"
+          propositions={[
+            { n: '01', title: 'Agents file their own field notes', titleJp: '自己記録', body: ['The tool stops asking for instructions and starts logging what it did. The day becomes legible after the fact.'] },
+            { n: '02', title: 'The terminal becomes the cover', titleJp: '端末が表紙に', body: ['Quiet utility, loud frame. The command line is the product; the magazine is the wrapper.'] },
+          ]}
+          signoff="Filed against the next quarter, with low confidence and high conviction."
+          issue={{ number: '370', month: 'APRIL', year: '2026' }} stock="ink"
+        />
+        <div className="lbl">Dispatch</div>
+        <DispatchSpread
+          slug="WIRE · COMPUTE-USE SHIPS · 速報"
+          title="The desktop agent ships" titleJp="デスクトップ制御、出荷"
+          deck="Filed the night it landed, before the takes industrialised."
+          dateline="TOKYO — APRIL 12, 04:00 JST"
+          byline="Dispatch · THE EDITORS"
+          status="SHIPPED" filedAt="04:00 JST"
+          propositions={[
+            { n: '01', overline: 'WHAT HAPPENED', title: 'It opened at eight, before the coffee', body: ['And read the calendar unasked, because that is where the day starts.'] },
+            { n: '02', overline: 'WHAT IT MEANS', title: 'The restraint is the feature', body: ['A lesser tool fills every silence. This one waits, and answers the question you asked.'] },
+          ]}
+          bulletin="It kept its own field notes. We only had to read them."
+          terminator="end of dispatch · kernel.chat wire"
+          signoff="Filed from a fifth-floor walk-up, with the window open."
+          issue={{ number: '376', month: 'APRIL', year: '2026' }} stock="ledger"
+        />
+        <div className="lbl">Review</div>
+        <ReviewSpread
+          title="Five terminals, one desk" titleJp="五つの端末、一つの机"
+          deck="We tested the field and committed to a verdict."
+          byline="Review · THE EDITORS"
+          verdict="If you only run one, run the quiet one."
+          criteria={[
+            { n: '01', label: 'Restraint', weight: '30%', description: 'Does it fill the silence, or wait for you?' },
+            { n: '02', label: 'Memory', weight: '40%', description: 'Does it remember the shot list?' },
+            { n: '03', label: 'Footprint', weight: '30%' },
+          ]}
+          subjects={[
+            { rank: 1, name: 'kbot', read: 'The quiet utility core', score: '9.2', stars: 5, pros: ['Keeps its own field notes', 'Never asks to break'], cons: ['Too modest to demo well'], verdict: 'The one to keep.' },
+            { rank: 2, name: 'synth-prog', read: 'Loud, capable, tiring', score: '7.4', stars: 4, pros: ['Fast device packs'], cons: ['Fills every silence', 'Forgets the list'], verdict: 'Brilliant for an hour.' },
+          ]}
+          signoff="Filed from the lab bench, with the screen still warm."
+          issue={{ number: '378', month: 'APRIL', year: '2026' }} stock="ivory"
+        />
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

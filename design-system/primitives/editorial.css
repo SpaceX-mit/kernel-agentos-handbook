@@ -1,0 +1,205 @@
+/* ──────────────────────────────────────────────────────────────
+   kernel.chat — Editorial primitives (the POPEYE grammar)
+   Type-first magazine vocabulary built from EB Garamond + Courier
+   Prime and the --pop-* tokens. Drop these classes onto any surface
+   to give it the print-magazine register. Lifted verbatim from the
+   production site (src/index.css) so consuming designs match.
+
+   Nothing here is rounded-rectangle UI chrome — every primitive is
+   typographic: kickers, banners, folios, rules, monuments.
+   ────────────────────────────────────────────────────────────── */
+
+/* ── Box-sizing reset — matches the production site (src/index.css).
+   Without this, any container that combines max-width/width with
+   horizontal padding (frame, colophon, section inners) overflows. */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ── Rules — the hairline divider system ──────────────────────── */
+.pop-rule { border: 0; height: 1px; background: var(--pop-hairline); margin: 0; }
+.pop-rule--soft { background: var(--pop-hairline-soft); }
+.pop-rule--tomato {
+    height: 2px;
+    background: var(--issue-accent, var(--pop-tomato));
+    animation: pop-rule-breath 3.3s ease-in-out infinite;  /* imperceptible breath */
+}
+.pop-rule--short { max-width: 64px; margin: 0 auto; }
+
+@keyframes pop-rule-breath {
+    0%, 100% { opacity: 0.92; }
+    50%      { opacity: 1.00; }
+}
+
+/* ── Kicker — bracketed [CATEGORY · 日本語] mono label ─────────── */
+.pop-kicker {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--letter-spacing-caps);
+    text-transform: uppercase;
+    color: var(--pop-ink);
+}
+.pop-kicker::before { content: '[ '; opacity: 0.6; }
+.pop-kicker::after  { content: ' ]'; opacity: 0.6; }
+.pop-kicker--tomato { color: var(--issue-accent, var(--pop-tomato)); }
+
+/* ── Banner — reversed tomato tag, feature-flag style ─────────── */
+.pop-banner {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--letter-spacing-caps);
+    text-transform: uppercase;
+    background: var(--pop-tomato);
+    color: var(--pop-ivory);
+    padding: 4px 12px;
+    border-radius: 2px;
+    font-weight: 700;
+}
+.pop-banner--ink   { background: var(--pop-ink);   color: var(--pop-ivory); }
+.pop-banner--kraft { background: var(--pop-kraft); color: var(--pop-ink); }
+
+/* ── Hash chip — #tag ─────────────────────────────────────────── */
+.pop-hash { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--pop-coffee); letter-spacing: 0.02em; }
+.pop-hash::before { content: '#'; opacity: 0.5; }
+
+/* ── Catalog number — 001. (tabular) ──────────────────────────── */
+.pop-catalog-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-variant-numeric: tabular-nums;
+    color: var(--pop-tomato);
+    letter-spacing: 0.04em;
+}
+
+/* ── Price tag — ¥0 · BYOK ────────────────────────────────────── */
+.pop-price {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--letter-spacing-caps);
+    text-transform: uppercase;
+    color: var(--pop-ink);
+    opacity: 0.75;
+}
+
+/* ── Monument — stacked issue-number corner block ─────────────── */
+.pop-monument {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: 1.4;
+    letter-spacing: var(--letter-spacing-caps);
+    text-transform: uppercase;
+    color: var(--pop-ink);
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+}
+.pop-monument strong {
+    font-size: 2.4em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    color: var(--issue-accent, var(--pop-tomato));
+    font-variant-numeric: tabular-nums;
+    text-transform: none;
+}
+
+/* ── Bilingual lockup — Latin over Japanese ───────────────────── */
+.pop-bilingual { display: flex; flex-direction: column; gap: 6px; align-items: inherit; }
+.pop-bilingual > .pop-latin { font-family: var(--font-serif); font-weight: 600; letter-spacing: -0.005em; }
+.pop-bilingual > .pop-jp { font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.08em; color: var(--pop-coffee); opacity: 0.85; }
+
+/* ── Display headline — EB Garamond, tight, large ─────────────── */
+.pop-display { font-family: var(--font-serif); font-weight: 700; line-height: 0.98; letter-spacing: -0.025em; color: var(--pop-ink); }
+.pop-display em { font-style: italic; color: var(--issue-accent, var(--pop-tomato)); font-weight: 600; }
+
+/* ── Swash — italic coffee accent ─────────────────────────────── */
+.pop-swash { font-family: var(--font-serif); font-style: italic; font-weight: 500; letter-spacing: -0.01em; color: var(--pop-coffee); }
+.pop-swash--on-ink { color: var(--pop-sepia); }
+
+/* ── Stock grounds — whole section on warm paper ──────────────── */
+.pop-stock-cream  { background: var(--pop-cream);  color: var(--pop-ink); }
+.pop-stock-butter { background: var(--pop-butter); color: var(--pop-ink); }
+.pop-stock-kraft  { background: var(--pop-kraft);  color: var(--pop-ink); }
+.pop-stock-ivory  { background: var(--pop-ivory);  color: var(--pop-ink); }
+.pop-stock-ledger { background: var(--pop-ledger); color: var(--pop-ink); }
+.pop-stock-ink    { background: var(--pop-ink);    color: var(--pop-ivory); }
+
+/* ── Catalog row — 001. · ITEM · bilingual · tag · hairline ───── */
+.pop-row {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 16px;
+    align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--pop-hairline-soft);
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+}
+.pop-row:last-child { border-bottom: 0; }
+.pop-row:hover { background: var(--pop-tomato-soft); }
+.pop-row-label { font-weight: 600; }
+.pop-row-sub { display: block; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--pop-coffee); margin-top: 2px; letter-spacing: 0.04em; }
+
+/* ── Folio — page-number / byline / date strip ────────────────── */
+.pop-folio {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--letter-spacing-caps);
+    text-transform: uppercase;
+    color: var(--pop-ink);
+    opacity: 0.7;
+}
+
+/* ── System glyph — the one recurring mark (the asterisk ★) ───── */
+.pop-system-glyph { display: inline-flex; vertical-align: middle; align-items: center; color: var(--pop-tomato); margin-right: 6px; opacity: 0.95; }
+.pop-system-glyph svg { width: 0.85em; height: 0.85em; }
+
+/* ── Section header — editorial lockup used on every page ─────── */
+.pop-section-header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; margin-bottom: 56px; }
+.pop-section-title { font-family: var(--font-serif); font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; font-size: clamp(36px, 6vw, 72px); margin: 0; color: var(--pop-ink); }
+.pop-section-header--on-ink .pop-kicker { color: var(--pop-tomato); }
+.pop-section-title--on-ink { color: var(--pop-ivory); }
+
+/* ── Feature-JP — small mono Japanese subtitle ────────────────── */
+.pop-feature-jp { font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.12em; color: var(--pop-coffee); margin: 0; }
+.pop-section-header--on-ink .pop-feature-jp { color: var(--pop-sepia); }
+
+/* ── Wordmark — kernel.chat masthead ──────────────────────────── */
+.pop-wordmark {
+    font-family: var(--font-serif);
+    font-weight: 800;
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    color: var(--pop-tomato);
+    margin: 0;
+    text-shadow: 2px 2px 0 var(--pop-coffee), -1px -1px 0 rgba(255, 255, 255, 0.4);
+}
+.pop-wordmark-dot { color: var(--pop-ink); font-style: italic; }
+
+/* ── Terminal — mac-chrome window on ink ground ───────────────── */
+.pop-terminal {
+    background: #141210;
+    border: 1px solid var(--pop-coffee);
+    overflow: hidden;
+    box-shadow: var(--shadow-block);
+}
+.pop-terminal-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: rgba(0, 0, 0, 0.3); border-bottom: 1px solid var(--pop-coffee); }
+.pop-term-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.pop-term-dot--red    { background: var(--pop-term-red); }
+.pop-term-dot--yellow { background: var(--pop-term-yellow); }
+.pop-term-dot--green  { background: var(--pop-term-green); }
+.pop-terminal-title { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--pop-sepia); margin-left: 8px; letter-spacing: 0.08em; }
+.pop-terminal-body { padding: 20px 24px; font-family: var(--font-mono); font-size: var(--text-sm); line-height: 1.7; color: var(--pop-ivory); }
+.pop-terminal-line { color: var(--pop-ivory); }
+.pop-terminal-dim { color: rgba(250, 249, 246, 0.55); }
+.pop-terminal-prompt { color: var(--pop-tomato); margin-right: 8px; font-weight: 700; }
+.pop-terminal-agent { color: var(--pop-pool); }
+
+/* ── Reduced motion — the magazine is paper; honour stillness ──── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -1,0 +1,27 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Warm neutrals" subtitle="The Rubin ivory→slate ground. Never pure #fff." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--rubin-ivory); font-family: var(--font-mono); }
+  .ramp { display: flex; padding: 20px; gap: 0; }
+  .step { flex: 1; height: 96px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; border: 1px solid var(--rubin-ivory-dark); border-right: 0; }
+  .step:last-child { border-right: 1px solid var(--rubin-ivory-dark); }
+  .n { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .h { font-size: 10px; opacity: 0.7; }
+</style>
+</head>
+<body>
+  <div class="ramp">
+    <div class="step" style="background:var(--rubin-ivory)"><div class="n">ivory</div><div class="h">FAF9F6</div></div>
+    <div class="step" style="background:var(--rubin-ivory-warm)"><div class="n">ivory-warm</div><div class="h">F7F4EE</div></div>
+    <div class="step" style="background:var(--rubin-ivory-med)"><div class="n">ivory-med</div><div class="h">F0EEE6</div></div>
+    <div class="step" style="background:var(--rubin-ivory-dark)"><div class="n">ivory-dark</div><div class="h">E8E6DC</div></div>
+    <div class="step" style="background:var(--rubin-sepia)"><div class="n">sepia</div><div class="h">D4C5A9</div></div>
+    <div class="step" style="background:var(--rubin-slate-muted);color:#fff"><div class="n">slate-muted</div><div class="h">6B6966</div></div>
+    <div class="step" style="background:var(--rubin-slate);color:#fff"><div class="n">slate</div><div class="h">1F1E1D</div></div>
+  </div>
+</body>
+</html>

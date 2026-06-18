@@ -1,0 +1,49 @@
+/* ──────────────────────────────────────────────────────────────
+   kernel.chat — Ornaments (the "Illustrator layer")
+   <PopShape> (geometric marks) and <PopIcon> (editorial pictograms).
+   Inline SVGs that take currentColor; clamp() sizing is mobile-first.
+   Use SPARINGLY — editorial accents, never UI chrome.
+   ────────────────────────────────────────────────────────────── */
+
+/* ── PopShape ─────────────────────────────────────────────────── */
+.pop-shape { position: relative; display: inline-flex; align-items: center; justify-content: center; line-height: 0; }
+.pop-shape-svg { display: block; width: 100%; height: 100%; }
+.pop-shape--sm { width: clamp(12px, 3vw, 16px); height: clamp(12px, 3vw, 16px); }
+.pop-shape--md { width: clamp(20px, 4vw, 28px); height: clamp(20px, 4vw, 28px); }
+.pop-shape--lg { width: clamp(44px, 8vw, 64px); height: clamp(44px, 8vw, 64px); }
+.pop-shape--tomato  { color: var(--pop-tomato); }
+.pop-shape--ink     { color: var(--pop-ink); }
+.pop-shape--coffee  { color: var(--pop-coffee); }
+.pop-shape--ivory   { color: var(--pop-ivory); }
+.pop-shape--current { color: currentColor; }
+.pop-shape-label {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-weight: 700; letter-spacing: 0.02em;
+    font-size: clamp(11px, 2vw, 15px); color: currentColor;
+}
+/* On filled shapes the label reads as negative ink (ivory) */
+.pop-shape--circle.pop-shape--has-label .pop-shape-label,
+.pop-shape--square.pop-shape--has-label .pop-shape-label,
+.pop-shape--lozenge.pop-shape--has-label .pop-shape-label,
+.pop-shape--star.pop-shape--has-label .pop-shape-label,
+.pop-shape--triangle.pop-shape--has-label .pop-shape-label { color: var(--pop-ivory); }
+
+/* ── PopIcon ──────────────────────────────────────────────────── */
+.pop-icon { display: inline-flex; align-items: center; justify-content: center; line-height: 0; color: currentColor; }
+.pop-icon-svg { display: block; width: 100%; height: 100%; }
+.pop-icon--sm { width: clamp(14px, 3vw, 18px); height: clamp(14px, 3vw, 18px); }
+.pop-icon--md { width: clamp(20px, 4vw, 26px); height: clamp(20px, 4vw, 26px); }
+.pop-icon--lg { width: clamp(30px, 6vw, 40px); height: clamp(30px, 6vw, 40px); }
+
+/* ── PopPathText — writing along a path ───────────────────────── */
+.pop-path-text { display: inline-block; line-height: 0; }
+.pop-path-text-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.pop-path-text--sm { width: clamp(160px, 40vw, 240px); }
+.pop-path-text--md { width: clamp(220px, 55vw, 360px); }
+.pop-path-text--lg { width: clamp(300px, 80vw, 520px); }
+.pop-path-text-label { font-family: var(--font-serif); font-weight: 700; font-style: italic; letter-spacing: -0.01em; fill: currentColor; }
+.pop-path-text--tomato  { color: var(--pop-tomato); }
+.pop-path-text--ink     { color: var(--pop-ink); }
+.pop-path-text--coffee  { color: var(--pop-coffee); }
+.pop-path-text--ivory   { color: var(--pop-ivory); }
+.pop-path-text--current { color: currentColor; }

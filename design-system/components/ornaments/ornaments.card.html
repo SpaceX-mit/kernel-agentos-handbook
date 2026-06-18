@@ -1,0 +1,57 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Ornaments — PopShape & PopIcon" subtitle="Geometric badges + editorial pictograms. Used sparingly." -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { margin: 0; background: var(--pop-cream); color: var(--pop-ink); }
+  .pad { padding: 24px 28px; display: flex; flex-direction: column; gap: 22px; }
+  .lab { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pop-coffee); margin-bottom: 12px; }
+  .row { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+  .block + .block { border-top: 1px solid var(--pop-hairline-soft); padding-top: 18px; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const { PopShape, PopIcon } = window.KernelChatDesignSystem_52d084;
+  const shapes = ['circle','ring','dot','square','lozenge','triangle','star','slash'];
+  const icons = ['asterisk','arrow','sparkle','leaf','coffee','sun','moon','book','pin','quote','thread','pilcrow'];
+  function Demo() {
+    return (
+      <div className="pad">
+        <div className="block">
+          <div className="lab">PopShape — geometric marks</div>
+          <div className="row">
+            {shapes.map((n) => <PopShape key={n} name={n} size="lg" color="tomato" />)}
+          </div>
+          <div className="row" style={{ marginTop: 16 }}>
+            <PopShape name="ring" size="lg" label="01" />
+            <PopShape name="circle" size="lg" label="02" />
+            <PopShape name="lozenge" size="lg" label="NEW" />
+            <PopShape name="star" size="lg" label="★" />
+            <PopShape name="square" size="lg" color="coffee" label="03" />
+          </div>
+        </div>
+        <div className="block">
+          <div className="lab">PopIcon — editorial pictograms (1.75px)</div>
+          <div className="row" style={{ color: 'var(--pop-ink)' }}>
+            {icons.map((n) => <PopIcon key={n} name={n} size="lg" />)}
+          </div>
+          <div className="row" style={{ marginTop: 14 }}>
+            <PopIcon name="asterisk" size="lg" color="var(--pop-tomato)" />
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--pop-coffee)', letterSpacing: '0.1em' }}>← the one system glyph</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

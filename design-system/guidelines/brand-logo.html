@@ -1,0 +1,37 @@
+<!-- @dsCard group="Brand" viewport="700x180" name="Logo & mark" subtitle="Italic K with the purple ink-drop seed · tomato wordmark" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--rubin-ivory); }
+  .wrap { display: flex; align-items: center; gap: 40px; padding: 28px 36px; }
+  .marks { display: flex; align-items: center; gap: 24px; }
+  .marks img { display: block; }
+  .div { width: 1px; height: 80px; background: var(--rubin-ivory-dark); }
+  .lockup { display: flex; flex-direction: column; gap: 8px; }
+  .wm { font-family: var(--font-serif); font-weight: 800; font-size: 52px; line-height: 0.85; letter-spacing: -0.06em; color: var(--pop-tomato); text-shadow: 2px 2px 0 var(--pop-coffee), -1px -1px 0 rgba(255,255,255,0.4); }
+  .wm .dot { color: var(--pop-ink); font-style: italic; }
+  .wm2 { font-family: var(--font-serif); font-style: italic; font-size: 34px; letter-spacing: 0.06em; color: var(--rubin-slate); }
+  .seed { color: var(--rubin-primary); }
+  .lab { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rubin-slate-muted); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="marks">
+      <img src="../assets/logo-mark.png" width="76" height="76" alt="kernel mark" />
+      <div class="lockup">
+        <div class="wm2">kernel<span class="seed">.</span></div>
+        <div class="lab">app mark · italic K + seed</div>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="lockup">
+      <div class="wm">kernel<span class="dot">.</span>chat</div>
+      <div class="lab">magazine masthead · tomato + coffee shadow</div>
+    </div>
+  </div>
+</body>
+</html>

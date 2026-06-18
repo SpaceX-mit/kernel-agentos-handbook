@@ -1,0 +1,39 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Brand accents" subtitle="Tomato (the one editorial spot) · the purple logo-mark seed" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--rubin-ivory); font-family: var(--font-mono); }
+  .wrap { display: flex; gap: 14px; padding: 20px; }
+  .sw { flex: 1; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--rubin-ivory-dark); }
+  .chip { height: 84px; display: flex; align-items: flex-end; padding: 10px; }
+  .chip span { font-size: 11px; letter-spacing: 0.08em; color: #fff; }
+  .meta { padding: 8px 10px; background: var(--rubin-ivory); }
+  .name { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rubin-slate); }
+  .hex { font-size: 11px; color: var(--rubin-slate-muted); }
+  .note { font-size: 10px; color: var(--rubin-slate-muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="sw">
+      <div class="chip" style="background: var(--pop-tomato)"><span>spot</span></div>
+      <div class="meta"><div class="name">Tomato</div><div class="hex">#E24E1B</div><div class="note">the only editorial spot colour</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background: var(--pop-coffee)"><span>ink</span></div>
+      <div class="meta"><div class="name">Coffee</div><div class="hex">#6B4E3D</div><div class="note">secondary editorial ink</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background: var(--rubin-primary)"><span>mark</span></div>
+      <div class="meta"><div class="name">Mark purple</div><div class="hex">#6B5B95</div><div class="note">the ink-drop “K” logo seed</div></div>
+    </div>
+    <div class="sw">
+      <div class="chip" style="background: var(--rubin-accent)"><span>camel</span></div>
+      <div class="meta"><div class="name">Rubin accent</div><div class="hex">#8B7355</div><div class="note">warm secondary accent</div></div>
+    </div>
+  </div>
+</body>
+</html>

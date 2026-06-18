@@ -1,3 +1,5 @@
+/* Editorial primitives live in the design-system layer (loaded first so app rules can still override). */
+@import "./styles/editorial.css";
 :root {
     /* Rubin Palette */
     --rubin-ivory: #FAF9F6;
@@ -43,14 +45,37 @@
     --accent-on-dark: #A78BFA;
 
     /* Fonts */
-    --font-serif: "EB Garamond", serif;
-    --font-mono: "Courier Prime", monospace;
+    --font-serif: "EB Garamond", Georgia, serif;
+    --font-mono: "Courier Prime", "Courier New", monospace;
     /* Semantic aliases — use these in components */
     --font-prose: var(--font-serif);
     --font-meta: var(--font-mono);
     /* Legacy aliases (used in some components with inline fallbacks) */
     --rubin-serif: var(--font-serif);
     --rubin-mono: var(--font-mono);
+
+    /* ── Design-system reconciliation (kernel.chat Design System export) ──
+       Additive only: every token below is unreferenced in src/ today, so
+       these change nothing now — they are the "reach for these in
+       components" layer the design system standardises on. */
+    /* Semantic surface & text aliases */
+    --surface-page:    var(--rubin-ivory);
+    --surface-raised:  var(--rubin-ivory-med);
+    --surface-sunk:    var(--rubin-ivory-cool);
+    --surface-ink:     var(--pop-ink);
+    --border-hairline: var(--rubin-ivory-dark);
+    --text-primary:    var(--rubin-slate);
+    --text-secondary:  var(--rubin-slate-muted);
+    --text-on-ink:     var(--rubin-ivory);
+    --accent-spot:     var(--pop-tomato);
+    /* Font-weight scale — EB Garamond display goes to 800; meta stays 400/700 */
+    --weight-regular:  400;
+    --weight-medium:   500;
+    --weight-semibold: 600;
+    --weight-bold:     700;
+    --weight-black:    800;
+    /* Editorial offset block — the terminal's hard tomato drop shadow */
+    --shadow-block: 8px 8px 0 var(--pop-tomato);
 
     /* Font Size Scale — Major Third (1.25) */
     --text-xs: 0.64rem;    /* 12.8px — fine print */
@@ -29327,142 +29352,6 @@ h4 {
    inner route. .ka-page-loading stays; it's used by router Suspense fallbacks. */
 @media (max-width: 768px) { .ka-marketing-hero { padding: 80px 20px 60px; } .ka-marketing-section { padding: 40px 20px; } }
 
-/* ──────────────────────────────────────────────────────────────
-   POPEYE — editorial primitives
-   "Magazine for City Coders." Grammar over typeface. These
-   classes give any surface a print-magazine feel using only
-   EB Garamond + Courier Prime.
-   ────────────────────────────────────────────────────────────── */
-
-/* Hairline — the 0.5px Popeye rule */
-.pop-rule { border: 0; height: 1px; background: var(--pop-hairline); margin: 0; }
-.pop-rule--soft { background: var(--pop-hairline-soft); }
-.pop-rule--tomato {
-  height: 2px;
-  /* Inherits the issue's accent when inside an issue cover/spread;
-     falls back to the house tomato when used on landing/chrome. */
-  background: var(--issue-accent, var(--pop-tomato));
-  /* Ambient breath — the hairline is alive but imperceptibly so.
-     Matches the TikTok tomato-breath token (0.3Hz ≈ 3.33s period).
-     The site-wide prefers-reduced-motion rule disables this. */
-  animation: pop-rule-breath 3.3s ease-in-out infinite;
-}
-.pop-rule--short { max-width: 64px; margin: 0 auto; }
-
-@keyframes pop-rule-breath {
-  0%, 100% { opacity: 0.92; }
-  50%      { opacity: 1.00; }
-}
-
-/* Bracketed kicker: [CATEGORY] */
-.pop-kicker { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: var(--letter-spacing-caps); text-transform: uppercase; color: var(--pop-ink); }
-.pop-kicker::before { content: '[ '; opacity: 0.6; }
-.pop-kicker::after  { content: ' ]'; opacity: 0.6; }
-.pop-kicker--tomato { color: var(--issue-accent, var(--pop-tomato)); }
-
-/* Tomato banner tag — feature flag style, reversed rounded-corner box */
-.pop-banner { display: inline-block; font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: var(--letter-spacing-caps); text-transform: uppercase; background: var(--pop-tomato); color: var(--pop-ivory); padding: 4px 12px; border-radius: 2px; font-weight: 700; }
-.pop-banner--ink { background: var(--pop-ink); color: var(--pop-ivory); }
-.pop-banner--kraft { background: var(--pop-kraft); color: var(--pop-ink); }
-
-/* Hashtag chip — #feature style */
-.pop-hash { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--pop-coffee); letter-spacing: 0.02em; }
-.pop-hash::before { content: '#'; opacity: 0.5; }
-
-/* Numbered catalog item: 001. / 002. / 003. (tabular) */
-.pop-catalog-num { font-family: var(--font-mono); font-size: var(--text-sm); font-variant-numeric: tabular-nums; color: var(--pop-tomato); letter-spacing: 0.04em; }
-
-/* Price tag — ¥0 · BYOK / $0 / MIT */
-.pop-price { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: var(--letter-spacing-caps); text-transform: uppercase; color: var(--pop-ink); opacity: 0.75; }
-
-/* Issue-number monument — stacked corner block */
-.pop-monument { font-family: var(--font-mono); font-size: var(--text-xs); line-height: 1.4; letter-spacing: var(--letter-spacing-caps); text-transform: uppercase; color: var(--pop-ink); display: inline-flex; flex-direction: column; gap: 2px; text-align: left; }
-.pop-monument strong { font-size: 2.4em; font-weight: 700; letter-spacing: -0.02em; line-height: 0.95; color: var(--issue-accent, var(--pop-tomato)); font-variant-numeric: tabular-nums; text-transform: none; }
-
-/* Bilingual lockup — Latin over Japanese */
-.pop-bilingual { display: flex; flex-direction: column; gap: 6px; align-items: inherit; }
-.pop-bilingual > .pop-latin { font-family: var(--font-serif); font-weight: 600; letter-spacing: -0.005em; }
-.pop-bilingual > .pop-jp { font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.08em; color: var(--pop-coffee); opacity: 0.85; }
-
-/* Display headline — EB Garamond, tight, large */
-.pop-display { font-family: var(--font-serif); font-weight: 700; line-height: 0.98; letter-spacing: -0.025em; color: var(--pop-ink); }
-.pop-display em { font-style: italic; color: var(--issue-accent, var(--pop-tomato)); font-weight: 600; }
-
-/* Swash / italic accent */
-.pop-swash { font-family: var(--font-serif); font-style: italic; font-weight: 500; letter-spacing: -0.01em; color: var(--pop-coffee); }
-
-/* Stock — whole section on colored paper */
-.pop-stock-cream { background: var(--pop-cream); color: var(--pop-ink); }
-.pop-stock-butter { background: var(--pop-butter); color: var(--pop-ink); }
-.pop-stock-kraft { background: var(--pop-kraft); color: var(--pop-ink); }
-.pop-stock-ivory { background: var(--pop-ivory); color: var(--pop-ink); }
-.pop-stock-ink { background: var(--pop-ink); color: var(--pop-ivory); }
-.pop-stock-ledger { background: var(--pop-ledger, #F2EFE2); color: var(--pop-ink); }
-
-/* Catalog row — 001. · ITEM · bilingual · price · hairline */
-.pop-row { display: grid; grid-template-columns: 48px 1fr auto; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--pop-hairline-soft); font-family: var(--font-serif); font-size: var(--text-base); }
-.pop-row:last-child { border-bottom: 0; }
-.pop-row:hover { background: var(--pop-tomato-soft); }
-.pop-row-label { font-weight: 600; }
-.pop-row-sub { display: block; font-family: var(--font-mono); font-size: var(--text-xs); color: var(--pop-coffee); margin-top: 2px; letter-spacing: 0.04em; }
-
-/* Folio — page number, byline, date in corners */
-.pop-folio { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: var(--letter-spacing-caps); text-transform: uppercase; color: var(--pop-ink); opacity: 0.7; }
-
-/* System glyph — the kernel.chat folio mark.
-   Ratified ISSUE 370 as the magazine's single recurring small mark
-   (per docs/design-language.md, Editorial Neighbours → PAPERSKY).
-   One mark, used everywhere a folio appears: cover dateline, frame
-   masthead, frame footer. Tomato spot, vertically aligned with the
-   adjacent mono folio text, sized down so it punctuates rather than
-   announces. Renders the existing PopIcon `asterisk` SVG. */
-.pop-system-glyph { display: inline-flex; vertical-align: middle; align-items: center; color: var(--pop-tomato); margin-right: 6px; opacity: 0.95; }
-.pop-system-glyph .pop-icon-svg { width: 0.85em; height: 0.85em; }
-
-/* Marquee — horizontal ticker, magazine-style.
-   Used for the cover dateline JP tagline. Drifts at ~4px/second.
-   Duplicated content + translate loop so there is no visible seam.
-   Respects prefers-reduced-motion via the site-wide override at the
-   bottom of this stylesheet (animation-duration → 0.01ms freezes it). */
-.pop-marquee {
-  display: inline-block;
-  overflow: hidden;
-  max-width: 60ch;
-  vertical-align: middle;
-  mask-image: linear-gradient(to right, transparent, #000 12px, #000 calc(100% - 24px), transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 12px, #000 calc(100% - 24px), transparent);
-}
-.pop-marquee-track {
-  display: inline-flex;
-  gap: 3ch;
-  white-space: nowrap;
-  animation: pop-marquee-drift 64s linear infinite;
-  will-change: transform;
-}
-.pop-marquee-item { flex: 0 0 auto; }
-@keyframes pop-marquee-drift {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(calc(-100% - 3ch)); }
-}
-
-/* Terminal traffic-light dots — used inside .pop-terminal-bar */
-.pop-term-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-.pop-term-dot--red    { background: var(--pop-term-red); }
-.pop-term-dot--yellow { background: var(--pop-term-yellow); }
-.pop-term-dot--green  { background: var(--pop-term-green); }
-
-/* Section header — editorial lockup used on every page */
-.pop-section-header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; margin-bottom: 56px; }
-.pop-section-title { font-family: var(--font-serif); font-weight: 700; line-height: 0.95; letter-spacing: -0.025em; font-size: clamp(36px, 6vw, 72px); margin: 0; color: var(--pop-ink); }
-
-/* On-ink ground variants — for dark pages (Security, Bench, Field Report) */
-.pop-section-header--on-ink .pop-kicker { color: var(--pop-tomato); }
-.pop-section-title--on-ink { color: var(--pop-ivory); }
-.pop-swash--on-ink { color: var(--pop-sepia); }
-
-/* Feature-JP micro lockup — small Japanese subtitle */
-.pop-feature-jp { font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.12em; color: var(--pop-coffee); margin: 0; }
-.pop-section-header--on-ink .pop-feature-jp { color: var(--pop-sepia); }
 
 
 /* ──────────────────────────────────────────────────────────────

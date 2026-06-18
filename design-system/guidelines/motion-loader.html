@@ -1,0 +1,45 @@
+<!-- @dsCard group="Motion" viewport="700x300" name="Loading constellation & entrance" subtitle="Ink-on-paper loader (macro drift · micro tremor · thread pulse) + one-shot entrance" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; background: var(--rubin-ivory); color: var(--rubin-slate); }
+  .wrap { padding: 24px 30px; display: flex; gap: 40px; align-items: center; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .div { width: 1px; align-self: stretch; background: var(--rubin-ivory-dark); }
+  .lab { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rubin-slate-muted); }
+  .entrance { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+  .card { padding: 14px 18px; background: var(--pop-cream); border-left: 2px solid var(--pop-tomato); }
+  .card h4 { font-family: var(--font-serif); font-weight: 700; margin: 0; font-size: 18px; letter-spacing: -0.01em; }
+  .card p { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--pop-coffee); margin: 4px 0 0; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="col">
+      <div class="pop-constellation">
+        <svg class="pop-constellation-thread" viewBox="0 0 120 120" aria-hidden="true">
+          <line x1="30" y1="30" x2="90" y2="30" />
+          <line x1="90" y1="30" x2="90" y2="90" />
+          <line x1="90" y1="90" x2="30" y2="90" />
+          <line x1="30" y1="90" x2="30" y2="30" />
+        </svg>
+        <span class="pop-constellation-drop"></span>
+        <span class="pop-constellation-drop"></span>
+        <span class="pop-constellation-drop"></span>
+        <span class="pop-constellation-drop"></span>
+      </div>
+      <span class="lab">KernelLoading</span>
+    </div>
+    <div class="div"></div>
+    <div class="entrance">
+      <div class="lab" style="margin-bottom:4px">Entrance · settle + stagger (one-shot on load)</div>
+      <div class="card pop-anim-settle pop-anim-d1"><h4>The Urban Outdoors Review</h4><p>settle · 800ms</p></div>
+      <div class="card pop-anim-settle pop-anim-d2"><h4>After Hours</h4><p>+90ms</p></div>
+      <div class="card pop-anim-settle pop-anim-d3"><h4>The Audit</h4><p>+180ms</p></div>
+    </div>
+  </div>
+</body>
+</html>
