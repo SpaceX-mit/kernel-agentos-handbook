@@ -37,10 +37,29 @@
 .pop-interview-body p,
 .pop-forecast-intro,
 .pop-forecast-item-para,
+.pop-interview-body p,
 .pop-review-intro {
   text-align: justify;
   hyphens: auto;
   -webkit-hyphens: auto;
   text-wrap: pretty;
   font-variant-numeric: oldstyle-nums proportional-nums;
+}
+
+/* ── Mobile: ragged-right ───────────────────────────────────────
+ * Justification needs ~45+ characters per line to avoid rivers and
+ * loose word-spacing. A phone column (~393px) gives ~30-35, so below
+ * the editorial breakpoint prose goes ragged-right — the professional
+ * choice on a narrow measure. Hyphenation + oldstyle figures stay. */
+@media (max-width: 640px) {
+  .pop-essay-para,
+  .pop-dispatch-intro,
+  .pop-dispatch-item-para,
+  .pop-interview-intro,
+  .pop-interview-body p,
+  .pop-forecast-intro,
+  .pop-forecast-item-para,
+  .pop-review-intro {
+    text-align: left;
+  }
 }
