@@ -76,9 +76,10 @@
   color: var(--pop-tomato);
   margin: 0;
   font-feature-settings: 'ss01' 1, 'kern' 1;
-  text-shadow:
-    2px 2px 0 var(--pop-coffee),
-    -1px -1px 0 rgba(255, 255, 255, 0.4);
+  /* Tight letterpress emboss — the tomato ink pressed 1px into the
+     paper, in its own darker hue. Replaces the 2px offset + white
+     bevel-highlight, which read as a web drop-shadow rather than print. */
+  text-shadow: 1px 1px 0 rgba(110, 32, 12, 0.5);
 }
 
 .pop-wordmark-dot {
