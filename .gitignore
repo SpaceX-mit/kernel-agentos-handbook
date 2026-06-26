@@ -1,5 +1,6 @@
 node_modules
 /dist
+packages/*/dist/
 .env
 .env.local
 .DS_Store
@@ -8,6 +9,10 @@ legacy/
 .mcp.json
 .playwright-mcp/
 supabase/.temp/
+
+# Design sandbox — a standalone copy of the site for focused design work.
+# Lives in-repo for convenience but is NOT tracked (it duplicates src/).
+kernel-chat-site/
 
 # Non-site files (experiments, docs, scripts)
 *.pdf
