@@ -9,6 +9,7 @@ legacy/
 .mcp.json
 .playwright-mcp/
 supabase/.temp/
+**/supabase/.temp/
 
 # Design sandbox — a standalone copy of the site for focused design work.
 # Lives in-repo for convenience but is NOT tracked (it duplicates src/).
@@ -88,3 +89,42 @@ CREATIVE-BRIEF.md
 KERNEL_RESEARCH.md
 .kbot.json
 .kbot/
+
+# Personal / business work product — preserved on disk, never tracked
+.claude/AGENTIC_STANCE.md
+.claude/ANTHROPIC_FELLOWS_DRAFT.md
+.claude/ANTHROPIC_FELLOWS_REFERENCES_PLAN.md
+.claude/ANTHROPIC_FELLOWS_TRANSCRIBE.md
+.claude/DELIVERY_CARD.md
+.claude/EMERGENT_VENTURES_DRAFT.md
+.claude/EMERGENT_VENTURES_SUBMIT.md
+.claude/INTERVIEW_CHEAT.md
+.claude/OUTREACH.md
+.claude/OUTREACH_2026_05_18.md
+.claude/OUTREACH_FRONTIER.md
+.claude/OUTREACH_GENERATED.md
+.claude/OUTREACH_JAPAN.md
+.claude/STUDIO_MODE.md
+.claude/SUNO_DELIVERY.md
+.claude/SUNO_PREP.md
+.claude/SUNO_STANCE.md
+.claude/TIM_REPLY_DRAFT.md
+.claude/agents/stereoscope/
+job-search-austin/
+stereoscope-coffee/
+studio-offerings.html
+studio-offerings-email.html
+
+# Scratch / experimental music + render scripts (not product)
+packages/kbot/*.mts
+packages/kbot/overlay/
+packages/kbot/eval/baseline-v3.99.28.json
+packages/2027/*.mjs
+packages/2027/package-lock.json
+tools/boogie/
+tools/funk-song/
+tools/daemon-reports/
+tools/send-via-gmail.mjs
+ribbon-in-the-sky-rendition.md
+ribbon-in-the-sky-rendition.mid
+ribbon-in-the-sky-rendition.mp3
