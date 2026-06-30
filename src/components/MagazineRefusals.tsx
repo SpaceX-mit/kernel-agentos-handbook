@@ -37,7 +37,8 @@ export function MagazineRefusals({ variant = 'colophon' }: MagazineRefusalsProps
     <section className="pop-refusals pop-refusals--feature" aria-label="Editorial refusals">
       <header className="pop-refusals-header">
         <p className="pop-kicker">★ THE REFUSALS · 拒否</p>
-        <h2 className="pop-refusals-title">What kernel.chat doesn’t do.</h2>
+        {/* h1: the feature variant is only rendered on /refusals, where this is the page title */}
+        <h1 className="pop-refusals-title">What kernel.chat doesn’t do.</h1>
         <p className="pop-refusals-deck">
           Brands are defined more by what they refuse than by what they do.
           This is the magazine’s standing list — the negative space that

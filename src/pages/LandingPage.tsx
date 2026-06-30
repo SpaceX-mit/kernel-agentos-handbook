@@ -7,6 +7,7 @@ import { IssueFeature } from '../components/IssueFeature'
 import { IssueCredits } from '../components/IssueCredits'
 import { IssueColophon } from '../components/IssueColophon'
 import { PreviouslyStrip } from '../components/PreviouslyStrip'
+import { RunningHead } from '../components/RunningHead'
 import './LandingPage.css'
 
 /** The most recent issue before the current one — drives the
@@ -52,6 +53,8 @@ export function LandingPage() {
 
   return (
     <div className="pop-landing">
+
+      <RunningHead />
 
       <IssueCover
         issue={ISSUE}

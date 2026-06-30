@@ -1,0 +1,72 @@
+/* ──────────────────────────────────────────────────────────────
+   Running head — the publication's standing folio line at the top
+   of the cover. A hairline-ruled strip in Courier folio: the title
+   repeated at left, the standing links at right. Reads as a print
+   running head, never as web navigation — no fill, no sticky float,
+   no hamburger. Gives a reader landing cold on the cover an
+   immediate handhold to the rest of the publication. Hidden on
+   paper (the press edition carries its own masthead). Added for the
+   ISSUE 395 discoverability pass.
+   ────────────────────────────────────────────────────────────── */
+.pop-running-head {
+  background: var(--pop-ivory);
+  border-bottom: 1px solid var(--pop-hairline-soft);
+}
+
+.pop-running-head-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pop-running-head-brand {
+  font-family: var(--font-serif);
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--pop-tomato);
+  text-decoration: none;
+}
+
+.pop-running-head-links {
+  display: inline-flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.pop-running-head-links a {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--letter-spacing-caps);
+  text-transform: uppercase;
+  color: var(--pop-coffee);
+  opacity: 0.8;
+  text-decoration: none;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.pop-running-head-links a:hover {
+  color: var(--pop-tomato);
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .pop-running-head-inner { padding: 8px 20px; }
+  .pop-running-head-links { gap: 14px; }
+}
+
+@media (max-width: 420px) {
+  .pop-running-head-links { gap: 12px; }
+  .pop-running-head-links a { font-size: 10px; }
+}
+
+@media print {
+  .pop-running-head { display: none !important; }
+}

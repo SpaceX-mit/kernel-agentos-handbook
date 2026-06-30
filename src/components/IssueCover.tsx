@@ -140,7 +140,13 @@ export function IssueCover({ issue, footer }: IssueCoverProps) {
  */
 function CoverSeal({ label, date }: { label: string; date: string }) {
   return (
-    <div className="pop-cover-seal" aria-label={`${label} — ${date}`}>
+    <button
+      type="button"
+      className="pop-cover-seal"
+      onClick={() => window.print()}
+      aria-label="Read this issue on paper"
+      title="Read on paper"
+    >
       <svg
         viewBox="0 0 120 120"
         className="pop-cover-seal-svg"
@@ -194,7 +200,7 @@ function CoverSeal({ label, date }: { label: string; date: string }) {
           fill="currentColor"
         />
       </svg>
-    </div>
+    </button>
   )
 }
 

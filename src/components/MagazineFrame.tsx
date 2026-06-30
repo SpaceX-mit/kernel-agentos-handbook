@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import type { ReactNode } from 'react'
 import { ISSUE } from '../content/issue'
 import type { IssueRecord } from '../content/issues'
@@ -50,6 +51,13 @@ export function MagazineFrame({
   issue: issueOverride,
   children,
 }: MagazineFrameProps) {
+  // Editorial pages scroll naturally; the engine app keeps <body>
+  // fixed (index.css), so every framed page must opt out of the lock.
+  useEffect(() => {
+    document.body.classList.add('ka-scrollable-page')
+    return () => { document.body.classList.remove('ka-scrollable-page') }
+  }, [])
+
   const stockClass = `pop-stock-${stock}`
   const issue = issueOverride ?? ISSUE
   const folio = page === undefined ? kicker : `${kicker} · P. ${String(page).padStart(2, '0')}`
@@ -118,6 +126,9 @@ export function MagazineFrame({
               >
                 ← BACK TO COVER
               </button>
+              <a href="#/about" className="pop-folio pop-frame-back pop-frame-back--alt">
+                ABOUT →
+              </a>
               <a href="#/issues" className="pop-folio pop-frame-back pop-frame-back--alt">
                 ISSUES →
               </a>

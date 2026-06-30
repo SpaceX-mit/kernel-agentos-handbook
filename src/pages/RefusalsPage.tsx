@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { ISSUE } from '../content/issue'
 import { MagazineFrame } from '../components/MagazineFrame'
 import { MagazineRefusals } from '../components/MagazineRefusals'
 
@@ -21,7 +22,7 @@ export function RefusalsPage() {
         <MagazineRefusals variant="feature" />
         <div className="pop-refusals-page-foot">
           <Link to="/" className="pop-folio">
-            ← back to ISSUE 381
+            ← back to ISSUE {ISSUE.number}
           </Link>
           <Link to="/issues" className="pop-folio">
             back catalog →

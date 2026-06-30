@@ -37,6 +37,7 @@ export function IssueColophon({ issue }: IssueColophonProps) {
         <hr className="pop-rule pop-rule--soft" />
 
         <div className="pop-colophon-links">
+          <a href="#/about">About</a>
           <a href="#/issues">Back Issues</a>
           <a href="#/refusals">The Refusals</a>
           <a href="#/privacy">Privacy</a>
@@ -47,9 +48,21 @@ export function IssueColophon({ issue }: IssueColophonProps) {
           MIT · kernel.chat group · Published monthly.
           <br />
           <span className="pop-folio-fine">
+            ¥0 · BYOK <span className="pop-folio-gloss">(bring your own key)</span>
+          </span>
+          <br />
+          <span className="pop-folio-fine">
             Free because the work it reports on — provenance engineering at <span className="pop-mono">@kernel.chat/kbot-finance</span> — is the thing we sell.
           </span>
         </p>
+
+        <button
+          type="button"
+          className="pop-folio pop-colophon-back-to-top"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
+          ↑ Back to top
+        </button>
       </div>
     </footer>
   )

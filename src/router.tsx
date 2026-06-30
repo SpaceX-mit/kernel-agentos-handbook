@@ -15,6 +15,7 @@ const IssueBackCoverPage = lazyRetry(() => import('./pages/IssueBackCoverPage').
 const LaunchPage = lazyRetry(() => import('./pages/LaunchPage').then(m => ({ default: m.LaunchPage })))
 const RefusalsPage = lazyRetry(() => import('./pages/RefusalsPage').then(m => ({ default: m.RefusalsPage })))
 const PressroomPage = lazyRetry(() => import('./pages/PressroomPage').then(m => ({ default: m.PressroomPage })))
+const AboutPage = lazyRetry(() => import('./pages/AboutPage').then(m => ({ default: m.AboutPage })))
 
 function withErrorBoundary(element: React.ReactNode) {
   return <ErrorBoundary>{element}</ErrorBoundary>
@@ -74,6 +75,11 @@ export const router = createHashRouter([
       { path: 'pressroom', element: withErrorBoundary(
         <Suspense fallback={<div className="ka-page-loading">Loading the pressroom...</div>}>
           <PressroomPage />
+        </Suspense>
+      ) },
+      { path: 'about', element: withErrorBoundary(
+        <Suspense fallback={<div className="ka-page-loading">Loading...</div>}>
+          <AboutPage />
         </Suspense>
       ) },
       { path: 'privacy', element: withErrorBoundary(

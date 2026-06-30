@@ -106,12 +106,12 @@ export const ISSUE_395: IssueRecord = {
     byline: 'BY THE EDITORS · KERNEL.CHAT',
     stock: 'ivory',
 
-    slug: 'KERNEL.CHAT WIRE · 395 · V·26 · WEEK-IN-REVIEW · INK WET · THE FIELD ACTED',
+    slug: 'KERNEL.CHAT WIRE · 395 · V·26 · WEEK-IN-REVIEW · SEVEN STAKES · THE FIELD ACTED',
 
     dateline: 'THE WIRE DESK — MAY 28 — FILED AT THE CLOSE OF THE WEEK.',
 
     filedAt: '28 MAY 2026 · WEEK OF 18–24 MAY',
-    status: 'INK WET',
+    status: 'FILED',
 
     /** The week’s players, triangulated. */
     partners: [
@@ -127,7 +127,7 @@ export const ISSUE_395: IssueRecord = {
       text: '390 watched the substrate surface as a glyph a billion users could tap. 395 is the week the surface stopped waiting to be tapped.',
     },
 
-    intro: 'There is no single launch to file against this week. There are four, in four different rooms, and the reason they belong on one wire is that they rhyme. A model proved a piece of mathematics nobody asked it to. A consumer assistant was rebuilt around acting rather than replying. The advertisement moved inside the answer. And the regulators were handed a key to the building before the next models ship. Read together, the week is the clearest evidence yet that the word "assistant" is becoming a historical term. We filed these the same week, before the takes hardened. Some will be wrong by August. That is the cost of filing while the ink is wet.',
+    intro: 'There is no single launch to file against this week. There are four, in four different rooms, and the reason they belong on one wire is that they rhyme. A model proved a piece of mathematics nobody asked it to. A consumer assistant was rebuilt around acting rather than replying. The advertisement moved inside the answer. And the regulators were handed a key to the building before the next models ship. Read together, the week is the clearest evidence yet that the word "assistant" is becoming a historical term. We filed these the same week, before the takes hardened. Some will be wrong by August. That is the cost of filing while the story is still breaking.',
 
     propositions: [
       {
@@ -204,7 +204,7 @@ export const ISSUE_395: IssueRecord = {
         titleJp: '残る希少',
         body: [
           'First proofs, first drafts, first mockups, first thousand options — all cheaper this week than last. What did not get cheaper is the judgement to know which of the four launches actually matters, which model behind the headline number is the one your work depends on, and which "helpful" answer is quietly selling you something. The week made generation free and made discernment more expensive by exactly the same amount.',
-          'That is the through-line every tool-shift leaves behind, and the one this magazine keeps filing under the same word: taste survives. The hand that can look at a week like this and say plainly which line to watch — the proof, not the press release; the act, not the answer; the seam, not the sentence — is worth more at the close of this week than it was at the open. We will know which of these seven held by August. Until then the field is acting, the ink is wet, and the line it draws is the only thing worth watching.',
+          'That is the through-line every tool-shift leaves behind, and the one this magazine keeps filing under the same word: taste survives. The hand that can look at a week like this and say plainly which line to watch — the proof, not the press release; the act, not the answer; the seam, not the sentence — is worth more at the close of this week than it was at the open. We will know which of these seven held by August. Until then the field is acting, the stakes are clear, and the line it draws is the only thing worth watching.',
         ],
       },
     ],

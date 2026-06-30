@@ -124,6 +124,25 @@
   100% { transform: translateX(calc(-100% - 3ch)); }
 }
 
+/* Marquee — responsive cadence. The track is sized in ch and loops
+   over a fixed 64s, but the viewport isn't fixed: on a phone the
+   60ch field overflows and the loop reads as a stall. Shrink the
+   field and the loop together so the perceived ~4px/s drift holds
+   at every width. (ISSUE 395 review — mobile ticker fix.) */
+@media (max-width: 768px) {
+  .pop-marquee { max-width: 52ch; }
+  .pop-marquee-track { animation-duration: 48s; }
+}
+@media (max-width: 640px) {
+  .pop-marquee { max-width: 40ch; }
+  .pop-marquee-track { animation-duration: 32s; }
+}
+
+/* Folio gloss — a quiet parenthetical on a folio line, set finer
+   than the line it qualifies. Expands an abbreviation (e.g. BYOK)
+   for a cold reader without raising it to display weight. */
+.pop-folio-gloss { opacity: 0.6; font-size: 0.9em; }
+
 /* Terminal traffic-light dots — used inside .pop-terminal-bar */
 .pop-term-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
 .pop-term-dot--red    { background: var(--pop-term-red); }

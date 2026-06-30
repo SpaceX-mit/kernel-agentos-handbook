@@ -186,11 +186,12 @@
   grid-template-columns: auto 1fr auto;
   gap: 16px;
   align-items: center;
-  margin-top: 24px;
-  padding: 14px 18px;
+  margin-top: 36px;
+  padding: 18px 22px;
+  min-height: 56px;
   background: var(--pop-ivory);
   border: 1px solid var(--pop-hairline-soft);
-  border-left: 3px solid var(--pop-tomato);
+  border-left: 4px solid var(--pop-tomato);
   text-decoration: none;
   color: var(--pop-ink);
   transition: background 0.2s, transform 0.2s;
@@ -583,6 +584,30 @@
 .pop-colophon-copy {
   margin: 0;
   opacity: 0.6;
+}
+
+/* Back-to-top folio — a quiet end-of-page affordance for long issue
+   scrolls. A folio mark, not a button face: no fill, no border, just
+   Courier caps that warm to tomato on hover. (ISSUE 395 review.) */
+.pop-colophon-back-to-top {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: color 0.2s, opacity 0.2s;
+}
+
+.pop-colophon-back-to-top:hover {
+  opacity: 1;
+  color: var(--pop-tomato);
 }
 
 @media (max-width: 768px) {
@@ -1014,8 +1039,25 @@
   color: var(--issue-accent, var(--pop-tomato));
   transform: rotate(-8deg);
   z-index: 2;
-  pointer-events: none;
   opacity: 0.92;
+  /* The seal is the press mark — and the press control. Clicking it
+     opens the print dialog ("THE PRESS EDITION"; see @media print in
+     src/index.css). Reset the button chrome so only the stamp shows. */
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+
+.pop-cover-seal:hover { opacity: 1; transform: rotate(-8deg) scale(1.04); }
+.pop-cover-seal:active { transform: rotate(-8deg) scale(0.98); }
+.pop-cover-seal:focus-visible {
+  outline: 2px solid var(--issue-accent, var(--pop-tomato));
+  outline-offset: 4px;
+  opacity: 1;
 }
 
 .pop-cover-seal-svg {
@@ -1047,8 +1089,25 @@
     width: 76px;
     transform: rotate(-6deg);
   }
+  .pop-cover-seal:hover { transform: rotate(-6deg) scale(1.04); }
+  .pop-cover-seal:active { transform: rotate(-6deg) scale(0.98); }
   .pop-cover-seal-label { font-size: 8px; letter-spacing: 0.18em; }
   .pop-cover-seal-date { font-size: 12px; }
+}
+
+/* Smallest phones — pull the seal in so it never clips the right
+   edge against .pop-landing's overflow-x:hidden, and shorten the
+   dateline marquee when the seal is present so the drifting tagline
+   clears the stamp instead of running under it. */
+@media (max-width: 480px) {
+  .pop-cover-seal {
+    top: 20px;
+    right: 12px;
+    width: 64px;
+  }
+  .pop-cover--has-seal .pop-marquee {
+    max-width: 24ch;
+  }
 }
 
 /* ────────────────────────────────────────────────────────────
