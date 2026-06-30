@@ -186,7 +186,7 @@ register is expressed by SWITCHING the accent, not adding one.
 
 Create `src/content/issues/<N>.ts` following the shape of the most
 recent same-format issue (`371.ts` for essay-as-profile,
-`369.ts` for essay-as-field-piece, `368.ts` for dispatch,
+`369.ts` for essay-as-field-piece, `391.ts` for dispatch,
 `370.ts` for forecast, `365.ts` for interview). Every issue needs:
 
 - A leading block comment explaining the identity decisions
