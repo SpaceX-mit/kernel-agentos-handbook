@@ -1,0 +1,410 @@
+[
+  {
+    "model": "hermes3:8b",
+    "jsonRate": 1,
+    "rows16Rate": 1,
+    "hatRate": 1,
+    "placement": 0.8,
+    "avgMs": 5203.6107334,
+    "score": 92,
+    "probes": [
+      {
+        "prompt": "classic boom-bap hip hop with a dusty swung groove",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 7992.359458
+      },
+      {
+        "prompt": "four-on-the-floor house, driving and clubby",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 4047.04975
+      },
+      {
+        "prompt": "modern trap with rolling hi-hats and an 808",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 4041.242917
+      },
+      {
+        "prompt": "afrobeats groove with shaker and percussion",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 6844.641875
+      },
+      {
+        "prompt": "techno, relentless straight kick",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 3092.759667
+      }
+    ]
+  },
+  {
+    "model": "phi4:14b",
+    "jsonRate": 1,
+    "rows16Rate": 1,
+    "hatRate": 1,
+    "placement": 0.8,
+    "avgMs": 13536.652341599998,
+    "score": 92,
+    "probes": [
+      {
+        "prompt": "classic boom-bap hip hop with a dusty swung groove",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 17959.570917
+      },
+      {
+        "prompt": "four-on-the-floor house, driving and clubby",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 7722.176541
+      },
+      {
+        "prompt": "modern trap with rolling hi-hats and an 808",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 19740.052375
+      },
+      {
+        "prompt": "afrobeats groove with shaker and percussion",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 14797.438875
+      },
+      {
+        "prompt": "techno, relentless straight kick",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 7464.023
+      }
+    ]
+  },
+  {
+    "model": "mistral:7b",
+    "jsonRate": 1,
+    "rows16Rate": 1,
+    "hatRate": 1,
+    "placement": 0.7,
+    "avgMs": 9186.3540416,
+    "score": 88,
+    "probes": [
+      {
+        "prompt": "classic boom-bap hip hop with a dusty swung groove",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 14208.037042
+      },
+      {
+        "prompt": "four-on-the-floor house, driving and clubby",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0.5,
+        "latencyMs": 9089.460875
+      },
+      {
+        "prompt": "modern trap with rolling hi-hats and an 808",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 6130.653041
+      },
+      {
+        "prompt": "afrobeats groove with shaker and percussion",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 12464.434625
+      },
+      {
+        "prompt": "techno, relentless straight kick",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 4039.184625
+      }
+    ]
+  },
+  {
+    "model": "gemma4:latest",
+    "jsonRate": 1,
+    "rows16Rate": 0.8,
+    "hatRate": 1,
+    "placement": 0.7,
+    "avgMs": 24792.6445498,
+    "score": 85,
+    "probes": [
+      {
+        "prompt": "classic boom-bap hip hop with a dusty swung groove",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0.5,
+        "latencyMs": 32035.921791
+      },
+      {
+        "prompt": "four-on-the-floor house, driving and clubby",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 21926.754916
+      },
+      {
+        "prompt": "modern trap with rolling hi-hats and an 808",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 14345.16075
+      },
+      {
+        "prompt": "afrobeats groove with shaker and percussion",
+        "jsonOk": true,
+        "rows16": false,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 29028.541917
+      },
+      {
+        "prompt": "techno, relentless straight kick",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 26626.843375
+      }
+    ]
+  },
+  {
+    "model": "qwen2.5-coder:14b",
+    "jsonRate": 1,
+    "rows16Rate": 1,
+    "hatRate": 1,
+    "placement": 0.6,
+    "avgMs": 18590.9538416,
+    "score": 84,
+    "probes": [
+      {
+        "prompt": "classic boom-bap hip hop with a dusty swung groove",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 23682.1495
+      },
+      {
+        "prompt": "four-on-the-floor house, driving and clubby",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 12439.322084
+      },
+      {
+        "prompt": "modern trap with rolling hi-hats and an 808",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 17087.019166
+      },
+      {
+        "prompt": "afrobeats groove with shaker and percussion",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 27309.7745
+      },
+      {
+        "prompt": "techno, relentless straight kick",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 12436.503958
+      }
+    ]
+  },
+  {
+    "model": "gemma3:12b",
+    "jsonRate": 1,
+    "rows16Rate": 1,
+    "hatRate": 1,
+    "placement": 0.6,
+    "avgMs": 15809.470858199998,
+    "score": 84,
+    "probes": [
+      {
+        "prompt": "classic boom-bap hip hop with a dusty swung groove",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 18611.5335
+      },
+      {
+        "prompt": "four-on-the-floor house, driving and clubby",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 15018.767166
+      },
+      {
+        "prompt": "modern trap with rolling hi-hats and an 808",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 15374.522958
+      },
+      {
+        "prompt": "afrobeats groove with shaker and percussion",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 18336.709292
+      },
+      {
+        "prompt": "techno, relentless straight kick",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 11705.821375
+      }
+    ]
+  },
+  {
+    "model": "qwen2.5-coder:7b",
+    "jsonRate": 1,
+    "rows16Rate": 0.8,
+    "hatRate": 1,
+    "placement": 0.6,
+    "avgMs": 8821.730183399999,
+    "score": 81,
+    "probes": [
+      {
+        "prompt": "classic boom-bap hip hop with a dusty swung groove",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 15482.787834
+      },
+      {
+        "prompt": "four-on-the-floor house, driving and clubby",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 6216.355625
+      },
+      {
+        "prompt": "modern trap with rolling hi-hats and an 808",
+        "jsonOk": true,
+        "rows16": false,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 6737.038416
+      },
+      {
+        "prompt": "afrobeats groove with shaker and percussion",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 8995.756708
+      },
+      {
+        "prompt": "techno, relentless straight kick",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 6676.712334
+      }
+    ]
+  },
+  {
+    "model": "llama3.1:8b",
+    "jsonRate": 1,
+    "rows16Rate": 0.8,
+    "hatRate": 0.8,
+    "placement": 0.6,
+    "avgMs": 5626.1121416000005,
+    "score": 78,
+    "probes": [
+      {
+        "prompt": "classic boom-bap hip hop with a dusty swung groove",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 8509.031792
+      },
+      {
+        "prompt": "four-on-the-floor house, driving and clubby",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 4409.9075
+      },
+      {
+        "prompt": "modern trap with rolling hi-hats and an 808",
+        "jsonOk": true,
+        "rows16": false,
+        "hasHat": true,
+        "placement": 0,
+        "latencyMs": 5802.177208
+      },
+      {
+        "prompt": "afrobeats groove with shaker and percussion",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": false,
+        "placement": 1,
+        "latencyMs": 5676.271166
+      },
+      {
+        "prompt": "techno, relentless straight kick",
+        "jsonOk": true,
+        "rows16": true,
+        "hasHat": true,
+        "placement": 1,
+        "latencyMs": 3733.173042
+      }
+    ]
+  }
+]

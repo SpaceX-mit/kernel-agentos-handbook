@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pattern Drop</title>
+  <style>
+    :root {
+      --bg: #15151a; --panel: #1d1d24; --line: #33333f;
+      --ink: #e9e7e0; --dim: #8b8a96; --accent: #6B5B95;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      background: var(--bg); color: var(--ink);
+      font: 12px/1.45 -apple-system, "Helvetica Neue", Arial, sans-serif;
+      padding: 14px 16px; user-select: none;
+    }
+    h1 {
+      font: 600 11px/1 "Courier New", monospace; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--dim); margin: 0 0 12px;
+    }
+    .row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+    .row label { width: 74px; color: var(--dim); flex: none; }
+    .row .val { width: 34px; text-align: right; font-variant-numeric: tabular-nums; }
+    textarea, select, input[type="range"] { width: 100%; }
+    textarea {
+      background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+      border-radius: 5px; padding: 8px; resize: none; height: 64px;
+      font: 12px/1.4 -apple-system, sans-serif;
+    }
+    select {
+      background: var(--panel); color: var(--ink);
+      border: 1px solid var(--line); border-radius: 5px; padding: 5px 7px;
+    }
+    input[type="range"] { accent-color: var(--accent); height: 18px; }
+    .hint { color: #5a5965; font-size: 11px; margin: 2px 0 10px; }
+    .actions { display: flex; gap: 8px; margin-top: 14px; }
+    button {
+      flex: 1; padding: 9px 0; border-radius: 6px; cursor: pointer;
+      font: 600 12px/1 -apple-system, sans-serif; border: 1px solid var(--line);
+      background: var(--panel); color: var(--ink);
+    }
+    button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    button.ghost { color: var(--dim); }
+  </style>
+</head>
+
+<body>
+  <h1>kbot &middot; Pattern Drop (AI)</h1>
+
+  <textarea id="prompt" placeholder="Describe the groove — e.g. 'dusty boom-bap with swung ghost snares and a lazy kick'"></textarea>
+  <div class="hint">Generated locally by Ollama. No data leaves your machine.</div>
+
+  <div class="row">
+    <label>Model</label>
+    <!-- Ordered by eval/run.ts score (best groove + fastest first). -->
+    <select id="model">
+      <option value="hermes3:8b" selected>hermes3:8b (best · fast)</option>
+      <option value="mistral:7b">mistral:7b (fast)</option>
+      <option value="phi4:14b">phi4:14b (best · slower)</option>
+      <option value="gemma3:12b">gemma3:12b</option>
+      <option value="qwen2.5-coder:14b">qwen2.5-coder:14b</option>
+      <option value="qwen2.5-coder:7b">qwen2.5-coder:7b</option>
+      <option value="llama3.1:8b">llama3.1:8b</option>
+    </select>
+  </div>
+  <div class="row"><label>Bars</label><input type="range" id="bars" min="1" max="4" step="1" value="1" /><span class="val" id="bars-v">1</span></div>
+  <div class="row"><label>Swing</label><input type="range" id="swing" min="0" max="100" value="20" /><span class="val" id="swing-v">20</span></div>
+  <div class="row"><label>Humanize</label><input type="range" id="humanize" min="0" max="100" value="30" /><span class="val" id="humanize-v">30</span></div>
+
+  <div class="actions">
+    <button class="ghost" id="cancel">Cancel</button>
+    <button class="primary" id="generate">Generate</button>
+  </div>
+
+  <script>
+    const wk = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.live;
+    const wv2 = window.chrome && window.chrome.webview;
+    function send(msg) { if (wk) wk.postMessage(msg); else if (wv2) wv2.postMessage(msg); }
+    function closeWith(result) { send({ method: "close_and_send", params: [JSON.stringify(result)] }); }
+
+    const $ = (id) => document.getElementById(id);
+    ["bars", "swing", "humanize"].forEach((id) => {
+      $(id).addEventListener("input", (e) => { $(id + "-v").textContent = e.target.value; });
+    });
+
+    function config() {
+      return {
+        prompt: $("prompt").value,
+        model: $("model").value,
+        bars: +$("bars").value,
+        swing: +$("swing").value / 100,
+        humanize: +$("humanize").value / 100,
+      };
+    }
+    $("generate").addEventListener("click", () => closeWith(config()));
+    $("cancel").addEventListener("click", () => closeWith(null));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeWith(null);
+      if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) closeWith(config());
+    });
+    document.addEventListener("DOMContentLoaded", () => $("prompt").focus());
+  </script>
+</body>
+
+</html>

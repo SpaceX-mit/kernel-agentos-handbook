@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Styled Rhythm Generator</title>
+  <style>
+    :root {
+      --bg: #131318;
+      --panel: #1b1b22;
+      --panel-2: #232330;
+      --line: #313140;
+      --line-2: #3d3d4e;
+      --ink: #ecebe4;
+      --dim: #8b8a96;
+      --faint: #5a5965;
+      --accent: #6B5B95;
+      --gold: #b08948;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      background: var(--bg); color: var(--ink); user-select: none;
+      font: 12px/1.4 -apple-system, "Helvetica Neue", Arial, sans-serif;
+      display: flex; flex-direction: column; height: 100%;
+    }
+    /* ---- Header ---- */
+    .head {
+      flex: none; display: flex; align-items: center; gap: 10px;
+      padding: 9px 16px; border-bottom: 1px solid var(--line); background: var(--bg);
+    }
+    .logo { width: 16px; height: 16px; border-radius: 4px; background: linear-gradient(135deg, var(--accent), var(--gold)); flex: none; }
+    .head .title { font: 700 12px/1 "Courier New", monospace; letter-spacing: 0.12em; text-transform: uppercase; }
+    .head .sub { color: var(--faint); font-size: 11px; }
+    .head .spacer { flex: 1; }
+    .head .seed { color: var(--faint); font: 11px "Courier New", monospace; }
+
+    /* ---- Control bar ---- */
+    .bar {
+      flex: none; display: flex; align-items: center; gap: 16px;
+      padding: 9px 16px; border-bottom: 1px solid var(--line); background: var(--panel);
+      flex-wrap: wrap;
+    }
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field > span { font: 600 9px/1 "Courier New", monospace; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); }
+    .field.grow { flex: 1; min-width: 150px; }
+    select {
+      background: var(--panel-2); color: var(--ink); border: 1px solid var(--line);
+      border-radius: 6px; padding: 6px 9px; font: 600 12px/1 -apple-system, sans-serif;
+    }
+    .num { display: flex; align-items: center; gap: 6px; }
+    .num input { width: 46px; background: var(--panel-2); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px; text-align: center; font: 600 12px/1 sans-serif; }
+    input[type="range"] { accent-color: var(--accent); height: 16px; width: 100%; }
+    .feel-val { color: var(--ink); font-variant-numeric: tabular-nums; min-width: 28px; text-align: right; }
+    .feel { display: flex; align-items: center; gap: 7px; }
+    .feel .ends { color: var(--faint); font-size: 9px; }
+    .btn {
+      padding: 8px 14px; border-radius: 7px; cursor: pointer; border: 1px solid var(--line);
+      background: var(--panel-2); color: var(--ink); font: 600 11px/1 sans-serif;
+    }
+    .btn:hover { border-color: var(--accent); }
+    .btn.reshuffle { background: #6e5a2e; border-color: var(--gold); color: #f5e6c8; }
+
+    /* ---- Hero MIDI preview ---- */
+    .preview { flex: 1 1 auto; overflow: auto; padding: 8px 16px; min-height: 120px; }
+    .preview .cap { font: 600 9px/1 "Courier New", monospace; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); margin-bottom: 7px; }
+    .lane { display: flex; align-items: center; gap: 8px; margin: 3px 0; }
+    .lane .ln { width: 74px; flex: none; font-size: 10px; color: var(--dim); text-align: right; white-space: nowrap; overflow: hidden; }
+    .lane.off .ln { color: var(--faint); }
+    .lane .cells { flex: 1; display: grid; gap: 2px; height: 18px; align-items: end; }
+    .gc { height: 100%; background: #21212b; border-radius: 1px; position: relative; overflow: hidden; }
+    .gc.beat { background: #2a2a36; }
+    .gc.barline { box-shadow: inset 1px 0 0 var(--line-2); }
+    .gc .v { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 1px; }
+
+    /* ---- Mixer ---- */
+    .mixer {
+      flex: none; display: flex; gap: 6px; padding: 10px 16px;
+      border-top: 1px solid var(--line); background: var(--panel); overflow-x: auto;
+    }
+    .ch { flex: 1; min-width: 78px; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .ch .onoff { width: 26px; height: 15px; border-radius: 8px; background: var(--line); cursor: pointer; position: relative; flex: none; }
+    .ch .onoff::after { content: ""; position: absolute; top: 2px; left: 2px; width: 11px; height: 11px; border-radius: 50%; background: var(--dim); transition: left .12s; }
+    .ch.on .onoff::after { left: 13px; background: #fff; }
+    .ch .nm { font-size: 10px; color: var(--ink); text-align: center; line-height: 1.1; }
+    .ch.off .nm { color: var(--faint); }
+    .ch .note { font: 9px "Courier New", monospace; color: var(--faint); }
+    .ch .nm .star { color: var(--gold); }
+    .ch .fader { height: 92px; display: flex; align-items: center; }
+    .ch .fader input { -webkit-appearance: slider-vertical; width: 22px; height: 92px; }
+    .ch .pct { font: 600 10px/1 "Courier New", monospace; color: var(--dim); font-variant-numeric: tabular-nums; }
+    .ch .tgs { display: flex; gap: 3px; }
+    .ch .tg { width: 17px; height: 16px; line-height: 15px; text-align: center; font: 700 8px/1 "Courier New", monospace; color: var(--dim); border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); cursor: pointer; }
+    .ch .tg:hover { border-color: var(--accent); color: var(--ink); }
+    .ch .tg.on { color: #fff; background: var(--accent); border-color: var(--accent); }
+    .ch .tg.lock.on { background: var(--gold); border-color: var(--gold); }
+
+    /* ---- Footer ---- */
+    .foot {
+      flex: none; display: flex; align-items: center; gap: 12px;
+      padding: 10px 16px; border-top: 1px solid var(--line); background: var(--bg);
+    }
+    .pills { display: flex; gap: 5px; }
+    .pill { padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--dim); cursor: pointer; font-size: 11px; }
+    .pill:hover { border-color: var(--accent); }
+    .pill.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .foot .tip { flex: 1; color: var(--faint); font-size: 11px; min-height: 14px; }
+    .foot button {
+      padding: 9px 16px; border-radius: 7px; cursor: pointer; border: 1px solid var(--line);
+      background: var(--panel-2); color: var(--ink); font: 600 12px/1 sans-serif;
+    }
+    .foot button:hover { border-color: var(--accent); }
+    .foot button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .foot button.ghost { color: var(--dim); }
+    .label-mini { font: 600 9px/1 "Courier New", monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); }
+  </style>
+</head>
+
+<body>
+  <div class="head">
+    <div class="logo"></div>
+    <div class="title">kbot Styled Rhythm</div>
+    <div class="sub">style-aware drum pattern engine</div>
+    <div class="spacer"></div>
+    <div class="seed" id="seedTag" title="Current re-shuffle seed"></div>
+  </div>
+
+  <div class="bar">
+    <div class="field"><span>Style</span><select id="style" title="Drum style — loads its own defaults"></select></div>
+    <div class="field"><span>Bars</span><div class="num"><input type="number" id="bars" min="1" max="8" value="1" title="Bars to write (1–8)" /></div></div>
+    <div class="field grow"><span>Swing</span><div class="feel"><input type="range" id="swing" min="0" max="100" title="Swing — delays off-beat 16ths" /><span class="feel-val" id="swing-v"></span></div></div>
+    <div class="field grow"><span>Pocket</span><div class="feel"><span class="ends">tight</span><input type="range" id="pocket" min="-100" max="100" title="Pocket — tight (ahead) to loose (laid-back)" /><span class="ends">loose</span><span class="feel-val" id="pocket-v"></span></div></div>
+    <div class="field grow"><span>Humanize</span><div class="feel"><input type="range" id="humanize" min="0" max="100" title="Humanize — velocity + timing spread" /><span class="feel-val" id="humanize-v"></span></div></div>
+    <button class="btn reshuffle" id="reshuffle" title="Re-roll every unlocked voice (Space)">Re-shuffle</button>
+  </div>
+
+  <div class="preview">
+    <div class="cap">MIDI Preview</div>
+    <div id="lanes"></div>
+  </div>
+
+  <div class="mixer" id="mixer"></div>
+
+  <div class="foot">
+    <div class="label-mini">Fill</div>
+    <div class="pills" id="fill">
+      <div class="pill on" data-v="none" title="No fill">None</div>
+      <div class="pill" data-v="beat" title="Fill the last beat">1 Beat</div>
+      <div class="pill" data-v="half" title="Fill the last half-bar">&frac12; Bar</div>
+      <div class="pill" data-v="bar" title="Fill the whole last bar">Full</div>
+    </div>
+    <div class="tip" id="tip">Hover any control to see what it does.</div>
+    <button class="ghost" id="cancel" title="Close without writing (Esc)">Cancel</button>
+    <button class="primary" id="generate" title="Write the pattern to the clip (Enter)">Create MIDI Clip</button>
+  </div>
+
+  <script>
+    const wk = window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.live;
+    const wv2 = window.chrome && window.chrome.webview;
+    function send(msg) { if (wk) wk.postMessage(msg); else if (wv2) wv2.postMessage(msg); }
+    function closeWith(result) { send({ method: "close_and_send", params: [JSON.stringify(result)] }); }
+
+    let init = { styles: [], elements: [] };
+    try { init = __SRG_INIT__; } catch (e) {}
+    const $ = (id) => document.getElementById(id);
+
+    // Per-voice colour (Side Brain's key usability move — read the groove by hue).
+    const COLOR = {
+      kick: "#E08A3C", snare: "#E0C13C", clap: "#E0577A", chh: "#7AB648",
+      ohh: "#4A9BE0", perc: "#3CC0A0", shaker: "#9B6BC4", cymbal: "#C44A4A",
+    };
+
+    // --- Firing math: faithful mirror of src/generate.ts ---
+    function mulberry32(seed) {
+      let a = seed >>> 0;
+      return function () {
+        a |= 0; a = (a + 0x6d2b79f5) | 0;
+        let t = Math.imul(a ^ (a >>> 15), 1 | a);
+        t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+    function effectiveSeed(globalSeed, idx, lockSeed) {
+      if (lockSeed != null) return (lockSeed >>> 0) || 1;
+      let h = (globalSeed ^ Math.imul(idx + 1, 0x9e3779b1)) >>> 0;
+      h = Math.imul(h ^ (h >>> 16), 0x45d9f3b) >>> 0;
+      h = (h ^ (h >>> 15)) >>> 0;
+      return h || 1;
+    }
+    const clamp = (n, lo, hi) => (n < lo ? lo : n > hi ? hi : n);
+    function voiceBar(groove, density, seed) {
+      const r = mulberry32(seed);
+      const out = new Array(16).fill(0);
+      if (!groove || density <= 0) return out;
+      for (let step = 0; step < 16; step++) {
+        const base = groove.prob[step] || 0;
+        const effProb = clamp(base * (density * 2), 0, 1);
+        const fire = effProb >= 1 ? true : r() < effProb;
+        const vel = groove.vel[step] || 90;
+        if (!fire || vel <= 0) continue;
+        r(); r();
+        out[step] = vel;
+      }
+      return out;
+    }
+
+    const state = {
+      fill: "none", densities: {}, lastDensity: {},
+      seed: Math.floor(Math.random() * 2147483647),
+      locks: {}, swingExclude: new Set(), pocketExclude: new Set(),
+    };
+    const elIndex = {};
+    init.elements.forEach((el, i) => { elIndex[el.key] = i; });
+    const noteName = (n) => { const N = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]; return N[((n % 12) + 12) % 12] + (Math.floor(n / 12) - 2); };
+
+    // Tip line: reflect hovered control's title (Side Brain's "hover any control").
+    document.addEventListener("mouseover", (e) => {
+      const t = e.target.closest("[title]");
+      if (t) $("tip").textContent = t.getAttribute("title");
+    });
+
+    const styleSel = $("style");
+    init.styles.forEach((s, i) => {
+      const o = document.createElement("option");
+      o.value = s.name; o.textContent = s.name; if (i === 0) o.selected = true;
+      styleSel.appendChild(o);
+    });
+    const styleByName = (name) => init.styles.find((s) => s.name === name) || init.styles[0];
+
+    // --- Mixer channels (one per element, vertical fader, colour-coded) ---
+    const mixer = $("mixer");
+    init.elements.forEach((el) => {
+      const c = COLOR[el.key] || "#888";
+      const ch = document.createElement("div");
+      ch.className = "ch"; ch.dataset.key = el.key;
+      ch.innerHTML =
+        '<div class="onoff" title="Turn ' + el.label + ' on/off"></div>' +
+        '<div class="nm">' + el.label + (el.mapped ? '' : ' <span class="star" title="No matching Drum Rack pad — using General MIDI">*</span>') + '</div>' +
+        '<div class="note">' + noteName(el.note) + '</div>' +
+        '<div class="fader"><input type="range" min="0" max="100" data-key="' + el.key + '" title="' + el.label + ' density" style="accent-color:' + c + '" /></div>' +
+        '<div class="pct">0</div>' +
+        '<div class="tgs">' +
+          '<div class="tg lock" data-t="lock" title="Lock ' + el.label + ' through Re-shuffle">L</div>' +
+          '<div class="tg" data-t="swing" title="Exclude ' + el.label + ' from swing">S</div>' +
+          '<div class="tg" data-t="pocket" title="Exclude ' + el.label + ' from pocket">P</div>' +
+        '</div>';
+      mixer.appendChild(ch);
+
+      ch.querySelector(".fader input").addEventListener("input", (e) => setDensity(el.key, e.target.value / 100));
+      ch.querySelector(".onoff").addEventListener("click", () => toggleVoice(el.key));
+      ch.querySelectorAll(".tg").forEach((tg) => tg.addEventListener("click", () => {
+        const t = tg.dataset.t;
+        if (t === "lock") {
+          const on = !tg.classList.contains("on");
+          tg.classList.toggle("on", on);
+          ch.classList.toggle("locked", on);
+          if (on) state.locks[el.key] = effectiveSeed(state.seed, elIndex[el.key], null);
+          else delete state.locks[el.key];
+          renderPreview();
+        } else {
+          const set = t === "swing" ? state.swingExclude : state.pocketExclude;
+          if (set.has(el.key)) { set.delete(el.key); tg.classList.remove("on"); }
+          else { set.add(el.key); tg.classList.add("on"); }
+        }
+      }));
+    });
+
+    function toggleVoice(key) {
+      const cur = state.densities[key] ?? 0;
+      if (cur > 0) { state.lastDensity[key] = cur; setDensity(key, 0); }
+      else setDensity(key, state.lastDensity[key] || 0.5);
+    }
+    function setDensity(key, d) {
+      state.densities[key] = d;
+      const ch = mixer.querySelector('.ch[data-key="' + key + '"]');
+      ch.querySelector(".fader input").value = Math.round(d * 100);
+      ch.querySelector(".pct").textContent = Math.round(d * 100);
+      ch.classList.toggle("on", d > 0); ch.classList.toggle("off", d <= 0);
+      renderPreview();
+    }
+
+    // --- Hero preview: one colour lane per element, `bars` × 16 columns ---
+    const lanesBox = $("lanes");
+    function renderPreview() {
+      showSeed();
+      const s = styleByName(styleSel.value);
+      const bars = clamp(Math.round(+$("bars").value || 1), 1, 8);
+      lanesBox.innerHTML = "";
+      // Top-to-bottom: high voices first, kick last (like a piano roll).
+      const order = init.elements.filter((el) => s.grooves && s.grooves[el.key]).reverse();
+      order.forEach((el) => {
+        const c = COLOR[el.key] || "#888";
+        const density = state.densities[el.key] ?? 0;
+        const seed = effectiveSeed(state.seed, elIndex[el.key], state.locks[el.key]);
+        const oneBar = voiceBar(s.grooves[el.key], density, seed);
+        const lane = document.createElement("div");
+        lane.className = "lane" + (density > 0 ? "" : " off");
+        const cells = document.createElement("div");
+        cells.className = "cells";
+        cells.style.gridTemplateColumns = "repeat(" + bars * 16 + ", 1fr)";
+        for (let b = 0; b < bars; b++) {
+          for (let i = 0; i < 16; i++) {
+            const vel = oneBar[i];
+            const gc = document.createElement("div");
+            gc.className = "gc" + (i % 4 === 0 ? " beat" : "") + (i === 0 && b > 0 ? " barline" : "");
+            if (vel > 0) {
+              const v = document.createElement("div");
+              v.className = "v"; v.style.background = c;
+              v.style.height = (18 + (vel / 127) * 82) + "%";
+              gc.appendChild(v);
+            }
+            cells.appendChild(gc);
+          }
+        }
+        lane.innerHTML = '<div class="ln" style="color:' + (density > 0 ? c : "") + '">' + el.label + '</div>';
+        lane.appendChild(cells);
+        lanesBox.appendChild(lane);
+      });
+    }
+    function showSeed() { $("seedTag").textContent = "seed #" + (state.seed % 100000); }
+
+    function loadStyle(name) {
+      const s = styleByName(name);
+      if (!s) return;
+      setRange("swing", Math.round(s.swing * 100));
+      setRange("pocket", Math.round(s.pocket * 100));
+      setRange("humanize", Math.round(s.humanize * 100));
+      init.elements.forEach((el) => setDensity(el.key, (s.densities && s.densities[el.key]) || 0));
+      renderPreview();
+    }
+    function setRange(id, v) {
+      const input = $(id); input.value = v;
+      $(id + "-v").textContent = id === "pocket" && v > 0 ? "+" + v : "" + v;
+    }
+    ["swing", "pocket", "humanize"].forEach((id) => $(id).addEventListener("input", (e) => setRange(id, +e.target.value)));
+    $("bars").addEventListener("input", renderPreview);
+
+    document.querySelectorAll("#fill .pill").forEach((p) => p.addEventListener("click", () => {
+      document.querySelectorAll("#fill .pill").forEach((x) => x.classList.remove("on"));
+      p.classList.add("on"); state.fill = p.dataset.v;
+    }));
+    styleSel.addEventListener("change", () => loadStyle(styleSel.value));
+
+    function buildConfig() {
+      return {
+        styleName: styleSel.value, bars: clamp(Math.round(+$("bars").value || 1), 1, 8),
+        swing: +$("swing").value / 100, pocket: +$("pocket").value / 100,
+        humanize: +$("humanize").value / 100, fill: state.fill,
+        densities: state.densities, seed: state.seed,
+        swingExclude: [...state.swingExclude], pocketExclude: [...state.pocketExclude], locks: state.locks,
+      };
+    }
+    $("reshuffle").addEventListener("click", () => { state.seed = Math.floor(Math.random() * 2147483647); renderPreview(); });
+    $("generate").addEventListener("click", () => closeWith(buildConfig()));
+    $("cancel").addEventListener("click", () => closeWith(null));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") closeWith(buildConfig());
+      else if (e.key === "Escape") closeWith(null);
+      else if (e.key === " ") { e.preventDefault(); $("reshuffle").click(); }
+    });
+
+    loadStyle(styleSel.value);
+  </script>
+</body>
+
+</html>
