@@ -2,6 +2,44 @@
 
 > This file persists context between Claude Code sessions.
 
+## Session 2026-07-01 — Fable 5 deep dive: kbot integration + ISSUE 396
+
+Deep dive into Claude Fable 5 (claude-fable-5: $10/$50, 1M ctx, always-on
+thinking, summaries-only CoT, refusal classifiers, 30-day retention floor).
+Three workstreams, all UNCOMMITTED on `feat/design-system-and-issue-391`:
+
+- **kbot integration** (packages/kbot/src): fixed catalog errors found
+  during the dive — `claude-mythos-1` (invented ID) → `claude-mythos-5`,
+  Opus 4.6–4.8 pricing $15→$5/MTok, Haiku $0.8→$1; added claude-opus-4-8 +
+  claude-sonnet-5 to the catalog. New guardrails in auth.ts: per-model
+  outputCostPerMTok, `anthropicRefusalFallback()` (server-side fallback to
+  opus-4-8 + beta `server-side-fallback-2026-06-01`, on by default, env
+  KBOT_REFUSAL_FALLBACK=off to disable), `modelRequiresDataRetention()` +
+  one-shot `dataRetentionNotice()`. streaming.ts + agent.ts: fallbacks
+  param + beta header on fable/mythos requests, stop_reason "refusal"
+  handled (throw in non-streaming, red stderr in streaming, "served by"
+  note when the fallback answered), ZDR hint decorated onto 400s.
+  estimateCost() now resolves per-model for anthropic (Fable was being
+  costed at Sonnet rates, 3.3x under). Verified: 1271/1271 vitest, tsc
+  clean. NOTE: kbot's tool loop replays context as plain text (not content
+  blocks), so Fable's thinking-block replay rules don't bite — by luck of
+  architecture, not design. Also: some test switches branches in a temp
+  git fixture and its stderr leaks into vitest output — hygiene, harmless.
+
+- **ISSUE 396 — THE PRICE OF THINKING** (思考の値段): essay-as-argument,
+  ledger cover stock (first since 372), pool accent, RETAINED · 30 DAYS
+  cover seal, dossier + dataBlock + pull quote. Registered in index.ts;
+  PUBLISHING.md hygiene pass done (§IV examples + last-updated). tsc +
+  vite build clean. NOT deployed, NOT previewed visually yet.
+
+- **Swarm**: kernel_swarm (Supabase claude-proxy) failed twice — "All
+  agents failed to respond"; proxy path needs investigation. Fell back to
+  local ollama swarm (gemma3:12b analyst/writer, deepseek-r1:14b critic,
+  qwen2.5-coder:32b router — $0). Critic caught the estimateCost bug.
+
+Next: commit (evidence-cited, per house style), preview /issues/396,
+merge-to-main + deploy decision is Isaac's.
+
 ## Session 2026-06-30 (later) — Repo cleanup + branch→main reconciliation + deploy
 
 Session opened on "I lost progress" — root cause was a stale scratchpad
