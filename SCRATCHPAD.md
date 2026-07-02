@@ -2,6 +2,18 @@
 
 > This file persists context between Claude Code sessions.
 
+## 2026-07-01 — Branch merged to main, deploy now durable
+
+`feat/design-system-and-issue-391` (18 commits: the engineering-loop work
++ this session's Fable 5/396/397 work) fast-forward-merged into `main`
+(`3dec5d241..d14f1651c`), pushed to origin. tsc clean + 1272/1272 tests
+verified on main before push. PR #52 (open since 2026-06-18, covering
+this same branch) closed manually with a comment — GitHub didn't
+auto-detect the ff-push as a merge. Redeployed from main → gh-pages
+`592004b`; kernel.chat HTTP 200. The branch is no longer a deploy risk:
+any future `npm run deploy` from main now matches what's live. No merge
+conflicts — main had zero commits the branch lacked (0/18 divergence).
+
 ## Session 2026-07-01 — Fable 5 deep dive: kbot integration + ISSUE 396
 
 Deep dive into Claude Fable 5 (claude-fable-5: $10/$50, 1M ctx, always-on
