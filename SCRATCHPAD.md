@@ -45,6 +45,19 @@ Three workstreams:
   local ollama swarm (gemma3:12b analyst/writer, deepseek-r1:14b critic,
   qwen2.5-coder:32b router — $0). Critic caught the estimateCost bug.
 
+**Late addendum (same session):** researching "what would Anthropic be
+curious about" surfaced the story the API docs only hinted at — Fable 5
+was EXPORT-CONTROLLED June 12–30 (first-ever such action on a model;
+jailbreak demo → suspension for all; redeployed July 1 with a new cyber
+classifier >99% vs the technique, refusals → Opus 4.8; Mythos 5 back for
+vetted US orgs only). Shipped in response (commit `d11d13faf`, deployed
+gh-pages `e251775`): **ISSUE 397 — THE EIGHTEEN DAYS** (first dispatch
+on ink stock, oxblood accent, SUSPENDED · RESTORED seal, bridge to 396)
++ **396 §4 revision** (chaperone origin paragraph, STATUS dossier row).
+Catalog now 360–397; kernel.chat live HTTP 200. Note: kbot's
+refusal→notify→Opus-4.8 wiring from this morning turned out to mirror
+Anthropic's own redeployment behavior exactly.
+
 Next: **merge-to-main** (only remaining open item — a later deploy from
 main will overwrite the current branch deploy per PUBLISHING.md §VII).
 Also open across sessions: kernel_swarm proxy fix, lumen embed model pull.
