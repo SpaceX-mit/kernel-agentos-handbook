@@ -44,6 +44,13 @@
    only, stop_reason "refusal" with opt-in fallback, 30-day
    retention floor. The sibling nameplate claude-mythos-5
    (Project Glasswing) is the same machine behind a second door.
+
+   Revised same-day (2026-07-01, evening): §4 gained its origin
+   paragraph and the dossier a STATUS row after the fuller story
+   surfaced — the model spent June 12–30 under a US export-control
+   directive and redeployed July 1 with a new cyber classifier.
+   The suspension itself is ISSUE 397's wire filing (THE EIGHTEEN
+   DAYS); 396 keeps the ledger frame and notes the clause.
    ────────────────────────────────────────────────────────────── */
 
 import type { IssueRecord } from './index'
@@ -101,6 +108,7 @@ export const ISSUE_396: IssueRecord = {
         { label: 'THINKING', value: 'ALWAYS ON · SUMMARIES ONLY' },
         { label: 'RETENTION', value: '30 DAYS · NO ZERO-RETENTION PATH' },
         { label: 'REFUSAL', value: 'HTTP 200 · FALLBACK IS OPT-IN' },
+        { label: 'STATUS', value: 'SUSPENDED VI·12 · RESTORED VII·1' },
       ],
     },
 
@@ -135,6 +143,7 @@ export const ISSUE_396: IssueRecord = {
         heading: 'The chaperone clause',
         headingJp: '付き添い条項',
         paragraphs: [
+          'The chaperone has a date of birth. On June 12 the United States government placed export controls on this model after a demonstrated jailbreak was used to surface known, minor vulnerabilities — and Anthropic, unable to verify nationality in real time, suspended it for everyone. It came back on the first of July wearing a new cybersecurity classifier, trained against the technique, blocking it — by the company’s account — in better than ninety-nine cases of a hundred. The full wire filing is the next issue’s work. The clause it left in the terms is this issue’s.',
           'Fable 5 ships with classifiers that can decline a request outright — most cybersecurity work and research biology, by the published documentation. The decline is polite and structurally strange: the request succeeds, as far as the wire is concerned. Status 200. What comes back is a stop reason that says refusal, and either nothing (declined before output, unbilled) or a partial answer you are told to discard (declined mid-sentence, billed for the sentence). The ledger records even the refusals precisely.',
           'The documentation is candid that benign adjacent work can trip the wire — the defender auditing a dependency, the researcher fuzzing their own service. Recovery exists, but it is opt-in: you may pre-arrange a fallback, so that a declined request is quietly re-served by Opus 4.8 inside the same call, repriced to the older model’s rates. Arrange nothing and the request simply ends there.',
           'So the most capable model available comes with a chaperone, and the chaperone’s judgement is part of the terms. For the working security engineer this is a real operational fact: the frontier machine may decline your Tuesday. The craft response is not outrage; it is plumbing. Pre-arrange the fallback. Surface which model actually answered. Never let a refusal masquerade as an empty result. The tools that do this well will be the ones security people keep.',
