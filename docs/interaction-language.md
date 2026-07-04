@@ -1,0 +1,129 @@
+# The Interaction Language
+
+> The rules for when and how a kernel.chat editorial surface may
+> accept the reader's hand. Ratified across ISSUE 399 (the first
+> instrument) and ISSUE 403 (THE READER'S HAND — the declarations).
+> The issue persuades; this document enforces. When they disagree,
+> fix the disagreement before shipping anything.
+
+Status: **LAW** — reviewed each time a new interactive spread is
+proposed. Two documents govern the visual grammar and this one
+governs the hand; see `docs/design-language.md` for color, type,
+stock, and motion vocabulary.
+
+---
+
+## The seven rules
+
+### 1. The page is calm by default
+
+An editorial surface at rest is complete. Interaction never gates
+the first reading — a reader who touches nothing misses nothing
+essential. The touch deepens; it never unlocks.
+
+**Enforcement:** every state a control can reach must be readable
+without the control (see rule 4). If removing all interactivity
+leaves a page that no longer makes its argument, the spread is
+rejected at review.
+
+### 2. Interaction is an instrument, not decoration
+
+The only admitted species of interactivity is the **calibrated
+control**: a fixed question, a bounded set of positions, an honest
+reading at each stop. The reader's hand adjusts a variable the
+story is *about*, and the page answers.
+
+**Refused by type:** hover garnish, scroll-triggered reveals,
+parallax, cursor effects, any element that reacts merely to prove
+it can. Test: cut the interaction — if nothing true is lost, it
+does not ship.
+
+### 3. Motion is weather, not action
+
+Interaction and motion are **separate budgets**. Admitting the
+hand did not grow the motion budget:
+
+- Motion stays **CSS-only** — transitions and keyframes. Script
+  changes state; it never choreographs.
+- Amplitudes stay ambient — the movement of paper in a room.
+  Transition durations on the order of a page-turn, not a scene.
+- The ruling predates the instrument (the ISSUE 371 after-hours
+  motion system was withdrawn) and survives it.
+
+**Enforcement:** no JS animation libraries on editorial surfaces.
+No `requestAnimationFrame` choreography in a `*Feature.tsx`.
+
+### 4. Everything stays on the page
+
+- Every reachable state exists in the DOM at all times. Selection
+  is visibility, not existence. Nothing is conjured on demand or
+  destroyed on departure.
+- **Print renders everything, stacked.** `@media print` must lay
+  the control's states out in full — on paper the instrument
+  becomes a table of its positions. An issue is a frozen,
+  reproducible object; content that lives only behind interaction
+  is content the archive cannot hold.
+
+**Enforcement:** print-preview every interactive spread before
+shipping (§VI of PUBLISHING.md). If a state matters enough to
+build, it matters enough to print.
+
+### 5. The hand arrives by every door
+
+The magazine does not invent interaction grammars. Every control
+maps to an **established ARIA pattern** with its standard keyboard
+behaviour, or it does not ship.
+
+- The instrument dial is a **roving-tabindex radiogroup**: one tab
+  stop for the whole control, arrow keys move between stops,
+  `role="radiogroup"` / `role="radio"` + `aria-checked` announced
+  exactly as a native control would.
+- Focus states use the issue accent, visible on every stock,
+  in both color-scheme modes and high-contrast.
+- Touch targets meet platform minimums; the control works with
+  mouse, keyboard, touch, and screen reader from day one — not
+  as a follow-up.
+
+### 6. The meter tells the truth
+
+Interactive surfaces make claims (cost, time, depth). Every
+displayed reading is either **measured** or **labelled
+representative, in words, on the surface, next to the number**
+(the `meterNote` field — mandatory equipment, precedent ISSUE 399).
+An unlabelled fake gauge is grounds for rejection; a dial
+dramatising invented numbers is decoration wearing a lab coat.
+
+### 7. Two instances before a pattern
+
+No shared "interactive spread machinery" is extracted until a
+**second** story arrives that cannot be told without a hand on it.
+The first instance lives in its own `*Feature.tsx`. When the second
+real need appears, extract what the two genuinely share — never
+generalise from the first enthusiasm. (This is the magazine's
+general law of novelty; it applies to ornaments, seals, motion,
+and accents identically.)
+
+---
+
+## Adding a new interactive spread — checklist
+
+1. Does the story *require* the reader's hand? (Rule 2 test:
+   remove the interaction — is the argument lost?)
+2. Write the spread type per PUBLISHING.md §V — discriminated
+   union member, own `*Feature.tsx/css`, router case.
+3. Map the control to a named ARIA pattern before writing JSX.
+   Name the pattern in the file's header comment.
+4. All states in the DOM; `@media print` stacks them; verify in
+   print preview.
+5. Motion: CSS transitions only, ambient amplitude.
+6. Every reading measured or labelled representative
+   (`meterNote` or equivalent, on-surface).
+7. Propose in the issue's header comment which rule(s) the spread
+   stresses, and why it still complies — the comment is the audit.
+
+---
+
+*Ratified VII·26 — ISSUE 399 built the first instrument; ISSUE 403
+declared the law; this file enforces it. Amend by shipping an issue
+that argues the amendment, then editing this file in the same
+commit.*

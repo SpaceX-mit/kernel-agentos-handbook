@@ -189,9 +189,10 @@ register is expressed by SWITCHING the accent, not adding one.
 
 Create `src/content/issues/<N>.ts` following the shape of the most
 recent same-format issue (`371.ts` for essay-as-profile,
-`396.ts` for essay-as-argument (dossier + dataBlock),
-`369.ts` for essay-as-field-piece, `397.ts` for dispatch,
-`393.ts` for forecast, `365.ts` for interview,
+`402.ts` for essay-as-argument (dossier + pull quote),
+`400.ts` for essay-with-dataBlock, `401.ts` for dispatch,
+`403.ts` for forecast, `365.ts` for interview,
+`404.ts` for review (graded survey),
 `398.ts` for colloquy (two-voice),
 `399.ts` for instrument (interactive dial)). Every issue needs:
 
@@ -259,6 +260,13 @@ When no existing spread type fits, add one. The pattern:
 Keep new types orthogonal — don't extend existing ones unless the new
 field is genuinely optional for every existing issue of that type.
 
+**Interactive tools** additionally comply with
+[`docs/interaction-language.md`](../../../docs/interaction-language.md)
+— the seven rules ratified in 399 and declared in 403 (calm by
+default, calibrated controls only, CSS-only ambient motion, all
+states in the DOM + print stacks them, established ARIA patterns
+only, honest meters, two instances before a pattern).
+
 ---
 
 ## VI. Verifying before shipping
@@ -286,30 +294,36 @@ Browse:
 
 ## VII. Publishing
 
+**Main is the only publisher.** Pushing to `main` triggers the CI
+deployer (`.github/workflows/deploy.yml`), which type-checks, builds
+with the production secrets, and publishes `dist/` to `gh-pages`
+stamped with the source commit. Live within ~90 seconds.
+
 ```bash
-npm run deploy           # build + force-push dist/ to gh-pages
+git push origin main     # that IS the deploy
 ```
 
-The `deploy` script in `package.json` does the heavy lifting:
+**Verify by provenance, not asset hashes** — CI builds carry env
+secrets a local build lacks, so the same commit produces different
+asset fingerprints in different environments. Check that gh-pages
+was built from your commit:
 
-1. `tsc && vite build` (via the `build` script prerequisite — run it
-   explicitly first if you want to see build output separately)
-2. `cd dist && git init`
-3. Force-push `dist/` to the `gh-pages` branch at
-   `https://github.com/isaacsight/kernel.git`
+```bash
+git fetch origin gh-pages
+git log FETCH_HEAD --oneline -1   # message reads "deploy: <your main SHA>"
+```
 
-The live site (`https://kernel.chat`) serves from gh-pages via
-GitHub Pages + Cloudflare. Deploys propagate within ~30 seconds.
+**Emergency re-publish** (CI hiccup, cache poison): re-run the same
+pipeline by hand — `gh workflow run deploy.yml`. There is no other
+path: the manual `npm run deploy` script was **retired** per
+ISSUE 399's own prescription (two uncoordinated writers on one
+target; last write wins). The script now prints a refusal and
+points here.
 
 ### If your branch is NOT main
 
-**Important:** `gh-pages` does not care which source branch you deploy
-from — it builds the current worktree and pushes `dist/` to gh-pages.
-That means a deploy from a feature branch will make your changes
-visible on kernel.chat, **but a subsequent deploy from `main` will
-overwrite them**.
-
-Always: **merge to main before (or immediately after) deploying.**
+Nothing you do on a feature branch touches the live site — only a
+push to `main` publishes. Merge (fast-forward preferred), push, done.
 
 ### Collision: another branch also drafted this issue number
 
@@ -332,7 +346,7 @@ git show <other-sha>:src/content/issues/<N>.ts > src/content/issues/<N>.ts
 # updates (e.g. new EssaySpread modules), pull those too:
 git show <other-sha>:src/components/<Component>.tsx > src/components/<Component>.tsx
 
-# Register both in index.ts, typecheck, build, deploy
+# Register both in index.ts, typecheck, build, push main (CI deploys)
 ```
 
 ---
@@ -392,8 +406,12 @@ extension. Keep new editorial tools to issues that genuinely need them
 
 ### "Ship it"
 
-Typecheck → build → commit on the current branch with the format in §VIII → `npm run deploy`. Then flag whether the branch needs merging to main.
+Typecheck → build → commit on the current branch with the format in
+§VIII → merge to main (fast-forward preferred) → `git push origin
+main`. CI deploys; verify by provenance (§VII). Never deploy from a
+branch — only main publishes.
 
 ---
 
-_Last updated: ISSUE 399 · JUL 2026._
+_Last updated: ISSUE 404 · JUL 2026 (five-issue press day: 400–404;
+interaction language + system architecture codified in docs/)._
