@@ -58,6 +58,7 @@ import { ISSUE_402 } from './402'
 import { ISSUE_403 } from './403'
 import { ISSUE_404 } from './404'
 import { ISSUE_405 } from './405'
+import { ISSUE_406 } from './406'
 
 // Re-export accent types so issue files can import from a single place.
 export type { IssueAccent, InkSeedName, InkSeed } from './accents'
@@ -586,6 +587,75 @@ export interface InstrumentSpread extends SpreadCommon {
   pullQuote?: SpreadPullQuote
 }
 
+/** ─── compare ─────────────────────────────────────────────────
+ *  A binary switch between two incommensurable framings of the same
+ *  fact set — not depths on a spectrum (that is `instrument`'s job),
+ *  but two irreducible lenses that cannot be blended into a middle
+ *  position. There is no "medium" between two readings that are not
+ *  points on a continuum.
+ *
+ *  Introduced ISSUE 406 (ONE DAY, TWO READINGS), the first story
+ *  this magazine had that a Dial genuinely could not tell: whether a
+ *  seven-issue press day was discipline or risk has no third answer
+ *  between the two, so a five-stop dial would have had to invent
+ *  positions that do not exist.
+ *
+ *  ARIA pattern: role="switch" (a true two-state toggle, native
+ *  Enter/Space activation) — deliberately distinct from
+ *  instrument's role="radiogroup" (N ordered positions needing
+ *  arrow-key roving tabindex). The fact set is identical under both
+ *  lenses; only each fact's reading changes — that identity of
+ *  facts is what makes it a comparison rather than two unrelated
+ *  answers. See docs/interaction-language.md rule 7: this is the
+ *  first instance of this shape; no shared machinery is extracted
+ *  until a second story needs the same control.
+ *  ────────────────────────────────────────────────────────────── */
+
+/** One of the two lenses in a comparison. Labelled by the stance it
+ *  holds, not a neutral name — the reader should feel the two sides
+ *  pulling in different directions. */
+export interface CompareLens {
+  /** Stable id referenced by defaultLens (e.g. 'speed', 'risk'). */
+  id: string
+  /** Toggle label, uppercase (e.g. 'SPEED'). */
+  label: string
+  /** Japanese label. */
+  labelJp?: string
+  /** One-line stance this lens holds — printed under the switch. */
+  stance: string
+}
+
+/** One fact both lenses must address, with each lens's reading of
+ *  it. The fact itself is neutral and identical under both lenses;
+ *  only the readings differ. */
+export interface CompareFactReading {
+  /** The fact, stated neutrally — both lenses see the same event. */
+  fact: string
+  factJp?: string
+  /** How lens A (lenses[0]) reads this fact. */
+  readingA: string
+  /** How lens B (lenses[1]) reads this fact. */
+  readingB: string
+}
+
+export interface CompareSpread extends SpreadCommon {
+  type: 'compare'
+  /** The two lenses — exactly two, mutually exclusive. */
+  lenses: [CompareLens, CompareLens]
+  /** id of the initially active lens. Defaults to lenses[0]. */
+  defaultLens?: string
+  /** Standfirst prose before the switch. */
+  intro?: SpreadSection[]
+  /** The shared fact set, read differently under each lens. */
+  facts: CompareFactReading[]
+  /** Optional closing verdict, if the piece takes a stance. Leave
+   *  undefined when the piece deliberately declines to resolve —
+   *  the honest choice when both readings hold up under scrutiny. */
+  verdict?: string
+  outro?: SpreadSection[]
+  pullQuote?: SpreadPullQuote
+}
+
 /** Discriminated union — add new editorial tools here. */
 export type IssueSpread =
   | EssaySpread
@@ -595,6 +665,7 @@ export type IssueSpread =
   | ReviewSpread
   | ColloquySpread
   | InstrumentSpread
+  | CompareSpread
 
 export interface IssueCredits {
   editorInChief: string
@@ -881,6 +952,7 @@ export const ALL_ISSUES: IssueRecord[] = [
   ISSUE_403,
   ISSUE_404,
   ISSUE_405,
+  ISSUE_406,
 ]
 
 /** The latest published issue — drives the landing cover. */

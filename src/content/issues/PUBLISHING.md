@@ -83,7 +83,8 @@ Pick the editorial tool that fits the content:
 | `dispatch` | News reactions filed against a deadline | Wire slug marquee, dateline, dossier card, checkbox numbering, mid-spread bulletin, bridge line, `— 30 —` terminator |
 | `review` | Graded surveys — "we tested N things, here's the ranking" | Top-line verdict, numbered rubric, graded subject cards, optional standout award |
 | `colloquy` | A single argument carried by **two co-equal voices** (no host) | Voices legend (two stances), numbered movements of attributed turns, optional terms dossier + pull quote. The two voices are positions, not people — a private conversation is mined, never transcribed (see 398). |
-| `instrument` | A **calibrated control handed to the reader** — the interactive tool | Fixed prompt; N dial stops (roving radiogroup); the same prompt answered at each depth with a meter line. Interaction is React state; motion stays CSS-only; all panels stay in the DOM and print renders them stacked. Meter readings must be honestly labelled when representative (see 399). |
+| `instrument` | A **calibrated control handed to the reader** — the interactive tool | Fixed prompt; N dial stops (roving radiogroup); the same prompt answered at each depth with a meter line. Interaction is React state; motion stays CSS-only; all panels stay in the DOM and print renders them stacked. Meter readings must be honestly labelled when representative, or genuinely measured (see 399, 405). |
+| `compare` | A **binary switch between two irreducible lenses** on one fact set — not depths, positions with no medium between them | Two-lens switch (ARIA `role="switch"`, not radiogroup); a shared fact list, each fact read differently under each lens; optional verdict, left undefined when the piece declines to resolve (see 406). |
 
 **Profile of a person → essay, not interview**, unless you have the
 subject's actual answers. The magazine never publishes invented
@@ -194,7 +195,8 @@ recent same-format issue (`371.ts` for essay-as-profile,
 `403.ts` for forecast, `365.ts` for interview,
 `404.ts` for review (graded survey),
 `398.ts` for colloquy (two-voice),
-`405.ts` for instrument (interactive dial, second instance, measured meter)). Every issue needs:
+`405.ts` for instrument (interactive dial, second instance, measured meter),
+`406.ts` for compare (interactive binary switch — first instance)). Every issue needs:
 
 - A leading block comment explaining the identity decisions
 - `number`, `month`, `year`, `feature`, `featureJp`, `price`, `tagline`
@@ -413,7 +415,8 @@ branch — only main publishes.
 
 ---
 
-_Last updated: ISSUE 405 · JUL 2026 (six-issue press day: 400–405;
+_Last updated: ISSUE 406 · JUL 2026 (seven-issue press day: 400–406;
 interaction language + system architecture codified in docs/; 405 is
-the second instrument, first with a measured — not representative —
-meter)._
+the second instrument with a measured meter; 406 introduces `compare`,
+the eighth editorial tool and second interactive spread — a binary
+switch, the cabinet's first shape distinct from the Dial)._

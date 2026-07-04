@@ -5,6 +5,14 @@
 > instrument) and ISSUE 403 (THE READER'S HAND — the declarations).
 > The issue persuades; this document enforces. When they disagree,
 > fix the disagreement before shipping anything.
+>
+> **The cabinet, as of ISSUE 406:** two shapes built — Dial
+> (`instrument`, ARIA radiogroup, N ordered positions on one
+> variable) and Compare (`compare`, ARIA switch, two irreducible
+> lenses with no position between them). Two shapes reserved,
+> unbuilt: Sequence (an ordered argument in discrete, complete
+> stages — ARIA disclosure/tablist) and any future shape a real
+> story demands. See rule 7 for how a reservation becomes a build.
 
 Status: **LAW** — reviewed each time a new interactive spread is
 proposed. Two documents govern the visual grammar and this one
@@ -102,6 +110,21 @@ real need appears, extract what the two genuinely share — never
 generalise from the first enthusiasm. (This is the magazine's
 general law of novelty; it applies to ornaments, seals, motion,
 and accents identically.)
+
+**How a new shape gets born (worked example: Compare, ISSUE 406).**
+The test before building anything new is: *does the existing shape
+have a position that represents this material, or would using it
+mean inventing a fake position that doesn't exist?* 406's material
+was whether a seven-issue press day was disciplined or risky — two
+complete, opposed readings of one fact set, with no "medium" between
+them that means anything. Forcing that into the Dial would have
+required inventing three fake intermediate stops. That failure is
+the signal: Compare shipped as ARIA `switch` (true two-state,
+native Enter/Space activation) rather than a two-stop `radiogroup`,
+because the interaction model is genuinely different, not just
+smaller. **Compare is now itself at instance one** — its own shared
+machinery waits for a second switch-shaped story before anything
+gets extracted.
 
 ---
 

@@ -1,0 +1,340 @@
+/* ──────────────────────────────────────────────────────────────
+   CompareFeature — the binary-switch editorial tool
+   The magazine's second interactive spread (ISSUE 406) and its
+   first with a genuinely different control shape from the Dial: a
+   two-state switch, not N ordered stops. Interaction is React
+   state; MOTION stays inside the editorial contract — a single
+   small opacity fade, collapsed by the site-wide
+   prefers-reduced-motion override. Print reveals both lenses'
+   readings for every fact, stacked: the comparison becomes two
+   labelled columns on paper.
+   ────────────────────────────────────────────────────────────── */
+
+.pop-compare {
+  padding: 96px 0;
+  border-top: 1px solid var(--pop-hairline-soft);
+  border-bottom: 1px solid var(--pop-hairline-soft);
+}
+
+.pop-compare-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.pop-compare-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding-bottom: 32px;
+}
+
+.pop-compare-title {
+  font-size: clamp(42px, 6vw, 80px);
+  line-height: 0.95;
+  margin: 8px 0 0;
+  letter-spacing: -0.03em;
+}
+
+.pop-compare-title-jp { margin: 0; }
+
+.pop-compare-deck {
+  font-size: clamp(18px, 2.2vw, 24px);
+  max-width: 52ch;
+  margin: 8px 0 0;
+  line-height: 1.35;
+}
+
+.pop-compare-byline {
+  margin: 16px 0 0;
+  color: var(--pop-coffee);
+  opacity: 0.85;
+}
+
+/* ── Prose (intro / outro) ──────────────────────────────── */
+.pop-compare-prose {
+  font-family: var(--font-serif);
+  color: var(--pop-ink);
+  font-size: clamp(17px, 1.3vw, 19px);
+  line-height: 1.65;
+  margin-top: 40px;
+}
+
+.pop-compare-section { margin-bottom: 32px; }
+.pop-compare-section:last-child { margin-bottom: 0; }
+
+.pop-compare-section-heading {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(20px, 2.2vw, 26px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 14px;
+  color: var(--pop-ink);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pop-compare-section-heading-jp {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--pop-coffee);
+}
+
+.pop-compare-paragraph {
+  margin: 0 0 16px;
+  text-wrap: pretty;
+}
+.pop-compare-paragraph:last-child { margin-bottom: 0; }
+
+.pop-compare-rule {
+  margin: 44px auto;
+  max-width: 120px;
+  height: 1px;
+  background: var(--pop-hairline);
+}
+
+/* ── The apparatus ──────────────────────────────────────── */
+.pop-compare-apparatus {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The switch — a true two-state toggle, not a dial. Native button
+   semantics give Enter/Space activation for free; no roving
+   tabindex is needed because there is nothing to rove between. */
+.pop-compare-switch {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  padding: 8px;
+  min-height: 44px;
+}
+
+.pop-compare-switch:focus-visible {
+  outline: 2px solid var(--issue-accent);
+  outline-offset: 4px;
+}
+
+.pop-compare-switch-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  opacity: 0.45;
+  transition: opacity 160ms ease;
+}
+
+.pop-compare-switch-side--active { opacity: 1; }
+
+.pop-compare-switch-label {
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--pop-coffee);
+}
+.pop-compare-switch-side--active .pop-compare-switch-label { color: var(--issue-accent); }
+
+.pop-compare-switch-jp {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--pop-coffee);
+}
+
+.pop-compare-switch-track {
+  position: relative;
+  width: 56px;
+  height: 24px;
+  border: 1.5px solid var(--pop-ink);
+  border-radius: 999px;
+  background: var(--pop-ivory);
+  flex-shrink: 0;
+}
+
+.pop-compare-switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--issue-accent);
+  transition: transform 180ms ease;
+}
+
+.pop-compare-switch-knob--b {
+  transform: translateX(30px);
+}
+
+.pop-compare-stance {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-sm);
+  text-align: center;
+  color: var(--pop-coffee);
+  margin: 16px 0 0;
+  max-width: 46ch;
+}
+
+/* Facts — both readings stay in the DOM; screen shows the active
+   lens's reading per fact, print shows both. */
+.pop-compare-facts {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.pop-compare-fact {
+  border-top: 1px solid var(--pop-hairline-soft);
+  padding-top: 20px;
+}
+
+.pop-compare-fact-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--pop-coffee);
+  text-transform: uppercase;
+  margin: 0 0 4px;
+}
+
+.pop-compare-fact-jp {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--pop-coffee);
+  opacity: 0.7;
+  margin: 0 0 10px;
+}
+
+.pop-compare-readings { position: relative; }
+
+.pop-compare-reading {
+  display: none;
+  font-family: var(--font-serif);
+  color: var(--pop-ink);
+  font-size: clamp(16px, 1.2vw, 18px);
+  line-height: 1.6;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.pop-compare-reading--active {
+  display: block;
+  animation: pop-compare-fade 180ms ease;
+}
+
+@keyframes pop-compare-fade {
+  from { opacity: 0.35; }
+  to { opacity: 1; }
+}
+
+.pop-compare-reading-tag {
+  display: inline-block;
+  margin-right: 8px;
+  letter-spacing: 0.1em;
+  color: var(--issue-accent);
+  font-weight: 700;
+}
+
+/* ── Verdict ────────────────────────────────────────────── */
+.pop-compare-verdict {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(19px, 2vw, 23px);
+  line-height: 1.4;
+  text-align: center;
+  color: var(--issue-accent);
+  max-width: 56ch;
+  margin: 0 auto;
+  text-wrap: balance;
+}
+
+/* ── Pull quote ─────────────────────────────────────────── */
+.pop-compare-pullquote {
+  margin: 48px auto;
+  max-width: 60ch;
+  text-align: center;
+  border: 0;
+}
+
+.pop-compare-pullquote-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--issue-accent);
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+
+.pop-compare-pullquote-cite {
+  display: block;
+  font-style: normal;
+  letter-spacing: 0.14em;
+  color: var(--pop-coffee);
+}
+
+/* ── Sign-off ───────────────────────────────────────────── */
+.pop-compare-signoff {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding-top: 48px;
+  margin-top: 48px;
+}
+
+.pop-compare-signoff-text {
+  font-size: clamp(17px, 1.8vw, 22px);
+  margin: 0;
+  color: var(--pop-coffee);
+}
+
+.pop-compare-monument {
+  margin-top: 8px;
+  align-items: center;
+  text-align: center;
+}
+
+/* ── Print — both lenses' readings stack per fact ───────── */
+@media print {
+  .pop-compare-switch { display: none; }
+  .pop-compare-stance { display: none; }
+  .pop-compare-reading {
+    display: block !important;
+    animation: none !important;
+    margin-bottom: 10px;
+    break-inside: avoid;
+  }
+  .pop-compare-fact { break-inside: avoid; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .pop-compare { padding: 56px 0; }
+  .pop-compare-inner { padding: 0 22px; }
+  .pop-compare-title { font-size: clamp(36px, 10vw, 56px); }
+  .pop-compare-deck { font-size: clamp(16px, 4.5vw, 20px); }
+  .pop-compare-prose { font-size: 16px; line-height: 1.6; }
+  .pop-compare-switch { gap: 10px; }
+  .pop-compare-switch-label { font-size: 10px; letter-spacing: 0.08em; }
+  .pop-compare-facts { margin-top: 28px; gap: 22px; }
+  .pop-compare-signoff { padding-top: 32px; margin-top: 32px; }
+}
