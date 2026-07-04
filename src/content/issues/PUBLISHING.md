@@ -194,7 +194,7 @@ recent same-format issue (`371.ts` for essay-as-profile,
 `403.ts` for forecast, `365.ts` for interview,
 `404.ts` for review (graded survey),
 `398.ts` for colloquy (two-voice),
-`399.ts` for instrument (interactive dial)). Every issue needs:
+`405.ts` for instrument (interactive dial, second instance, measured meter)). Every issue needs:
 
 - A leading block comment explaining the identity decisions
 - `number`, `month`, `year`, `feature`, `featureJp`, `price`, `tagline`
@@ -413,5 +413,7 @@ branch — only main publishes.
 
 ---
 
-_Last updated: ISSUE 404 · JUL 2026 (five-issue press day: 400–404;
-interaction language + system architecture codified in docs/)._
+_Last updated: ISSUE 405 · JUL 2026 (six-issue press day: 400–405;
+interaction language + system architecture codified in docs/; 405 is
+the second instrument, first with a measured — not representative —
+meter)._
