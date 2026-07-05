@@ -164,6 +164,7 @@ export type IssueAccent = InkSeedName | (string & {})
  *    sequence  → pool     (systems/infrastructure register, shared with
  *                          instrument; individual issues differentiate
  *                          via an explicit accent per PUBLISHING.md §III.4.5)
+ *    galley    → oxblood  (endings, memory; the reader's cut is an ending)
  */
 export const DEFAULT_ACCENT_BY_SPREAD: Record<IssueSpread['type'], InkSeedName> = {
   essay: 'tomato',
@@ -175,6 +176,7 @@ export const DEFAULT_ACCENT_BY_SPREAD: Record<IssueSpread['type'], InkSeedName> 
   instrument: 'pool',
   compare: 'ivy',
   sequence: 'pool',
+  galley: 'oxblood',
 }
 
 /** Pick the default accent for a spread type. */

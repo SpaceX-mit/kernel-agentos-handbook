@@ -62,6 +62,7 @@ import { ISSUE_406 } from './406'
 import { ISSUE_407 } from './407'
 import { ISSUE_408 } from './408'
 import { ISSUE_409 } from './409'
+import { ISSUE_410 } from './410'
 
 // Re-export accent types so issue files can import from a single place.
 export type { IssueAccent, InkSeedName, InkSeed } from './accents'
@@ -711,6 +712,41 @@ export interface SequenceSpread extends SpreadCommon {
   pullQuote?: SpreadPullQuote
 }
 
+/** ─── galley ────────────────────────────────────────────────────
+ *  A text the reader marks up — N independent two-state strike/keep
+ *  marks applied to the prose itself. The fourth interaction shape
+ *  (ISSUE 410): not positions on one variable (Dial), not two
+ *  lenses (Compare), not ordered stages (Sequence) — independent
+ *  editorial marks on passages. ARIA: one toggle button per
+ *  passage, `aria-pressed`, stable accessible name; struck text
+ *  stays in the DOM and stays legible (manuscript strikethrough,
+ *  never removal). The tally meters ONLY the reader's marks — a
+ *  real count of real actions — and claims nothing about any
+ *  internal state; marks are client-session state, unrecorded.
+ *  See docs/interaction-language.md rule 7 for the birth case. */
+export interface GalleyPassage {
+  /** Stable id, e.g. 'p1'. */
+  id: string
+  /** The passage — one paragraph the reader may strike or keep. */
+  text: string
+}
+
+export interface GalleySpread extends SpreadCommon {
+  type: 'galley'
+  dossier?: SpreadDossier
+  intro?: SpreadSection[]
+  /** Mono label above the markup text, e.g. 'THE GALLEY · 校正刷り'. */
+  galleyKicker?: string
+  /** The passages, in reading order. All default to kept. */
+  passages: GalleyPassage[]
+  /** Honesty note under the tally — mandatory equipment (rule 6):
+   *  states exactly what the tally counts and that marks are
+   *  unrecorded. */
+  tallyNote: string
+  outro?: SpreadSection[]
+  pullQuote?: SpreadPullQuote
+}
+
 /** Discriminated union — add new editorial tools here. */
 export type IssueSpread =
   | EssaySpread
@@ -722,6 +758,7 @@ export type IssueSpread =
   | InstrumentSpread
   | CompareSpread
   | SequenceSpread
+  | GalleySpread
 
 export interface IssueCredits {
   editorInChief: string
@@ -1012,6 +1049,7 @@ export const ALL_ISSUES: IssueRecord[] = [
   ISSUE_407,
   ISSUE_408,
   ISSUE_409,
+  ISSUE_410,
 ]
 
 /** The latest published issue — drives the landing cover. */

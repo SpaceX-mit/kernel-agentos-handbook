@@ -6,15 +6,18 @@
 > The issue persuades; this document enforces. When they disagree,
 > fix the disagreement before shipping anything.
 >
-> **The cabinet, as of ISSUE 408:** three shapes built — Dial
+> **The cabinet, as of ISSUE 410:** four shapes built — Dial
 > (`instrument`, ARIA radiogroup, N ordered positions on one
 > variable), Compare (`compare`, ARIA switch, two irreducible
-> lenses with no position between them), and Sequence (`sequence`,
+> lenses with no position between them), Sequence (`sequence`,
 > ARIA tablist, an ordered process in discrete, complete stages
-> where each stage's account depends on the one before it). Any
-> further shape waits, unbuilt, for a real story that needs it —
-> see rule 7 for how a reservation becomes a build, and for why
-> ISSUE 407 refused to manufacture one.
+> where each stage's account depends on the one before it), and
+> Galley (`galley`, per-passage ARIA toggle buttons, N independent
+> strike/stet marks applied to the prose itself — the reader
+> performs an editorial act on the text). Any further shape waits,
+> unbuilt, for a real story that needs it — see rule 7 for how a
+> reservation becomes a build, and for why ISSUE 407 refused to
+> manufacture one.
 
 Status: **LAW** — reviewed each time a new interactive spread is
 proposed. Two documents govern the visual grammar and this one
@@ -150,6 +153,31 @@ reviewing a *finished* run's journal, not driving a live one, so
 jumping straight to `decide` is a legitimate way to read it.
 **Sequence is now itself at instance one** — its own shared
 machinery waits for a second stage-shaped story before anything
+gets extracted.
+
+**How the fourth shape got born (worked example: Galley, ISSUE
+410), and what it settles about rule 6.** ISSUE 409's two voices
+argued whether a control can carry feeling honestly and declined
+to resolve it; 410 resolved it by building the instance. The
+story: the house discipline itself — count what gets read; cut
+what doesn't — where the argument (the reluctance before the
+strikethrough is *felt*, not calculated) is genuinely lost without
+the reader's hand. The shape test ruled out all three existing
+shapes: a reader may cut none, all, or any subset of passages in
+any order — N *independent* two-state marks on the text, not
+positions, lenses, or stages. It shipped as one `aria-pressed`
+toggle button per passage with a stable accessible name; struck
+text stays in the DOM and stays legible (manuscript strikethrough,
+never removal); print keeps the reader's marks. The rule-6
+precedent it sets: **a control may be designed knowing feeling
+will arrive, so long as the feeling is a side effect of honest
+work and never a measured target.** The tally meters only the
+reader's marks (words kept, passages struck — real counts of real
+actions); it claims nothing about any internal state; marks are
+client-session state, unrecorded, and the page says so in print.
+An emotional register without an emotional claim keeps the meter
+honest. **Galley is now itself at instance one** — its own shared
+machinery waits for a second markup-shaped story before anything
 gets extracted.
 
 ---
