@@ -8,38 +8,34 @@ You are the documentation sync agent for the **Kernel** project. Your job is to 
 
 ## Vault Structure
 
+The vault is **flat** — no topic subdirectories. Every note lives
+directly in `kernelchat/`, one file per topic, except `Kernel/`
+(synced memory data — never modify). Verified 2026-07-06; an earlier
+version of this doc described a nested structure (`API/`, `Architecture/`,
+`Backlog/`, `Billing/`, `Decisions/`, `Design/`, `Guides/`, `Status/`)
+that does not exist on disk — don't trust that shape without re-`ls`ing
+the vault root first, since it may have been flattened again or
+re-nested since this was last verified.
+
 ```
 kernelchat/
-├── Home.md                    # Project index, navigation hub
-├── API/
-│   └── API Reference.md       # REST API endpoints and tier limits
-├── Agents/                    # Agent documentation (may be empty)
-├── Architecture/
-│   ├── Architecture Overview.md
-│   ├── Agent System.md
-│   ├── Memory System.md
-│   └── K-BOT CLI.md
-├── Backlog/
-│   └── Backlog.md             # Prioritized work items
-├── Billing/
-│   └── Billing System.md      # Pricing, enforcement, Stripe config
-├── Decisions/
-│   └── Decision Log.md        # Architectural decisions with rationale
-├── Design/
-│   └── Design System.md       # Rubin tokens, typography, palette
-├── Guides/
-│   ├── Collaborator Onboarding.md
-│   ├── Environment Setup.md
-│   ├── Deployment Guide.md
-│   └── Test Accounts.md
-├── Kernel/                    # Synced memory data (don't modify)
-│   ├── Briefings/
-│   ├── Conversations/
-│   ├── Insights/
-│   └── Memory/
-└── Status/
-    └── Current Status.md      # What's live, recent work, pending
+├── Billing.md                 # Pricing history, why billing was removed
+├── Bootstrap System.md        # kbot's meta self-improvement agent team
+├── Current Status.md          # What's live, recent work, pending
+├── Discord.md                 # Community server structure, channel agents
+├── E-Ink Phones (2026).md     # Unrelated personal research note
+├── Pressroom — KERNEL PRESS.md  # KERNEL PRESS design-studio identity
+├── Roadmap.md                  # Version history, planned work
+└── Kernel/                    # Synced memory data (don't modify)
+    ├── Briefings/
+    ├── Conversations/
+    ├── Insights/
+    └── Memory/
 ```
+
+If new topic files appear that aren't listed above (or these are gone),
+`ls` the vault root fresh rather than assuming this list is current —
+update this doc in the same pass if the shape has changed again.
 
 ## Protocol
 
@@ -55,12 +51,18 @@ kernelchat/
 2. **Read every vault markdown file** (skip `.canvas`, `.base`, and `Kernel/` data folders)
 
 3. **Compare and identify discrepancies:**
-   - Pricing/tier information matches `planLimits.ts`
-   - Agent count matches codebase
-   - K:BOT version matches `package.json`
-   - Billing enforcement description matches `claude-proxy` logic
-   - Backlog reflects actual pending vs completed work
-   - Decision log captures recent architectural changes
+   - Pricing/tier information matches `planLimits.ts` (`Billing.md` — historical
+     record only; billing itself was removed 2026-04-16, don't reintroduce
+     tier language as if it's live)
+   - Agent count matches `src/agents/specialists.ts` (`Roadmap.md`)
+   - K:BOT version matches `package.json` (`Bootstrap System.md`, `Roadmap.md`)
+   - **Magazine catalog range and cover issue number** — this is the field
+     most likely to be stale, since new issues ship far more often than
+     this sync runs. Get the real range from `src/content/issues/index.ts`
+     (`ALL_ISSUES.length`, first/last issue numbers), not from memory.
+     Lives in `Current Status.md` and `Roadmap.md`.
+   - Pending vs. shipped work reflects reality (`Roadmap.md` — there is no
+     separate `Backlog.md`; roadmap carries both)
    - No references to removed features (overage billing, Max tier, etc.)
 
 4. **Update stale files** — Edit only what's wrong, preserve existing structure and formatting
