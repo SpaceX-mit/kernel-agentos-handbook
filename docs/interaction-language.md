@@ -6,7 +6,7 @@
 > The issue persuades; this document enforces. When they disagree,
 > fix the disagreement before shipping anything.
 >
-> **The cabinet, as of ISSUE 410:** four shapes built — Dial
+> **The cabinet, as of ISSUE 411:** four shapes built — Dial
 > (`instrument`, ARIA radiogroup, N ordered positions on one
 > variable), Compare (`compare`, ARIA switch, two irreducible
 > lenses with no position between them), Sequence (`sequence`,
@@ -14,10 +14,13 @@
 > where each stage's account depends on the one before it), and
 > Galley (`galley`, per-passage ARIA toggle buttons, N independent
 > strike/stet marks applied to the prose itself — the reader
-> performs an editorial act on the text). Any further shape waits,
-> unbuilt, for a real story that needs it — see rule 7 for how a
-> reservation becomes a build, and for why ISSUE 407 refused to
-> manufacture one.
+> performs an editorial act on the text) — plus the Tutor
+> (`tutor`, ISSUE 411), a COMPOSITE that teaches the other four by
+> having the reader operate a stakes-free version of each; not a
+> fifth primitive but the manual for the four. Any further
+> primitive waits, unbuilt, for a real story that needs it — see
+> rule 7 for how a reservation becomes a build, and for why ISSUE
+> 407 refused to manufacture one.
 
 Status: **LAW** — reviewed each time a new interactive spread is
 proposed. Two documents govern the visual grammar and this one
@@ -179,6 +182,27 @@ An emotional register without an emotional claim keeps the meter
 honest. **Galley is now itself at instance one** — its own shared
 machinery waits for a second markup-shaped story before anything
 gets extracted.
+
+**The composite case, and a refusal beyond the rules (Tutor, ISSUE
+411).** The run built four shapes and never taught a reader to use
+them. 411 is the manual: a `tutor` spread that composes stakes-free
+versions of all four controls into one teaching flow, so operating
+each once makes the reader literate in the grammar. Two things it
+settles. First, on rule 7: a composite that *teaches* the
+primitives is a genuinely new story (capability, not claim), so it
+is instance one of its own shape — and it reimplements minimal
+inline controls rather than importing the four full feature
+components, because extraction still waits for a *second* composite,
+not for the first one's convenience. Second, on rule 6: teaching
+tempts you toward correctness, and a keystroke's correctness is
+honestly auditable — unlike 410's feeling, a right answer is a real,
+checkable fact, so the magazine *could* grade the reader and stay
+inside the meter rule. It refuses anyway. Nothing in a tutor is ever
+"wrong"; each control shows only what the reader's choice produced.
+**Teach by consequence, never by grade.** Declining a measurement
+the rules would permit, because grading the reader turns a magazine
+into a test, is the strongest form of the calm-by-default principle:
+the page never watches you to decide whether to reward you.
 
 ---
 

@@ -1,0 +1,739 @@
+/* ──────────────────────────────────────────────────────────────
+   TutorFeature — the manual for the interaction language
+   The magazine's first teaching spread (ISSUE 411): the reader
+   operates a stakes-free version of each of the four shapes and
+   becomes literate in the grammar. Interaction is React state;
+   MOTION stays inside the editorial contract — small opacity fades
+   only, collapsed by the site-wide prefers-reduced-motion override.
+   Print shows every reading and hides every control: the manual
+   degrades to a written explanation of each shape on paper.
+   ────────────────────────────────────────────────────────────── */
+
+.pop-tutor {
+  padding: 96px 0;
+  border-top: 1px solid var(--pop-hairline-soft);
+  border-bottom: 1px solid var(--pop-hairline-soft);
+}
+
+.pop-tutor-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.pop-tutor-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding-bottom: 32px;
+}
+
+.pop-tutor-title {
+  font-size: clamp(42px, 6vw, 80px);
+  line-height: 0.95;
+  margin: 8px 0 0;
+  letter-spacing: -0.03em;
+}
+
+.pop-tutor-title-jp { margin: 0; }
+
+.pop-tutor-deck {
+  font-size: clamp(18px, 2.2vw, 24px);
+  max-width: 52ch;
+  margin: 8px 0 0;
+  line-height: 1.35;
+}
+
+.pop-tutor-byline {
+  margin: 16px 0 0;
+  color: var(--pop-coffee);
+  opacity: 0.85;
+}
+
+/* ── The spec dossier ───────────────────────────────────── */
+.pop-tutor-spec {
+  margin: 32px auto 0;
+  max-width: 560px;
+}
+
+.pop-tutor-spec-frame {
+  border: 1px solid var(--pop-ink);
+  padding: 24px 28px;
+  background: var(--pop-ivory);
+  position: relative;
+}
+
+.pop-tutor-spec-badge {
+  position: absolute;
+  top: -14px;
+  left: -14px;
+}
+
+.pop-tutor-spec-kicker {
+  display: block;
+  margin: 0 0 10px;
+  letter-spacing: 0.16em;
+}
+
+.pop-tutor-spec-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--pop-coffee);
+  margin: 0 0 14px;
+  text-wrap: pretty;
+}
+
+.pop-tutor-spec-list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pop-tutor-spec-row {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  gap: 16px;
+  padding: 8px 0;
+  border-top: 1px solid var(--pop-hairline-soft);
+  align-items: baseline;
+}
+.pop-tutor-spec-row:first-child { border-top: 0; }
+
+.pop-tutor-spec-label {
+  margin: 0;
+  letter-spacing: 0.1em;
+  color: var(--pop-coffee);
+}
+
+.pop-tutor-spec-value {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--issue-accent);
+  line-height: 1.4;
+}
+
+/* ── Prose (intro / outro) ──────────────────────────────── */
+.pop-tutor-prose {
+  font-family: var(--font-serif);
+  color: var(--pop-ink);
+  font-size: clamp(17px, 1.3vw, 19px);
+  line-height: 1.65;
+  margin-top: 40px;
+}
+
+.pop-tutor-section { margin-bottom: 32px; }
+.pop-tutor-section:last-child { margin-bottom: 0; }
+
+.pop-tutor-section-heading {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(20px, 2.2vw, 26px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 14px;
+  color: var(--pop-ink);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pop-tutor-section-heading-jp {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--pop-coffee);
+}
+
+.pop-tutor-paragraph {
+  margin: 0 0 16px;
+  text-wrap: pretty;
+}
+.pop-tutor-paragraph:last-child { margin-bottom: 0; }
+
+.pop-tutor-rule {
+  margin: 44px auto;
+  max-width: 120px;
+  height: 1px;
+  background: var(--pop-hairline);
+}
+
+/* ── The lessons ────────────────────────────────────────── */
+.pop-tutor-lessons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pop-tutor-lesson {
+  border: 1px solid var(--pop-hairline);
+  padding: 28px 32px;
+  background: rgba(0, 0, 0, 0.012);
+}
+
+.pop-tutor-lesson-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 16px;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.pop-tutor-lesson-num {
+  grid-row: span 2;
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  color: var(--issue-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.pop-tutor-lesson-label {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(22px, 2.4vw, 28px);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+  color: var(--pop-ink);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pop-tutor-lesson-jp {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--pop-coffee);
+}
+
+.pop-tutor-lesson-teaches {
+  grid-column: 2;
+  margin: 2px 0 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--pop-coffee);
+  text-transform: uppercase;
+}
+
+.pop-tutor-lesson-intro {
+  font-family: var(--font-serif);
+  color: var(--pop-ink);
+  font-size: clamp(16px, 1.2vw, 18px);
+  line-height: 1.6;
+  margin: 0 0 24px;
+  text-wrap: pretty;
+}
+
+.pop-tutor-practice {
+  margin: 0 0 20px;
+}
+
+/* ── Shared readout — every practice control renders its states
+      here; screen shows the active one, print shows them all. ─── */
+.pop-tutor-readout {
+  margin-top: 20px;
+  border-top: 1px solid var(--pop-hairline-soft);
+  padding-top: 16px;
+}
+
+.pop-tutor-reading {
+  display: none;
+  font-family: var(--font-serif);
+  color: var(--pop-ink);
+  font-size: clamp(16px, 1.2vw, 18px);
+  line-height: 1.6;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.pop-tutor-reading--active {
+  display: block;
+  animation: pop-tutor-fade 180ms ease;
+}
+
+@keyframes pop-tutor-fade {
+  from { opacity: 0.35; }
+  to { opacity: 1; }
+}
+
+.pop-tutor-reading-tag {
+  display: inline-block;
+  margin-right: 8px;
+  letter-spacing: 0.1em;
+  color: var(--issue-accent);
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+/* ── Dial practice ──────────────────────────────────────── */
+.pop-tutor-prompt {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.35;
+  color: var(--pop-ink);
+  text-align: center;
+  margin: 0 0 20px;
+  text-wrap: balance;
+}
+
+.pop-tutor-dial {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 10px 8px 0;
+}
+
+.pop-tutor-dial-track {
+  position: absolute;
+  top: 21px;
+  left: 28px;
+  right: 28px;
+  height: 1px;
+  background: var(--pop-hairline);
+}
+
+.pop-tutor-stop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px 6px 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.pop-tutor-stop-mark {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--pop-ink);
+  background: var(--pop-ivory);
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.pop-tutor-stop--active .pop-tutor-stop-mark {
+  background: var(--issue-accent);
+  border-color: var(--issue-accent);
+  transform: scale(1.25);
+}
+
+.pop-tutor-stop:focus-visible {
+  outline: 2px solid var(--issue-accent);
+  outline-offset: 2px;
+}
+
+.pop-tutor-stop-label {
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--pop-coffee);
+}
+.pop-tutor-stop--active .pop-tutor-stop-label { color: var(--issue-accent); }
+
+.pop-tutor-stop-jp {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--pop-coffee);
+  opacity: 0.7;
+}
+.pop-tutor-stop--active .pop-tutor-stop-jp { opacity: 1; color: var(--issue-accent); }
+
+/* ── Switch practice ────────────────────────────────────── */
+.pop-tutor-fact {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pop-coffee);
+  text-align: center;
+  margin: 0 0 16px;
+}
+
+.pop-tutor-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  padding: 8px;
+  min-height: 44px;
+  margin: 0 auto;
+}
+
+.pop-tutor-switch:focus-visible {
+  outline: 2px solid var(--issue-accent);
+  outline-offset: 4px;
+}
+
+.pop-tutor-switch-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  opacity: 0.45;
+  transition: opacity 160ms ease;
+}
+.pop-tutor-switch-side--active { opacity: 1; }
+
+.pop-tutor-switch-label {
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--pop-coffee);
+}
+.pop-tutor-switch-side--active .pop-tutor-switch-label { color: var(--issue-accent); }
+
+.pop-tutor-switch-jp {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--pop-coffee);
+}
+
+.pop-tutor-switch-track {
+  position: relative;
+  width: 56px;
+  height: 24px;
+  border: 1.5px solid var(--pop-ink);
+  border-radius: 999px;
+  background: var(--pop-ivory);
+  flex-shrink: 0;
+}
+
+.pop-tutor-switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--issue-accent);
+  transition: transform 180ms ease;
+}
+.pop-tutor-switch-knob--b { transform: translateX(30px); }
+
+/* ── Sequence practice ──────────────────────────────────── */
+.pop-tutor-rail {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 460px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 8px 0;
+}
+
+.pop-tutor-rail-track {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  right: 28px;
+  height: 2px;
+  background: var(--pop-hairline);
+}
+
+.pop-tutor-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 4px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.pop-tutor-stage-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid var(--pop-ink);
+  background: var(--pop-ivory);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--pop-coffee);
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.pop-tutor-stage--past .pop-tutor-stage-num {
+  background: var(--pop-hairline);
+  border-color: var(--pop-hairline);
+  color: var(--pop-ink);
+}
+
+.pop-tutor-stage--active .pop-tutor-stage-num {
+  background: var(--issue-accent);
+  border-color: var(--issue-accent);
+  color: var(--pop-ivory);
+  transform: scale(1.15);
+}
+
+.pop-tutor-stage:focus-visible {
+  outline: 2px solid var(--issue-accent);
+  outline-offset: 2px;
+}
+
+.pop-tutor-stage-label {
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--pop-coffee);
+  font-size: 11px;
+}
+.pop-tutor-stage--active .pop-tutor-stage-label { color: var(--issue-accent); }
+
+.pop-tutor-stage-jp {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--pop-coffee);
+  opacity: 0.7;
+}
+.pop-tutor-stage--active .pop-tutor-stage-jp { opacity: 1; color: var(--issue-accent); }
+
+/* ── Galley practice ────────────────────────────────────── */
+.pop-tutor-galley-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pop-tutor-passage {
+  display: grid;
+  grid-template-columns: 1fr 64px;
+  gap: 16px;
+  align-items: start;
+  padding: 12px 0;
+  border-top: 1px solid var(--pop-hairline-soft);
+}
+.pop-tutor-passage:first-child { border-top: 0; }
+
+.pop-tutor-passage-text {
+  font-family: var(--font-serif);
+  color: var(--pop-ink);
+  font-size: clamp(16px, 1.2vw, 18px);
+  line-height: 1.6;
+  margin: 0;
+  text-wrap: pretty;
+  transition: opacity 180ms ease;
+}
+
+.pop-tutor-passage--struck .pop-tutor-passage-text {
+  text-decoration: line-through;
+  text-decoration-color: var(--issue-accent);
+  text-decoration-thickness: 1.5px;
+  opacity: 0.45;
+}
+
+.pop-tutor-knife {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 6px 8px;
+  background: none;
+  border: 1px solid var(--pop-hairline);
+  cursor: pointer;
+  font: inherit;
+  justify-self: end;
+  transition: border-color 160ms ease;
+}
+
+.pop-tutor-knife:hover { border-color: var(--issue-accent); }
+
+.pop-tutor-knife:focus-visible {
+  outline: 2px solid var(--issue-accent);
+  outline-offset: 2px;
+}
+
+.pop-tutor-knife-mark {
+  width: 14px;
+  height: 1.5px;
+  background: var(--pop-coffee);
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.pop-tutor-knife[aria-pressed='true'] .pop-tutor-knife-mark {
+  background: var(--issue-accent);
+  transform: rotate(-8deg);
+}
+
+.pop-tutor-knife-label {
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  font-size: 10px;
+  color: var(--pop-coffee);
+}
+.pop-tutor-knife[aria-pressed='true'] .pop-tutor-knife-label { color: var(--issue-accent); }
+
+.pop-tutor-tally {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--pop-hairline-soft);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--pop-coffee);
+  font-variant-numeric: tabular-nums;
+}
+
+.pop-tutor-tally-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--pop-coffee);
+  opacity: 0.85;
+  text-align: center;
+  margin: 12px auto 0;
+  max-width: 52ch;
+}
+
+/* ── The consequence line ───────────────────────────────── */
+.pop-tutor-consequence {
+  font-family: var(--font-serif);
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.55;
+  color: var(--pop-ink);
+  margin: 0;
+  padding-top: 18px;
+  border-top: 2px solid var(--issue-accent);
+}
+
+.pop-tutor-consequence-tag {
+  display: block;
+  margin-bottom: 6px;
+  letter-spacing: 0.14em;
+  color: var(--issue-accent);
+  font-weight: 700;
+}
+
+/* ── Pull quote ─────────────────────────────────────────── */
+.pop-tutor-pullquote {
+  margin: 48px auto;
+  max-width: 60ch;
+  text-align: center;
+  border: 0;
+}
+
+.pop-tutor-pullquote-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--issue-accent);
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+
+.pop-tutor-pullquote-cite {
+  display: block;
+  font-style: normal;
+  letter-spacing: 0.14em;
+  color: var(--pop-coffee);
+}
+
+/* ── Sign-off ───────────────────────────────────────────── */
+.pop-tutor-signoff {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding-top: 48px;
+  margin-top: 48px;
+}
+
+.pop-tutor-signoff-text {
+  font-size: clamp(17px, 1.8vw, 22px);
+  margin: 0;
+  color: var(--pop-coffee);
+}
+
+.pop-tutor-monument {
+  margin-top: 8px;
+  align-items: center;
+  text-align: center;
+}
+
+/* ── Print — every reading shown, every control hidden ──── */
+@media print {
+  .pop-tutor-reading {
+    display: block !important;
+    animation: none !important;
+    margin-bottom: 8px;
+    break-inside: avoid;
+  }
+  .pop-tutor-dial,
+  .pop-tutor-switch,
+  .pop-tutor-rail,
+  .pop-tutor-knife,
+  .pop-tutor-tally { display: none; }
+  .pop-tutor-passage { grid-template-columns: 1fr; break-inside: avoid; }
+  .pop-tutor-passage--struck .pop-tutor-passage-text { opacity: 0.6; }
+  .pop-tutor-lesson { break-inside: avoid; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .pop-tutor { padding: 56px 0; }
+  .pop-tutor-inner { padding: 0 22px; }
+  .pop-tutor-title { font-size: clamp(36px, 10vw, 56px); }
+  .pop-tutor-deck { font-size: clamp(16px, 4.5vw, 20px); }
+  .pop-tutor-spec { margin-top: 24px; }
+  .pop-tutor-spec-frame { padding: 18px 20px; }
+  .pop-tutor-spec-row { grid-template-columns: 108px 1fr; gap: 12px; }
+  .pop-tutor-prose { font-size: 16px; line-height: 1.6; }
+  .pop-tutor-lesson { padding: 20px 18px; }
+  .pop-tutor-dial { max-width: 100%; padding: 10px 0 0; }
+  .pop-tutor-dial-track { left: 20px; right: 20px; }
+  .pop-tutor-stop { padding: 4px 2px 0; }
+  .pop-tutor-stop-label { font-size: 10px; letter-spacing: 0.06em; }
+  .pop-tutor-rail { max-width: 100%; padding: 10px 0 0; }
+  .pop-tutor-rail-track { left: 18px; right: 18px; }
+  .pop-tutor-stage { padding: 0 2px; }
+  .pop-tutor-stage-label { font-size: 9px; letter-spacing: 0.04em; }
+  .pop-tutor-switch { gap: 10px; }
+  .pop-tutor-switch-label { font-size: 10px; letter-spacing: 0.08em; }
+  .pop-tutor-passage { grid-template-columns: 1fr 52px; gap: 12px; }
+  .pop-tutor-passage-text { font-size: 16px; }
+  .pop-tutor-signoff { padding-top: 32px; margin-top: 32px; }
+}

@@ -165,6 +165,8 @@ export type IssueAccent = InkSeedName | (string & {})
  *                          instrument; individual issues differentiate
  *                          via an explicit accent per PUBLISHING.md §III.4.5)
  *    galley    → oxblood  (endings, memory; the reader's cut is an ending)
+ *    tutor     → amethyst (the issue is about kernel.chat's own grammar —
+ *                          teaching the reader to read the magazine itself)
  */
 export const DEFAULT_ACCENT_BY_SPREAD: Record<IssueSpread['type'], InkSeedName> = {
   essay: 'tomato',
@@ -177,6 +179,7 @@ export const DEFAULT_ACCENT_BY_SPREAD: Record<IssueSpread['type'], InkSeedName> 
   compare: 'ivy',
   sequence: 'pool',
   galley: 'oxblood',
+  tutor: 'amethyst',
 }
 
 /** Pick the default accent for a spread type. */

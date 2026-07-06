@@ -63,6 +63,7 @@ import { ISSUE_407 } from './407'
 import { ISSUE_408 } from './408'
 import { ISSUE_409 } from './409'
 import { ISSUE_410 } from './410'
+import { ISSUE_411 } from './411'
 
 // Re-export accent types so issue files can import from a single place.
 export type { IssueAccent, InkSeedName, InkSeed } from './accents'
@@ -747,6 +748,77 @@ export interface GalleySpread extends SpreadCommon {
   pullQuote?: SpreadPullQuote
 }
 
+/** ─── tutor ─────────────────────────────────────────────────────
+ *  The magazine's first spread whose purpose is capability, not
+ *  claim: a manual that teaches the interaction language by having
+ *  the reader OPERATE a stakes-free version of each shape (ISSUE
+ *  411). Composes the four existing primitives (dial / switch /
+ *  sequence / galley) into one teaching flow; per rule 7 it does
+ *  NOT extract shared machinery from InstrumentFeature et al. — it
+ *  reimplements minimal inline controls, because the tutor is
+ *  instance one of a new story (teaching), not a generalisation of
+ *  the old ones. Teach by CONSEQUENCE, never by grade: every
+ *  control shows what the reader's choice produced, and nothing on
+ *  the page is ever "wrong" — correctness of a keystroke would be
+ *  honestly auditable (unlike 410's feeling), but the magazine
+ *  refuses to grade the reader anyway. That refusal, beyond what
+ *  rule 6 requires, is the issue's whole ethic. */
+export interface TutorLessonCommon {
+  id: string
+  label: string
+  labelJp?: string
+  /** One line: what this shape is for. */
+  teaches: string
+  /** One paragraph before the practice control. */
+  intro: string
+  /** What operating the control reveals — teach by consequence,
+   *  never by grade. Phrased to read true whether or not the reader
+   *  has touched the control (rule 1: calm by default). */
+  consequence: string
+}
+export interface TutorDialLesson extends TutorLessonCommon {
+  shape: 'dial'
+  prompt: string
+  stops: { id: string; label: string; labelJp?: string; reading: string }[]
+  defaultStop?: string
+}
+export interface TutorSwitchLesson extends TutorLessonCommon {
+  shape: 'switch'
+  lenses: [
+    { id: string; label: string; labelJp?: string },
+    { id: string; label: string; labelJp?: string },
+  ]
+  fact: string
+  readingA: string
+  readingB: string
+  defaultLens?: string
+}
+export interface TutorSequenceLesson extends TutorLessonCommon {
+  shape: 'sequence'
+  stages: { id: string; label: string; labelJp?: string; detail: string }[]
+  defaultStage?: string
+}
+export interface TutorGalleyLesson extends TutorLessonCommon {
+  shape: 'galley'
+  passages: { id: string; text: string }[]
+  tallyNote: string
+}
+export type TutorLesson =
+  | TutorDialLesson
+  | TutorSwitchLesson
+  | TutorSequenceLesson
+  | TutorGalleyLesson
+
+export interface TutorSpread extends SpreadCommon {
+  type: 'tutor'
+  dossier?: SpreadDossier
+  intro?: SpreadSection[]
+  /** The lessons, in teaching order — one operable control each. */
+  lessons: TutorLesson[]
+  outro?: SpreadSection[]
+  pullQuote?: SpreadPullQuote
+}
+
 /** Discriminated union — add new editorial tools here. */
 export type IssueSpread =
   | EssaySpread
@@ -759,6 +831,7 @@ export type IssueSpread =
   | CompareSpread
   | SequenceSpread
   | GalleySpread
+  | TutorSpread
 
 export interface IssueCredits {
   editorInChief: string
@@ -1050,6 +1123,7 @@ export const ALL_ISSUES: IssueRecord[] = [
   ISSUE_408,
   ISSUE_409,
   ISSUE_410,
+  ISSUE_411,
 ]
 
 /** The latest published issue — drives the landing cover. */

@@ -12,6 +12,7 @@ import { InstrumentFeature } from './InstrumentFeature'
 import { CompareFeature } from './CompareFeature'
 import { SequenceFeature } from './SequenceFeature'
 import { GalleyFeature } from './GalleyFeature'
+import { TutorFeature } from './TutorFeature'
 
 interface IssueFeatureProps {
   issue: IssueRecord
@@ -55,6 +56,8 @@ export function IssueFeature({ issue }: IssueFeatureProps) {
       return <SequenceFeature spread={spread} issue={issue} />
     case 'galley':
       return <GalleyFeature spread={spread} issue={issue} />
+    case 'tutor':
+      return <TutorFeature spread={spread} issue={issue} />
     default: {
       // Exhaustiveness check — adding a new variant without handling
       // it here produces a compile-time error.
