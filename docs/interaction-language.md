@@ -6,7 +6,7 @@
 > The issue persuades; this document enforces. When they disagree,
 > fix the disagreement before shipping anything.
 >
-> **The cabinet, as of ISSUE 412:** five primitives built — Dial
+> **The cabinet, as of ISSUE 413:** six shapes built — Dial
 > (`instrument`, ARIA radiogroup, N ordered positions on one
 > variable), Compare (`compare`, ARIA switch, two irreducible
 > lenses with no position between them), Sequence (`sequence`,
@@ -14,15 +14,18 @@
 > where each stage's account depends on the one before it), Galley
 > (`galley`, per-passage ARIA toggle buttons, N independent
 > strike/stet marks applied to the prose itself — the reader
-> performs an editorial act on the text), and Margin (`margin`,
+> performs an editorial act on the text), Margin (`margin`,
 > per-passage native text fields — the first CONTRIBUTION control:
 > the reader writes their own words into ruled margin space,
-> counted but never read, kept by no one) — plus the Tutor
-> (`tutor`, ISSUE 411), a COMPOSITE that teaches the primitives by
-> having the reader operate a stakes-free version of each. Any
-> further primitive waits, unbuilt, for a real story that needs it
-> — see rule 7 for how a reservation becomes a build, and for why
-> ISSUE 407 refused to manufacture one.
+> counted but never read, kept by no one), and Press (`press`,
+> ISSUE 413 — the first ARTIFACT control: the reader operates the
+> real production grammar and composes a printable cover of their
+> own; selection and contribution composing toward a thing, not a
+> reading) — plus the Tutor (`tutor`, ISSUE 411), a COMPOSITE that
+> teaches the primitives by having the reader operate a stakes-free
+> version of each. Any further shape waits, unbuilt, for a real
+> story that needs it — see rule 7 for how a reservation becomes a
+> build, and for why ISSUE 407 refused to manufacture one.
 
 Status: **LAW** — reviewed each time a new interactive spread is
 proposed. Two documents govern the visual grammar and this one
@@ -229,6 +232,30 @@ directions: never fake a meter, and never let the reader believe
 you keep what you don't. **Margin is now itself at instance one** —
 its own shared machinery waits for a second contribution-shaped
 story before anything gets extracted.
+
+**How the sixth shape got born (worked example: Press, ISSUE 413),
+and the principle it adds: the law travels with the instruments.**
+The story was the composing rung — after writing comes the press
+itself — and its material was the magazine's own production
+grammar. No existing shape held it: every prior control produced a
+READING; the press produces an ARTIFACT (a composed, printable
+cover that did not exist before the reader's hands). The design
+decision that matters: the choice sets are the LIVE system
+constants — the real `IssueStock` union, the real `INK_SEEDS`
+cabinet, the principal layouts — not copies and not a sandbox. An
+off-grammar cover is therefore impossible by construction rather
+than by validation: the reader cannot pick a neon because
+`isPopeyeSafe()` ran when the cabinet was curated, cannot add a
+third face because the press only owns two. **Handing over a tool
+with its constraints intact is the only honest way to hand over a
+tool** — a "safe copy" would be a toy, and a validator slapping
+the reader's hand would be a grade. Which is the second thing 413
+settles: the colophon line states the reader's composition (stock ·
+ink · layout) and refuses to score it — 411's no-grade ethic at
+higher stakes. Taste is not meterable, and a scored press teaches
+composing for the score. **Press is now itself at instance one** —
+its own shared machinery waits for a second artifact-shaped story
+before anything gets extracted.
 
 ---
 

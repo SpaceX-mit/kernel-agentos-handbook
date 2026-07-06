@@ -89,6 +89,7 @@ Pick the editorial tool that fits the content:
 | `galley` | A **text the reader marks up** — N independent strike/stet marks on the prose itself; the reader performs an editorial act, and any feeling it produces stays unclaimed | One `aria-pressed` toggle per passage (stable accessible name; visible mark swaps CUT → STET); struck text stays legible in the DOM (strikethrough, never removal); a live tally counts ONLY the reader's marks, with a mandatory `tallyNote` stating what is counted and that marks are unrecorded, session-only. Print hides the knives and keeps the marks (see 410). |
 | `tutor` | A **manual that teaches the interaction grammar** — the reader operates a stakes-free version of each shape and becomes literate in all of them; a composite, not a fifth primitive | An array of `lessons`, one per shape (`dial`/`switch`/`sequence`/`galley`), each with a `teaches` line, `intro`, an operable practice control using that shape's real ARIA pattern, and a `consequence` line (always visible — rule 1). Teach by consequence, never by grade: no control is ever "wrong." Controls reimplemented inline, not imported (rule 7). Print shows every reading, hides every control (see 411). |
 | `margin` | A **text with a writable margin** — the first contribution control: the reader writes their own words beside each passage; when machines set the text, the note is the last unautomatable writing | One native labelled `<textarea>` per passage (rule 5 by definition); reader's notes in the house mono against machine-set serif (two voices, two faces); ruled margin space; a tally counting notes + words only (counted, never read); mandatory `marginNote` stating notes are session-only, reload erases, copy out what you keep. Print keeps the notes; empty margins print as pencil-ready ruled space (see 412). |
+| `press` | The **composing instrument** — the first artifact control: the reader operates the real production grammar (stocks, ink seeds, layouts, their own headline/seal/number) and a cover assembles live; selection + contribution composing toward a printable thing | Three roving radiogroups (stock/ink/layout — choice sets are the LIVE system constants, so off-grammar covers are impossible by construction) + labelled text inputs; a live miniature cover; a colophon line stating the composition and grading nothing; mandatory `pressNote` (session-only, reload resets, print to keep). Print renders the reader's cover and hides the instruments (see 413). |
 
 **Profile of a person → essay, not interview**, unless you have the
 subject's actual answers. The magazine never publishes invented
@@ -204,7 +205,8 @@ recent same-format issue (`371.ts` for essay-as-profile,
 `408.ts` for sequence (interactive ordered stages — first instance),
 `410.ts` for galley (interactive reader-markup — first instance),
 `411.ts` for tutor (interactive manual teaching all four shapes — first instance),
-`412.ts` for margin (interactive writable margin — first contribution control)). Every issue needs:
+`412.ts` for margin (interactive writable margin — first contribution control),
+`413.ts` for press (interactive composing instrument — first artifact control)). Every issue needs:
 
 - A leading block comment explaining the identity decisions
 - `number`, `month`, `year`, `feature`, `featureJp`, `price`, `tagline`

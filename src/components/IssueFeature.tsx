@@ -14,6 +14,7 @@ import { SequenceFeature } from './SequenceFeature'
 import { GalleyFeature } from './GalleyFeature'
 import { TutorFeature } from './TutorFeature'
 import { MarginFeature } from './MarginFeature'
+import { PressFeature } from './PressFeature'
 
 interface IssueFeatureProps {
   issue: IssueRecord
@@ -61,6 +62,8 @@ export function IssueFeature({ issue }: IssueFeatureProps) {
       return <TutorFeature spread={spread} issue={issue} />
     case 'margin':
       return <MarginFeature spread={spread} issue={issue} />
+    case 'press':
+      return <PressFeature spread={spread} issue={issue} />
     default: {
       // Exhaustiveness check — adding a new variant without handling
       // it here produces a compile-time error.

@@ -1,0 +1,521 @@
+/* ──────────────────────────────────────────────────────────────
+   PressFeature — the composing instrument
+   The magazine's sixth interaction shape (ISSUE 413) and first
+   artifact control: the reader operates the real production
+   grammar and a cover assembles live. Interaction is React state;
+   MOTION stays inside the editorial contract — background/color
+   transitions at ambient amplitude only, collapsed by the
+   site-wide prefers-reduced-motion override. Print renders the
+   reader's cover and its colophon and hides the instruments:
+   the artifact leaves with the reader.
+   ────────────────────────────────────────────────────────────── */
+
+.pop-press {
+  padding: 96px 0;
+  border-top: 1px solid var(--pop-hairline-soft);
+  border-bottom: 1px solid var(--pop-hairline-soft);
+}
+
+.pop-press-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ── Header ─────────────────────────────────────────────── */
+.pop-press-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding-bottom: 32px;
+}
+
+.pop-press-title {
+  font-size: clamp(42px, 6vw, 80px);
+  line-height: 0.95;
+  margin: 8px 0 0;
+  letter-spacing: -0.03em;
+}
+
+.pop-press-title-jp { margin: 0; }
+
+.pop-press-deck {
+  font-size: clamp(18px, 2.2vw, 24px);
+  max-width: 52ch;
+  margin: 8px 0 0;
+  line-height: 1.35;
+}
+
+.pop-press-byline {
+  margin: 16px 0 0;
+  color: var(--pop-coffee);
+  opacity: 0.85;
+}
+
+/* ── The spec dossier ───────────────────────────────────── */
+.pop-press-spec {
+  margin: 32px auto 0;
+  max-width: 560px;
+}
+
+.pop-press-spec-frame {
+  border: 1px solid var(--pop-ink);
+  padding: 24px 28px;
+  background: var(--pop-ivory);
+  position: relative;
+}
+
+.pop-press-spec-badge {
+  position: absolute;
+  top: -14px;
+  left: -14px;
+}
+
+.pop-press-spec-kicker {
+  display: block;
+  margin: 0 0 10px;
+  letter-spacing: 0.16em;
+}
+
+.pop-press-spec-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--pop-coffee);
+  margin: 0 0 14px;
+  text-wrap: pretty;
+}
+
+.pop-press-spec-list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pop-press-spec-row {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  gap: 16px;
+  padding: 8px 0;
+  border-top: 1px solid var(--pop-hairline-soft);
+  align-items: baseline;
+}
+.pop-press-spec-row:first-child { border-top: 0; }
+
+.pop-press-spec-label {
+  margin: 0;
+  letter-spacing: 0.1em;
+  color: var(--pop-coffee);
+}
+
+.pop-press-spec-value {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--issue-accent);
+  line-height: 1.4;
+}
+
+/* ── Prose (intro / outro) ──────────────────────────────── */
+.pop-press-prose {
+  font-family: var(--font-serif);
+  color: var(--pop-ink);
+  font-size: clamp(17px, 1.3vw, 19px);
+  line-height: 1.65;
+  margin-top: 40px;
+}
+
+.pop-press-section { margin-bottom: 32px; }
+.pop-press-section:last-child { margin-bottom: 0; }
+
+.pop-press-section-heading {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(20px, 2.2vw, 26px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 14px;
+  color: var(--pop-ink);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pop-press-section-heading-jp {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--pop-coffee);
+}
+
+.pop-press-paragraph {
+  margin: 0 0 16px;
+  text-wrap: pretty;
+}
+.pop-press-paragraph:last-child { margin-bottom: 0; }
+
+.pop-press-rule {
+  margin: 44px auto;
+  max-width: 120px;
+  height: 1px;
+  background: var(--pop-hairline);
+}
+
+/* ── The apparatus ──────────────────────────────────────── */
+.pop-press-apparatus {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pop-press-apparatus-kicker {
+  letter-spacing: 0.16em;
+  color: var(--pop-coffee);
+  text-align: center;
+  margin: 0 0 28px;
+}
+
+/* ── The reader's cover — a live miniature ──────────────── */
+.pop-press-cover {
+  position: relative;
+  width: min(420px, 100%);
+  aspect-ratio: 3 / 4;
+  border: 1px solid var(--pop-ink);
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.pop-press-cover-dateline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  opacity: 0.85;
+}
+
+.pop-press-cover-star {
+  color: var(--issue-accent);
+  font-size: 9px;
+}
+
+.pop-press-cover-masthead {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(26px, 4vw, 34px);
+  letter-spacing: -0.02em;
+  margin-top: 10px;
+  line-height: 1;
+}
+
+.pop-press-cover-rule {
+  width: 56px;
+  height: 2px;
+  border: 0;
+  background: var(--issue-accent);
+  margin: 14px auto;
+}
+
+.pop-press-cover-headline {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(20px, 3vw, 27px);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  margin-top: 6px;
+}
+
+.pop-press-cover-emphasis {
+  font-style: italic;
+  color: var(--issue-accent);
+}
+
+.pop-press-cover-heronum {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(72px, 12vw, 110px);
+  line-height: 0.9;
+  color: var(--issue-accent);
+  letter-spacing: -0.04em;
+  margin-top: 4px;
+}
+
+/* The seal — a small stamped ring, top-right. */
+.pop-press-cover-seal {
+  position: absolute;
+  top: 40px;
+  right: 16px;
+  width: 76px;
+  height: 76px;
+  border: 1.5px solid var(--issue-accent);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 8px;
+  transform: rotate(8deg);
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  color: var(--issue-accent);
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.pop-press-cover-seal-date { opacity: 0.8; }
+
+.pop-press-cover-monument {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+}
+
+.pop-press-cover-monument strong {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Layout variants */
+.pop-press-cover--asymmetric-left {
+  align-items: flex-start;
+  text-align: left;
+}
+.pop-press-cover--asymmetric-left .pop-press-cover-rule { margin: 14px 0; }
+
+.pop-press-cover--monument-hero .pop-press-cover-headline {
+  font-size: clamp(14px, 2vw, 18px);
+}
+
+/* ── The instruments ────────────────────────────────────── */
+.pop-press-instruments {
+  width: 100%;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pop-press-instrument {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pop-press-instrument-label {
+  letter-spacing: 0.14em;
+  color: var(--pop-coffee);
+}
+
+.pop-press-instrument-jp { letter-spacing: 0.08em; }
+
+.pop-press-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pop-press-option {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 6px 12px;
+  background: none;
+  border: 1px solid var(--pop-hairline);
+  cursor: pointer;
+  font: inherit;
+  transition: border-color 160ms ease;
+}
+
+.pop-press-option:hover { border-color: var(--issue-accent); }
+
+.pop-press-option--active {
+  border-color: var(--issue-accent);
+  box-shadow: inset 0 0 0 1px var(--issue-accent);
+}
+
+.pop-press-option:focus-visible {
+  outline: 2px solid var(--issue-accent);
+  outline-offset: 2px;
+}
+
+.pop-press-option-label {
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  font-size: 10px;
+  color: var(--pop-coffee);
+}
+
+.pop-press-option--active .pop-press-option-label { color: var(--issue-accent); }
+
+.pop-press-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+}
+
+/* ── The written fields ─────────────────────────────────── */
+.pop-press-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px 18px;
+}
+
+.pop-press-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pop-press-field-label {
+  letter-spacing: 0.12em;
+  color: var(--pop-coffee);
+  font-size: 10px;
+}
+
+.pop-press-field input {
+  border: 0;
+  border-bottom: 1px solid var(--pop-hairline);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--issue-accent);
+  padding: 6px 0;
+  min-height: 32px;
+}
+
+.pop-press-field input:focus-visible {
+  outline: none;
+  border-bottom-color: var(--issue-accent);
+}
+
+/* ── The colophon line ──────────────────────────────────── */
+.pop-press-colophon {
+  margin: 32px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--pop-hairline-soft);
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--pop-coffee);
+  font-variant-numeric: tabular-nums;
+}
+
+.pop-press-colophon-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--pop-coffee);
+  opacity: 0.85;
+  text-align: center;
+  margin: 14px auto 0;
+  max-width: 52ch;
+}
+
+/* ── Pull quote ─────────────────────────────────────────── */
+.pop-press-pullquote {
+  margin: 48px auto;
+  max-width: 60ch;
+  text-align: center;
+  border: 0;
+}
+
+.pop-press-pullquote-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--issue-accent);
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+
+.pop-press-pullquote-cite {
+  display: block;
+  font-style: normal;
+  letter-spacing: 0.14em;
+  color: var(--pop-coffee);
+}
+
+/* ── Sign-off ───────────────────────────────────────────── */
+.pop-press-signoff {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  padding-top: 48px;
+  margin-top: 48px;
+}
+
+.pop-press-signoff-text {
+  font-size: clamp(17px, 1.8vw, 22px);
+  margin: 0;
+  color: var(--pop-coffee);
+}
+
+.pop-press-monument {
+  margin-top: 8px;
+  align-items: center;
+  text-align: center;
+}
+
+/* ── Print — the artifact leaves with the reader ────────── */
+@media print {
+  .pop-press-instruments,
+  .pop-press-colophon-note { display: none; }
+  .pop-press-cover {
+    break-inside: avoid;
+    transition: none;
+  }
+  .pop-press-colophon { break-inside: avoid; }
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .pop-press { padding: 56px 0; }
+  .pop-press-inner { padding: 0 22px; }
+  .pop-press-title { font-size: clamp(36px, 10vw, 56px); }
+  .pop-press-deck { font-size: clamp(16px, 4.5vw, 20px); }
+  .pop-press-spec { margin-top: 24px; }
+  .pop-press-spec-frame { padding: 18px 20px; }
+  .pop-press-spec-row { grid-template-columns: 104px 1fr; gap: 12px; }
+  .pop-press-prose { font-size: 16px; line-height: 1.6; }
+  .pop-press-fields { grid-template-columns: 1fr 1fr; }
+  .pop-press-option { padding: 6px 10px; }
+  .pop-press-signoff { padding-top: 32px; margin-top: 32px; }
+}

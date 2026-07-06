@@ -65,6 +65,7 @@ import { ISSUE_409 } from './409'
 import { ISSUE_410 } from './410'
 import { ISSUE_411 } from './411'
 import { ISSUE_412 } from './412'
+import { ISSUE_413 } from './413'
 
 // Re-export accent types so issue files can import from a single place.
 export type { IssueAccent, InkSeedName, InkSeed } from './accents'
@@ -858,6 +859,56 @@ export interface MarginSpread extends SpreadCommon {
   pullQuote?: SpreadPullQuote
 }
 
+/** ─── press ─────────────────────────────────────────────────────
+ *  The composing instrument — the sixth interaction shape (ISSUE
+ *  413) and the first ARTIFACT control: the reader operates the
+ *  magazine's real production grammar (the actual stock cabinet,
+ *  the actual nine ink seeds, the actual cover layouts, their own
+ *  headline and seal) and a cover assembles live under their hands.
+ *  Where every prior shape produced a READING, the press produces
+ *  a THING — printable, theirs, unkept by us.
+ *
+ *  The law travels with the instruments: the choice sets ARE the
+ *  cabinet, so a reader cannot compose an off-grammar cover — one
+ *  spot color, two faces, POPEYE-safe seeds only, by construction
+ *  rather than by validation. Controls: three radiogroups (stock /
+ *  accent / layout) + labelled text inputs (headline lockup, seal,
+ *  number) — all established patterns. Session-state only; print
+ *  renders the reader's cover (the artifact leaves with them). */
+export type PressLayout = 'classic' | 'monument-hero' | 'asymmetric-left'
+
+export interface PressDefaults {
+  stock: IssueStock
+  /** A named seed from the Ink Cabinet (accents.ts). */
+  accent: string
+  layout: PressLayout
+  /** The headline lockup the page loads with — rule 1: the
+   *  untouched page shows a complete, composed cover. */
+  prefix: string
+  emphasis: string
+  suffix: string
+  /** Seal label; empty string = no seal (declining to stamp is a
+   *  legitimate composition — see 373). */
+  seal: string
+  /** The reader's issue number, e.g. '001'. */
+  number: string
+}
+
+export interface PressSpread extends SpreadCommon {
+  type: 'press'
+  dossier?: SpreadDossier
+  intro?: SpreadSection[]
+  /** Mono label above the instruments. */
+  pressKicker?: string
+  /** The composition the page loads with. */
+  defaults: PressDefaults
+  /** Honesty note under the colophon line — mandatory: selections
+   *  are session-only, nothing recorded, print to keep the cover. */
+  pressNote: string
+  outro?: SpreadSection[]
+  pullQuote?: SpreadPullQuote
+}
+
 /** Discriminated union — add new editorial tools here. */
 export type IssueSpread =
   | EssaySpread
@@ -872,6 +923,7 @@ export type IssueSpread =
   | GalleySpread
   | TutorSpread
   | MarginSpread
+  | PressSpread
 
 export interface IssueCredits {
   editorInChief: string
@@ -1165,6 +1217,7 @@ export const ALL_ISSUES: IssueRecord[] = [
   ISSUE_410,
   ISSUE_411,
   ISSUE_412,
+  ISSUE_413,
 ]
 
 /** The latest published issue — drives the landing cover. */
