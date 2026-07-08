@@ -224,9 +224,9 @@ Always:
 # 2. Import + push into ALL_ISSUES in src/content/issues/index.ts
 # 3. Run typecheck
 npx tsc --noEmit
-# 4. Build + deploy
-npm run build              # vite build
-npm run deploy             # build + push to gh-pages
+# 4. Build, then publish by pushing main
+npm run build              # vite build (verify locally)
+git push origin main       # CI deploys (deploy.yml) — main is the only publisher
 ```
 
 Always:

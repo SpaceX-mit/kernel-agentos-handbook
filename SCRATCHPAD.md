@@ -2,6 +2,111 @@
 
 > This file persists context between Claude Code sessions.
 
+## Session 2026-07-08 — Caught hallucinated "local Fable 5" models in kbot routing
+
+A cross-agent workflow surfaced a problem worth remembering: a
+transcript (from a parallel Antigravity/Gemini session working the
+same repo) claimed it had added "local Fable 5 distillations" —
+`YuriiFominYoung/fable-5`, `TeichAI/Qwen3.6-27B-Fable-5-Experimental`,
+`sakmkmk2/Vibe-Coding-Claude-Fable-5` — to `OLLAMA_MODEL_ROUTES` and
+`preferredFallbacks` in `packages/kbot/src/auth.ts`. These don't and
+can't exist: Anthropic doesn't distribute Claude weights, so there is
+no legitimate open/local distillation of Fable 5. Verified against
+`git diff` (the edit had genuinely landed) and `ollama list` (none of
+the three names were installed — confirmed hallucinated, not just
+unpulled). Functionally inert (`isModelAvailable()` would always skip
+them) but factually wrong to ship. Reverted `auth.ts` via `git
+checkout`; a second pasted transcript reported the same-session
+cleanup (SCRATCHPAD entry + a rewritten research note in Antigravity's
+own brain folder) — re-verified via grep across `auth.ts`/`SCRATCHPAD.md`/
+`KBOT.md`/`KERNEL.md` and confirmed clean. New feedback memory:
+[[feedback_verify_cross_agent_claims]].
+
+## Session 2026-07-08 — Steam/Battle.net cleanups
+
+- **Uninstallation of launchers:** Successfully uninstalled Steam and Battle.net applications from `/Applications`, cleared all application support, preferences, and cache directories (`~/Library/Application Support/Steam`, `~/Library/Application Support/Battle.net`, `~/Library/Application Support/Blizzard`, etc.). Verified process and file removal. Note: `/Users/Shared/Battle.net` was left as an empty directory owned by root.
+
+## Session 2026-07-07 — Client quoting engine ("receipts, not ratings" applied to pricing)
+
+Isaac asked what to charge for system builds and wanted a "rating
+matchmaking system" for when he brings clients/users into the space.
+ISSUE 414's own doctrine replaced ratings with receipts: built a
+line-item quoting engine in `~/agency-kit/rates/` (rates.json =
+policy, quote.mjs = deterministic calculator, quotes.ledger.csv =
+ships empty) + a global `~/.claude/skills/new-client/` skill
+triggered by "a new client/user is entering the space" — intake of
+observable facts → computed quote → approval gate → ledger row.
+Verified: standard build computes $10,800 + $1,500/mo (inside the
+$8.5k–12k target band); connector role yields 12% first-year
+finder's fee. Boundary held: agency billing only, nothing wired into
+kernel.chat (no-billing rule). Details in memory
+`project_client_quoting_engine.md`.
+
+Second pass same day: catalog now covers the FULL Anthropic/Claude
+Code surface (14 line items in `rates.json` incl. custom MCP servers
+$2k, Agent SDK/Managed Agents apps $3.5k, scheduled agents, API
+pipelines, computer-use, evals) — quote.mjs is catalog-driven, so new
+capabilities are a JSON edit. Full-platform reference build computes
+$31,250 + $3,000/mo. Also wrote `~/agency-kit/PITCH.md` — the
+practice's pitch in three registers + "it's computed, not negotiated"
+price script.
+
+Third pass: **discovery deposit gate** — no scoping conversation
+before payment. Enforced in quote.mjs (intake needs a deposit receipt
+or an Isaac-only logged waiver), step 0 of the new-client skill,
+credited in full toward the build.
+
+Full-day build-out (2026-07-07) — the whole client practice is now
+LIVE and collect-ready. Summary (full detail: memory
+`project_client_quoting_engine.md` + Obsidian "KERNEL PRESS — Client
+Practice"):
+- **Deposit LIVE at $750** (raised from $500). Real Stripe link
+  https://buy.stripe.com/bJe8wQbOL19F63u0Rs8Vi02 (kernel.chat acct),
+  wired into rates.json/invoice/bill.mjs/emails; old $500 retired.
+- **Documents:** `deposit-invoice.html` + `engagement-agreement.html`
+  (KERNEL PRESS e-ink; commit = milestone billing + non-refundable
+  deposit + kill fee + ownership-on-final-payment). `bill.mjs`
+  auto-fills invoices.
+- **Live cost-meter widget** for client-present scoping (they watch
+  the total build). Skill has a live-mode + client-present guardrail.
+- **Showroom** `~/client-room/` — separate project (own empty memory),
+  screen-share-safe; workshop=blog-design, never shared. Confirmed
+  SCRATCHPAD/memory auto-loads are project-scoped, don't fire there.
+- **Comms:** strictly Gmail (kernel.chat@gmail.com) + "Clients" label
+  (created via connector) + `client-emails.md` kit. No custom domain
+  (decided). 
+- **Market research** (cited): outcome worth $30–80k agency; I charge
+  solo floor (~$10.8k) — headroom not worth, climbs with proof.
+- **NAMING RULE:** never call the deliverable a "file/md/spec/config/
+  document/prompt" to a client — it's their "system". Price the
+  outcome not the effort. Enforced in PITCH.md + client-room CLAUDE.md.
+- OPEN (optional): rename Stripe merchant off "kernel.chat"; build 2nd
+  $2.5–3.5k discovery tier; lawyer-review the agreement.
+
+## Session 2026-07-06 — The Steward's Delta: instrument disclosure opens
+
+Isaac asked what the goal of using Fable 5 for the editorial brand would
+be; the answer that stuck: **hire a better editor, not a faster printer**
+— and the most kernel.chat-shaped artifact of the upgrade is the audit
+trail showing where the human editor overrules the model. He said yes.
+Built (uncommitted, tsc clean, colophon verified in preview):
+
+- `docs/stewards-delta.md` — doctrine: two rooms (editor's chair =
+  Fable 5 for judgment; pressroom = local models for labor), disclosure
+  rule (datelined, never retroactive — back numbers make no instrument
+  claim), what files vs. what doesn't (overrides of judgment only; no
+  QA, no approvals, no backfill).
+- `docs/stewards-delta.ledger.csv` — ships EMPTY by doctrine. Columns:
+  date, surface, instrument, instrument_call, editor_call, reason,
+  receipt. First entry belongs to whoever overrules the chair first.
+- `IssueColophon.tsx` — new fine-print line: "Instruments, from JUL
+  2026: Claude Fable 5 in the editor's chair; local models in the
+  pressroom…" pointing at the ledger.
+
+Open: not committed/deployed; a future ISSUE about this earns itself
+only once real deltas exist (receipts first, per 414). KERNEL.md §III
+still names Opus 4.7 as the reasoning layer — update when convenient.
+
 ## Session 2026-07-05/06 — ISSUES 407–414: the interaction language built out to six primitives
 
 **Shipped 8 issues in two days, all deployed and provenance-verified.** Arc:

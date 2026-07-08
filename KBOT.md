@@ -38,8 +38,8 @@ tools/                      # Daemons, MCP servers, scripts
 # Web companion
 npm run dev                 # Vite dev server (localhost:5173)
 npm run build               # tsc + vite build
-npm run deploy              # Build + deploy to GitHub Pages (kernel.chat)
-npx tsc --noEmit            # Type-check (MUST pass before deploy)
+git push origin main        # CI deploys to GitHub Pages (kernel.chat) — main is the only publisher
+npx tsc --noEmit            # Type-check (MUST pass before push)
 
 # K:BOT CLI
 cd packages/kbot
@@ -100,7 +100,7 @@ npx supabase functions deploy <name> --project-ref eoxxpyixdieprsxlpwcs
 
 ## Deploy
 
-- **Web**: `npm run deploy` (GitHub Pages, kernel.chat)
+- **Web**: push `main` — CI deploys (`.github/workflows/deploy.yml`, GitHub Pages, kernel.chat)
 - **kbot**: `npm publish` from packages/kbot/ (npm, @kernel.chat/kbot)
 - **Edge functions**: `npx supabase functions deploy <name> --project-ref eoxxpyixdieprsxlpwcs`
 - **Ship pipeline**: /ship runs 6 gates (security > QA > design > perf > devops > product)

@@ -54,6 +54,11 @@ export function IssueColophon({ issue }: IssueColophonProps) {
           <span className="pop-folio-fine">
             Free because the work it reports on — provenance engineering at <span className="pop-mono">@kernel.chat/kbot-finance</span> — is the thing we sell.
           </span>
+          <br />
+          <span className="pop-folio-fine">
+            Instruments, from JUL 2026: Claude Fable 5 in the editor's chair; local models in the pressroom.
+            Where the editor overrules the chair, the delta is filed in public — <span className="pop-mono">docs/stewards-delta.md</span>.
+          </span>
         </p>
 
         <button

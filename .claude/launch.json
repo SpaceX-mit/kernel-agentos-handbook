@@ -24,6 +24,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8733", "--directory", "/Users/isaachernandez/blog design"],
       "port": 8733
+    },
+    {
+      "name": "kernel-video-preview",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd '/private/tmp/claude-501/-Users-isaachernandez-blog-design/85df40b5-d748-4657-89e3-051d5abd3e26/scratchpad/kernel-video' && npx hyperframes preview --port 3010 --no-open"],
+      "port": 3010
     }
   ]
 }

@@ -31,7 +31,7 @@ cp .env.example .env
 npm run dev        # Start dev server (port 5173)
 npm run build      # TypeScript check + Vite build
 npx tsc --noEmit   # Type-check only (fast)
-npm run deploy     # Build + deploy to GitHub Pages
+git push origin main  # CI deploys to GitHub Pages (main is the only publisher)
 ```
 
 ## Project Structure
