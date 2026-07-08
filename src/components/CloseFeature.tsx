@@ -37,7 +37,7 @@ export function CloseFeature({ spread, issue }: CloseFeatureProps) {
   const accentHex = resolveAccentHex(issue.accent, spread.type)
   const accentStyle = { '--issue-accent-base': accentHex } as CSSProperties
 
-  const cap = spread.cap ?? 40
+  const cap = Math.max(2, spread.cap ?? 40)
   const [itemsShown, setItemsShown] = useState(1)
   const [reason, setReason] = useState<StopReason | null>(null)
   const [elapsedSeconds, setElapsedSeconds] = useState(0)
@@ -77,7 +77,7 @@ export function CloseFeature({ spread, issue }: CloseFeatureProps) {
 
   const visibleItems = Array.from(
     { length: itemsShown },
-    (_, i) => spread.filler[i % spread.filler.length]
+    (_, i) => (spread.filler.length > 0 ? spread.filler[i % spread.filler.length] : '')
   )
 
   const renderSections = (sections?: typeof spread.intro) =>

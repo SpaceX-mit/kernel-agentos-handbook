@@ -341,7 +341,8 @@
 @media print {
   .pop-close-feed,
   .pop-close-readout,
-  .pop-close-controls {
+  .pop-close-controls,
+  .pop-close-receipt {
     display: none;
   }
   .pop-close-print-snapshot {
