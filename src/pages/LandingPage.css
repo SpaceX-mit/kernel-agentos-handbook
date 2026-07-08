@@ -1050,7 +1050,7 @@
 .pop-cover-ornament--full-stop {
   left: 50%;
   bottom: 0;
-  width: 55%;
+  width: 16%;
   height: auto;
   aspect-ratio: 1;
   transform: translate(-50%, 8%);
@@ -1068,7 +1068,7 @@
 
 @media (max-width: 640px) {
   .pop-cover-ornament--full-stop {
-    width: 70%;
+    width: 22%;
     bottom: 0;
     transform: translate(-50%, 6%);
     opacity: 0.8;
