@@ -1049,6 +1049,7 @@
       on dark paper without a blend mode washing it out. */
 .pop-cover-ornament--full-stop {
   left: 50%;
+  bottom: 0;
   width: 55%;
   height: auto;
   aspect-ratio: 1;
@@ -1068,6 +1069,7 @@
 @media (max-width: 640px) {
   .pop-cover-ornament--full-stop {
     width: 70%;
+    bottom: 0;
     transform: translate(-50%, 6%);
     opacity: 0.8;
   }
