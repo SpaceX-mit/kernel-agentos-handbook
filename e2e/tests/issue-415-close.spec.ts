@@ -8,7 +8,11 @@ test.describe('ISSUE 415 — close primitive', () => {
 
     await page.getByRole('button', { name: 'Show me one more' }).click()
     await page.getByRole('button', { name: 'Show me one more' }).click()
-    await expect(page.getByText('3 ITEMS')).toBeVisible()
+    // Scope to the live readout — CloseFeature also renders a `.pop-close-print-snapshot`
+    // paragraph with the same "3 ITEMS" text (hidden via CSS + aria-hidden, shown only at
+    // print time). getByText() matches DOM text regardless of visibility, so an unscoped
+    // query matches both and trips Playwright's strict-mode ambiguity check.
+    await expect(page.locator('.pop-close-readout').getByText('3 ITEMS')).toBeVisible()
 
     await page.getByRole('button', { name: "I'll stop here" }).click()
     await expect(page.getByText('You chose to stop here.')).toBeVisible()
