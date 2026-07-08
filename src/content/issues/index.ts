@@ -1044,6 +1044,11 @@ export type IssueCoverOrnament =
    *  metaphor: the asterisk that should have shipped with the
    *  headline number. Introduced 374: AGAINST VIRAL BENCHMARKS. */
   | 'asterisk-stamp'
+  /** 'full-stop' — a single heavy period, bleeding off the bottom
+   *  edge of the cover. The most literal possible image for what
+   *  ISSUE 415 (the close primitive) hands the reader: an ending.
+   *  Renders under .pop-cover--ornament-full-stop. Introduced 415. */
+  | 'full-stop'
 
 /** Optional press-preview wax seal rendered in the top-right
  *  corner of the cover. Reads as a rubber stamp or embargo seal;

@@ -53,6 +53,7 @@ export function IssueCover({ issue, footer }: IssueCoverProps) {
       {ornament === 'ink-spread' && <InkSpreadOrnament />}
       {ornament === 'warty-spots' && <WartySpotsOrnament />}
       {ornament === 'flash-burn' && <FlashBurnOrnament />}
+      {ornament === 'full-stop' && <FullStopOrnament />}
       {seal && <CoverSeal label={seal.label} date={seal.date} />}
       <div className="pop-cover-inner">
 
@@ -352,6 +353,28 @@ function FlashBurnOrnament() {
         height="560"
         fill="url(#pop-flash-burn-gradient)"
       />
+    </svg>
+  )
+}
+
+/**
+ * FullStopOrnament — a single heavy period, bleeding off the bottom
+ * edge of the cover. The most literal possible image for what
+ * ISSUE 415 (the close primitive) hands the reader: an ending. The
+ * mark renders in the issue's own accent color so it reads as part
+ * of the same system as everything else on the cover, not a fixed
+ * decoration. Introduced for ISSUE 415.
+ */
+function FullStopOrnament() {
+  return (
+    <svg
+      className="pop-cover-ornament pop-cover-ornament--full-stop"
+      viewBox="0 0 420 560"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <circle cx="210" cy="620" r="150" fill="var(--issue-accent-base)" />
     </svg>
   )
 }
