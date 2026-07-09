@@ -23,7 +23,7 @@ const LMSTUDIO_HOST = process.env.LMSTUDIO_HOST || 'http://localhost:1234'
 const JAN_HOST = process.env.JAN_HOST || 'http://localhost:1337'
 const KBOT_LOCAL_HOST = process.env.KBOT_LOCAL_HOST || 'http://127.0.0.1:18789'
 const LLADA_HOST = process.env.KBOT_LLADA_URL || 'http://localhost:8000'
-const HERMES_HOST = process.env.HERMES_HOST || 'http://localhost:8000'
+const HERMES_HOST = process.env.HERMES_HOST || 'http://127.0.0.1:8642'
 
 // ── All supported providers ──
 
@@ -265,8 +265,8 @@ export const PROVIDERS: Record<ByokProvider, ProviderConfig> = {
     name: 'Ollama (Local)',
     apiUrl: `${OLLAMA_HOST}/v1/chat/completions`,
     apiStyle: 'openai',
-    defaultModel: 'gemma3:12b',
-    fastModel: 'qwen2.5-coder:7b',
+    defaultModel: 'gemma4:latest',
+    fastModel: 'qwen3:8b',
     inputCost: 0,
     outputCost: 0,
     authHeader: 'bearer',  // Ollama ignores auth but needs valid header
@@ -304,8 +304,10 @@ export const PROVIDERS: Record<ByokProvider, ProviderConfig> = {
     // OpenAI-compatible HTTP API server (see hermes-agent.nousresearch.com).
     // kbot uses Hermes as a delegate: kbot orchestrates; Hermes executes
     // long-form research and skill-heavy workflows where its mature skill
-    // system is the better fit. Run locally via `hermes gateway` (default
-    // port 8000) or override via HERMES_HOST env var.
+    // system is the better fit. The API server is a gateway "platform" that
+    // is OFF by default — set API_SERVER_ENABLED=true (and API_SERVER_KEY)
+    // in ~/.hermes/.env, then run `hermes gateway run`. Default port is
+    // 8642, not Hermes' other services' 8000; override via HERMES_HOST.
     name: 'Hermes Agent (Local)',
     apiUrl: `${HERMES_HOST}/v1/chat/completions`,
     apiStyle: 'openai',
@@ -596,8 +598,8 @@ export function getProvider(provider: ByokProvider): ProviderConfig {
 /** Ollama model routing — pick the best local model for the task */
 const OLLAMA_MODEL_ROUTES: Array<{ keywords: RegExp; models: string[]; fallbackCategory: 'code' | 'reasoning' | 'general' }> = [
   { keywords: /\b(code|function|class|refactor|debug|typescript|javascript|python|rust|go|java|html|css|react|vue|angular|api|endpoint|sql|query|database|schema|migration|test|spec|lint|build|compile|import|export|module|package|dependency|npm|pip|cargo)\b/i, models: ['qwen2.5-coder:32b', 'qwen2.5-coder:14b', 'qwen2.5-coder:7b', 'deepseek-coder-v2:16b', 'codellama:13b', 'codegemma:7b', 'starcoder2:7b'], fallbackCategory: 'code' },
-  { keywords: /\b(reason|think|why|explain|analyze|compare|evaluate|proof|logic|math|calculate|solve|deduc|infer|hypothesis|trade.?off|pros?\s+and\s+cons?|decision)\b/i, models: ['deepseek-r1:32b', 'deepseek-r1:14b', 'deepseek-r1:7b', 'phi4:14b', 'gemma3:27b', 'gemma3:12b', 'qwen2.5:32b', 'mistral:7b'], fallbackCategory: 'reasoning' },
-  { keywords: /\b(research|search|find|look\s+up|summarize|article|paper|report|review|document|write|blog|essay|draft|outline|rewrite|edit|proofread)\b/i, models: ['llama3.3:70b', 'qwen2.5:72b', 'gemma3:27b', 'gemma3:12b', 'llama3.1:8b', 'mistral:7b'], fallbackCategory: 'general' },
+  { keywords: /\b(reason|think|why|explain|analyze|compare|evaluate|proof|logic|math|calculate|solve|deduc|infer|hypothesis|trade.?off|pros?\s+and\s+cons?|decision)\b/i, models: ['deepseek-r1:32b', 'deepseek-r1:14b', 'deepseek-r1:7b', 'phi4:14b', 'gemma4:31b', 'gemma4:latest', 'gemma3:27b', 'gemma3:12b', 'qwen2.5:32b', 'mistral:7b'], fallbackCategory: 'reasoning' },
+  { keywords: /\b(research|search|find|look\s+up|summarize|article|paper|report|review|document|write|blog|essay|draft|outline|rewrite|edit|proofread)\b/i, models: ['llama3.3:70b', 'qwen2.5:72b', 'gemma4:31b', 'gemma4:latest', 'gemma3:27b', 'gemma3:12b', 'llama3.1:8b', 'mistral:7b'], fallbackCategory: 'general' },
 ]
 
 /** Cache of available Ollama models (refreshed periodically) */
@@ -642,7 +644,7 @@ export function selectOllamaModel(message: string, availableModels?: string[]): 
     }
   }
   // No keyword match — prefer the largest available model
-  const preferredFallbacks = ['gemma3:27b', 'phi4:14b', 'gemma3:12b', 'deepseek-r1:14b', 'qwen2.5-coder:14b', 'mistral:7b', 'llama3.1:8b']
+  const preferredFallbacks = ['gemma4:31b', 'gemma4:latest', 'gemma3:27b', 'phi4:14b', 'gemma3:12b', 'deepseek-r1:14b', 'qwen3:8b', 'qwen2.5-coder:14b', 'mistral:7b', 'llama3.1:8b']
   for (const model of preferredFallbacks) {
     if (isModelAvailable(model, available)) return model
   }
