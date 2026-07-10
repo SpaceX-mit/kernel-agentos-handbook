@@ -1,7 +1,7 @@
 /// <reference lib="webworker" />
 import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching'
 import { registerRoute, NavigationRoute } from 'workbox-routing'
-import { NetworkOnly, NetworkFirst, CacheFirst, StaleWhileRevalidate } from 'workbox-strategies'
+import { NetworkOnly, NetworkFirst, CacheFirst } from 'workbox-strategies'
 import { ExpirationPlugin } from 'workbox-expiration'
 
 declare let self: ServiceWorkerGlobalScope
@@ -98,13 +98,13 @@ registerRoute(
   })
 )
 
-// Supabase REST API — stale while revalidate
+// Supabase REST API — NEVER cache. Responses are per-user and gated by a
+// bearer token, but Workbox keys the cache on URL alone, so a cached body
+// could be served across accounts on a shared browser profile and would
+// persist authed data offline. Authenticated REST must always hit network.
 registerRoute(
   /^https:\/\/.*\.supabase\.co\/rest\/v1\/.*/i,
-  new StaleWhileRevalidate({
-    cacheName: 'supabase-api',
-    plugins: [new ExpirationPlugin({ maxEntries: 50, maxAgeSeconds: 300 })],
-  })
+  new NetworkOnly()
 )
 
 // ─── Push notifications ───
@@ -173,6 +173,9 @@ self.addEventListener('activate', (event) => {
       // Clear the JS/CSS cache on activation — content-hashed filenames
       // mean a fresh network fetch will always get the correct version.
       caches.delete('app-code'),
+      // Evict any Supabase REST responses cached by a prior SW version —
+      // that route is now NetworkOnly; this purges the sensitive backlog.
+      caches.delete('supabase-api'),
       // Enable navigation preload — starts fetch in parallel with SW boot
       self.registration.navigationPreload?.enable().catch(() => {}),
     ]).then(() => self.clients.claim())

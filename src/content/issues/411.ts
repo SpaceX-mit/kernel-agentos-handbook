@@ -91,7 +91,7 @@ export const ISSUE_411: IssueRecord = {
   feature: 'OPERATING INSTRUCTIONS',
   featureJp: '取扱説明書',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'butter',
   coverLayout: 'classic',

@@ -62,7 +62,7 @@ export const ISSUE_396: IssueRecord = {
   feature: 'THE PRICE OF THINKING',
   featureJp: '思考の値段',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'ledger',
   coverLayout: 'classic',

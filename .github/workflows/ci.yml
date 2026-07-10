@@ -21,6 +21,8 @@ jobs:
       - name: Design adherence — no raw hex in the editorial design-system layer
         run: npm run lint:adherence
       - run: npx tsc --noEmit
+      - name: Unit tests (root vitest — 498 tests)
+        run: npx vitest run
       - run: npm run build
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}

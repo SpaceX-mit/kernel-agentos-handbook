@@ -42,7 +42,7 @@ export const ISSUE_387: IssueRecord = {
   feature: 'ON ORCHESTRATION',
   featureJp: '「オーケストレーションについて」',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'cream',
   coverLayout: 'asymmetric-left',

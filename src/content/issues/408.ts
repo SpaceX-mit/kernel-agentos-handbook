@@ -66,7 +66,7 @@ export const ISSUE_408: IssueRecord = {
   feature: 'THE LOOP THAT KNOWS WHEN TO STOP',
   featureJp: '止まり方を知るループ',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'cream',
   coverLayout: 'classic',

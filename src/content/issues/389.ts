@@ -53,7 +53,7 @@ export const ISSUE_389: IssueRecord = {
   feature: 'ON SURPASSING',
   featureJp: '「超えることについて」',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'cream',
   coverLayout: 'asymmetric-left',

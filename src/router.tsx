@@ -25,11 +25,11 @@ function RootErrorPage() {
   const error = useRouteError() as any
   const message = error?.statusText || error?.message || String(error)
   return (
-    <div style={{ padding: 40, fontFamily: 'Courier Prime, monospace', color: '#1F1E1D', background: '#FAF9F6', minHeight: '100vh' }}>
-      <h1 style={{ fontSize: 24, marginBottom: 16 }}>Something went wrong</h1>
-      <pre style={{ whiteSpace: 'pre-wrap', opacity: 0.7, fontSize: 14, marginBottom: 24 }}>{message}</pre>
-      <pre style={{ whiteSpace: 'pre-wrap', opacity: 0.5, fontSize: 12 }}>{error?.stack || JSON.stringify(error, null, 2)}</pre>
-      <button onClick={() => window.location.hash = '#/'} style={{ marginTop: 24, padding: '8px 24px', cursor: 'pointer' }}>
+    <div className="pop-error-page">
+      <h1>Something went wrong</h1>
+      <pre>{message}</pre>
+      <pre className="pop-error-stack">{error?.stack || JSON.stringify(error, null, 2)}</pre>
+      <button onClick={() => window.location.hash = '#/'}>
         Go Home
       </button>
     </div>

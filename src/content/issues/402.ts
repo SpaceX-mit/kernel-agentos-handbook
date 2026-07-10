@@ -49,7 +49,7 @@ export const ISSUE_402: IssueRecord = {
   feature: 'THE WRONG ROOM',
   featureJp: '間違った部屋',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'kraft',
   coverLayout: 'classic',

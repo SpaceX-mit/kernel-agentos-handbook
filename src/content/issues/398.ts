@@ -53,7 +53,7 @@ export const ISSUE_398: IssueRecord = {
   feature: 'NO MORE QUESTIONS',
   featureJp: '問いはもう無い',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'ink',
   coverLayout: 'asymmetric-left',

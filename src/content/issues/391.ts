@@ -42,7 +42,7 @@ export const ISSUE_391: IssueRecord = {
   feature: 'ON THE HOUSE STYLE',
   featureJp: '「ハウススタイルについて」',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'ivory',
   coverLayout: 'classic',

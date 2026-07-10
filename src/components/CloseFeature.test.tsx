@@ -23,7 +23,7 @@ const issue: IssueRecord = {
   feature: 'STOP PRESS',
   featureJp: '終わりの合図',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
   headline: { prefix: 'Stop', emphasis: 'Press', suffix: '.', swash: '' },
   contents: [],
   spread,

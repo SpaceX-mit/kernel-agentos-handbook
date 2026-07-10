@@ -40,7 +40,7 @@
 .pop-kicker--tomato { color: var(--issue-accent, var(--pop-tomato)); }
 
 /* Tomato banner tag — feature flag style, reversed rounded-corner box */
-.pop-banner { display: inline-block; font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: var(--letter-spacing-caps); text-transform: uppercase; background: var(--pop-tomato); color: var(--pop-ivory); padding: 4px 12px; border-radius: 2px; font-weight: 700; }
+.pop-banner { display: inline-block; font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: var(--letter-spacing-caps); text-transform: uppercase; background: var(--pop-tomato-deep); color: var(--pop-ivory); padding: 4px 12px; border-radius: 2px; font-weight: 700; }
 .pop-banner--ink { background: var(--pop-ink); color: var(--pop-ivory); }
 .pop-banner--kraft { background: var(--pop-kraft); color: var(--pop-ink); }
 
@@ -161,3 +161,12 @@
 /* Feature-JP micro lockup — small Japanese subtitle */
 .pop-feature-jp { font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.12em; color: var(--pop-coffee); margin: 0; }
 .pop-section-header--on-ink .pop-feature-jp { color: var(--pop-sepia); }
+
+/* Global router error page — last-resort UI when a route throws. Token-
+   driven so it stays on-brand and honours the no-inline-style/no-raw-hex
+   rules; editorial.css is @imported by index.css, so it is always loaded. */
+.pop-error-page { padding: 40px; font-family: var(--font-mono); color: var(--pop-ink); background: var(--pop-ivory); min-height: 100vh; }
+.pop-error-page h1 { font-size: 24px; margin: 0 0 16px; }
+.pop-error-page pre { white-space: pre-wrap; font-size: 14px; margin: 0 0 24px; opacity: 0.7; }
+.pop-error-page pre.pop-error-stack { font-size: 12px; opacity: 0.5; }
+.pop-error-page button { margin-top: 24px; padding: 8px 24px; font-family: inherit; cursor: pointer; color: var(--pop-ink); background: none; border: 1px solid var(--pop-ink); border-radius: 4px; }

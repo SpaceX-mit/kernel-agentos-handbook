@@ -103,7 +103,7 @@ export const ISSUE_410: IssueRecord = {
   feature: "THE EDITOR'S KNIFE",
   featureJp: '編集者のナイフ',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'kraft',
   coverLayout: 'classic',

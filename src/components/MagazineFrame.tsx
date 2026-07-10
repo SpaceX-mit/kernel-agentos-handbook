@@ -116,7 +116,7 @@ export function MagazineFrame({
           <hr className="pop-rule pop-rule--soft" />
           <div className="pop-frame-row pop-frame-footer-row">
             <span className="pop-folio">
-              {ISSUE.tagline}
+              {issue.tagline}
             </span>
             <div className="pop-frame-footer-actions">
               <button
@@ -135,7 +135,7 @@ export function MagazineFrame({
             </div>
             <span className="pop-folio">
               <PopIcon name="asterisk" size="sm" className="pop-system-glyph" />
-              ISSUE {ISSUE.number} · {ISSUE.month} {ISSUE.year}
+              ISSUE {issue.number} · {issue.month} {issue.year}
             </span>
           </div>
         </div>

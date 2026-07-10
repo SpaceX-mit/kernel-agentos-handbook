@@ -80,7 +80,7 @@ export const ISSUE_409: IssueRecord = {
   feature: 'NO METER FOR FEELING',
   featureJp: '感情の計器は無い',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'ink',
   coverLayout: 'asymmetric-left',

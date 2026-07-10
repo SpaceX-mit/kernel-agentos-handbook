@@ -63,7 +63,7 @@ export const ISSUE_406: IssueRecord = {
   feature: 'ONE DAY, TWO READINGS',
   featureJp: '一日、二つの読み方',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'butter',
   coverLayout: 'classic',

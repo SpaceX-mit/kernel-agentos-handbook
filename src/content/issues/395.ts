@@ -49,12 +49,12 @@ import type { IssueRecord } from './index'
 
 export const ISSUE_395: IssueRecord = {
   number: '395',
-  month: 'MAY',
+  month: 'JUN',
   year: '2026',
   feature: 'THE WEEK THE ASSISTANT BECAME AN ACTOR',
   featureJp: '助手が動き手になった週',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'ivory',
   coverLayout: 'asymmetric-left',

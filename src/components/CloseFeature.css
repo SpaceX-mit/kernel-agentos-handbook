@@ -379,6 +379,40 @@
   }
 }
 
+/* ── Ink stock — flip prose colors for dark paper ──────────
+   ISSUE 415 ships on the ink stock (spread.stock = 'ink'), the
+   dark register 371 used for its own dispatch. The title, prose,
+   headings, byline, readout, notes, and signoff monument all
+   default to ink-dark tones (via .pop-display / .pop-monument /
+   var(--pop-ink) / var(--pop-coffee)) that vanish against the ink
+   ground — a class-level color beats the ivory the .pop-stock-ink
+   container tries to inherit down. Flip each to ivory/sepia.
+   The spec frame, the simulated feed, and the two controls each
+   sit on their own ivory card, so their interior ink/coffee text
+   is already legible and is deliberately left untouched. Mirrors
+   the ink-override block in EssayFeature.css. */
+.pop-close.pop-stock-ink .pop-close-title { color: var(--pop-ivory); }
+.pop-close.pop-stock-ink .pop-close-title-jp { color: var(--pop-sepia); }
+.pop-close.pop-stock-ink .pop-close-deck { color: var(--pop-sepia); }
+.pop-close.pop-stock-ink .pop-close-byline { color: var(--pop-sepia); }
+.pop-close.pop-stock-ink .pop-close-prose { color: var(--pop-ivory); }
+.pop-close.pop-stock-ink .pop-close-section-heading { color: var(--pop-ivory); }
+.pop-close.pop-stock-ink .pop-close-section-heading-jp { color: var(--pop-sepia); }
+.pop-close.pop-stock-ink .pop-close-readout { color: var(--pop-sepia); }
+.pop-close.pop-stock-ink .pop-close-apparatus-kicker { color: var(--pop-sepia); }
+.pop-close.pop-stock-ink .pop-close-tally-note { color: var(--pop-sepia); }
+.pop-close.pop-stock-ink .pop-close-signoff-text { color: var(--pop-sepia); }
+.pop-close.pop-stock-ink .pop-close-pullquote-cite { color: var(--pop-sepia); }
+.pop-close.pop-stock-ink .pop-close-monument { color: var(--pop-ivory); }
+
+/* Dividers default to the dark ink hairline; lift them to a
+   translucent ivory so they read on the dark ground. */
+.pop-close.pop-stock-ink {
+  border-top-color: rgba(250, 249, 246, 0.16);
+  border-bottom-color: rgba(250, 249, 246, 0.16);
+}
+.pop-close.pop-stock-ink .pop-close-rule { background: rgba(250, 249, 246, 0.16); }
+
 @media (max-width: 640px) {
   .pop-close { padding: 56px 0; }
   .pop-close-inner { padding: 0 22px; }

@@ -139,6 +139,22 @@ serve(async (req: Request) => {
     }
 
     if (action === 'execute') {
+      // ── KILL-SWITCH (P0 security) ────────────────────────────────
+      // In-process execution uses `new Function` (see executeInDeno),
+      // whose body runs in this Edge Function's GLOBAL scope — it can
+      // reach Deno.env (incl. SUPABASE_SERVICE_ROLE_KEY), fetch, and
+      // every runtime global. That is arbitrary code execution beside
+      // production secrets. Disabled by default until execution is moved
+      // to a secret-free, genuinely isolated worker/container. To
+      // re-enable, set the secret COMPUTER_ENGINE_EXEC_ENABLED='true' —
+      // do NOT do so while executeInDeno still relies on `new Function`.
+      if (Deno.env.get('COMPUTER_ENGINE_EXEC_ENABLED') !== 'true') {
+        return new Response(
+          JSON.stringify({ error: 'Code execution is temporarily disabled.', code: 'EXEC_DISABLED' }),
+          { status: 503, headers: { ...CORS, 'Content-Type': 'application/json' } },
+        )
+      }
+
       const { code, language, sandbox_id } = body
       if (!code || !language || !sandbox_id) {
         return new Response(JSON.stringify({ error: 'Missing code, language, or sandbox_id' }), {
@@ -254,6 +270,14 @@ serve(async (req: Request) => {
  * This runs in the Deno edge runtime's sandboxed environment.
  */
 async function executeInDeno(code: string, timeoutMs: number): Promise<{ stdout: string; stderr: string; exitCode: number }> {
+  // Hard guard (P0): never build `new Function` from caller-supplied code
+  // unless execution has been explicitly re-enabled. Belt-and-suspenders
+  // with the action-level kill-switch above, in case another path ever
+  // reaches this helper.
+  if (Deno.env.get('COMPUTER_ENGINE_EXEC_ENABLED') !== 'true') {
+    return { stdout: '', stderr: 'Code execution is disabled.', exitCode: 1 }
+  }
+
   const logs: string[] = []
   const errors: string[] = []
 

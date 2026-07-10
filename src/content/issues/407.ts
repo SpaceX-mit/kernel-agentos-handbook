@@ -62,7 +62,7 @@ export const ISSUE_407: IssueRecord = {
   feature: 'WHAT THE HAND EARNED',
   featureJp: '手が得たもの',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'ivory',
   coverLayout: 'classic',

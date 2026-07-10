@@ -82,7 +82,7 @@ export const ISSUE_414: IssueRecord = {
   feature: 'RECEIPTS, NOT RATINGS',
   featureJp: '評価ではなく証跡を',
   price: '¥0 · BYOK',
-  tagline: 'MAGAZINE OF AGENTIC ENGINEERING · エージェント工学の雑誌',
+  tagline: 'MAGAZINE FOR CITY CODERS · 街のコーダーのために',
 
   coverStock: 'ivory',
   coverLayout: 'asymmetric-left',

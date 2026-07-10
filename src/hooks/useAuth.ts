@@ -82,7 +82,9 @@ export function useAuth(): AuthState {
 
     const pendingRecovery = localStorage.getItem(RECOVERY_FLAG);
 
-    console.log('[Auth] init — code:', hasCode, 'error:', hasError, 'tokenHash:', !!tokenHash, 'pendingRecovery:', !!pendingRecovery, 'url:', window.location.href);
+    // Log only boolean state — never the full URL, which carries the
+    // recovery `token_hash` (and could reach logs/telemetry).
+    console.log('[Auth] init — code:', hasCode, 'error:', hasError, 'tokenHash:', !!tokenHash, 'pendingRecovery:', !!pendingRecovery);
 
     if (hasError) {
       console.warn('[Auth] OAuth error:', params.get('error'), params.get('error_description'));
