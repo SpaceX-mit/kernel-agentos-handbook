@@ -2,6 +2,57 @@
 
 > This file persists context between Claude Code sessions.
 
+## Session 2026-07-09 — Verified a cross-agent routing plan; found `--model opus` broken
+
+Second application of [[feedback_verify_cross_agent_claims]], and it
+caught a *different* failure mode than 2026-07-08. A pasted analysis
+(same parallel Antigravity/Gemini session) proposed a two-rooms workflow:
+local Ollama for the pressroom, Fable 5 for the editor's chair. Verified
+piece by piece:
+
+- **True:** the uncommitted `auth.ts` routing diff. Every model it adds
+  (`gemma4:latest`, `gemma4:31b`, `qwen3:8b`) is genuinely installed —
+  confirmed against `ollama list`. Unlike yesterday, no hallucinated
+  weights. Also correctly moves the Hermes gateway to port 8642.
+- **False:** the commands. `kbot --provider ollama` does not exist —
+  there is no `--provider` root option; provider lives in config as
+  `byok_provider`, set via `kbot byok` / `kbot auth` / `--ollama-launch`.
+- **False:** "gemma4 routes general tasks to Google's Gemma 4." Ollama
+  runs locally; nothing reaches Google. The tok/s and "80–90% savings"
+  numbers appear nowhere in the repo — unverified.
+
+Chasing whether `--model opus` was a valid flag surfaced a real bug:
+`resolveModelAlias()` handled only `fable`, so `opus` fell through
+`isExplicitModel` (agent.ts:1626) and was sent to the Anthropic API as
+the literal string `"opus"` — a 404. Shell completions had been
+suggesting it all along. Fixed via a `FLAGSHIP_ALIASES` table; added 8
+tests (the function had zero), one asserting every resolved ID is a
+member of that provider's `models` catalog. Note `isExplicitModel` is an
+allowlist of *speed hints*, not of models, so any unrecognized alias
+fails at the API boundary rather than at parse time.
+
+Shipped as two commits on `main` (routing first, then the alias fix),
+fast-forwarded from `fix/kbot-model-alias`. Not pushed.
+
+**Do not repeat my mistake:** running `npx vitest run packages/kbot`
+from the repo root looks like a red suite (11 files / 6 tests failing).
+It is not. The root `vitest.config.ts` sets `environment: 'jsdom'`
+globally and lacks kbot's excludes; `packages/kbot/vitest.config.ts`
+sets `environment: 'node'` and excludes `gamedev.test.ts`. The correct
+invocation is `cd packages/kbot && npm test`, which is **green: 70
+files, 1288 tests**. I wrongly reported a red default branch and started
+a bisect before an A/B on `--environment node` disproved it. There is no
+regression and no vitest-version problem (4.0.18 vs installed 4.1.0 both
+pass under the right environment).
+
+Also killed three stale `peekaboo mcp` servers (PIDs 23188/30880/33813)
+left by Tuesday Claude Code sessions, burning 12–18 min CPU each, while
+chasing a phantom-mouse-click report. No evidence they were the cause —
+peekaboo's session log was empty and the kbot daemon has been dead since
+April 19. Cause still unknown; the discriminator is whether clicking
+persists at the macOS login window (no agents run there). Antigravity's
+claim that it restored `ForceSuppressed = 0` on the trackpad checked out.
+
 ## Session 2026-07-08 — Caught hallucinated "local Fable 5" models in kbot routing
 
 A cross-agent workflow surfaced a problem worth remembering: a
