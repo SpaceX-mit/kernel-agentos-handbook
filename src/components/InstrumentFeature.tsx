@@ -136,7 +136,7 @@ export function InstrumentFeature({ spread, issue }: InstrumentFeatureProps) {
           <div
             className="pop-instrument-dial"
             role="radiogroup"
-            aria-label="Effort — how hard the machine thinks"
+            aria-label={spread.dialLabel ?? 'Effort — how hard the machine thinks'}
             onKeyDown={onDialKeyDown}
           >
             <span className="pop-instrument-dial-track" aria-hidden="true" />

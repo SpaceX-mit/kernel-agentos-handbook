@@ -2,6 +2,80 @@
 
 > This file persists context between Claude Code sessions.
 
+## Session 2026-07-11 — ISSUE 416 · GPT 5.6 SOL (instrument) — on branch `fix/site-audit-qa-and-security`
+
+Started from an in-progress bespoke full-bleed page (`src/pages/GptSolPage.{tsx,css}`,
+routed at `#/gpt-5-6-sol`) — verified it rendered, then the user said it "has to be
+the next issue 416." That page was off house grammar (acid-orange + neon lime, its
+own layout — the lime literally fails `isPopeyeSafe()`), so registering it verbatim
+would have broken documented invariants. Asked; user chose **native instrument issue**.
+
+Reconciled the way 405 taught: the "Signal Lab" (one prompt, three registers) IS the
+`instrument` shape. GPT 5.6 SOL is speculative and does not exist, so — per the 399/405
+honesty rule (meter must be measured or disclosed-representative, never a fabricated
+benchmark) — ran the concept's own default prompt ("why a city feels different after
+midnight") **for real** on `gemma3:12b` (local, ollama HTTP API), under three register
+directives. TOKENS = `eval_count`, TIME = `total_duration`, read straight from the API,
+$0 local. The run proved the thesis: PRECISE 53 tok / 9.3s, EXPANSIVE 1,407 tok / 46.2s
+(1,090 words, buried the answer), SOULFUL 459 tok / 15.7s. **The warm answer was not the
+expensive one.** Runner + raw JSON in scratchpad (`run_sol.sh`, `resp_*.json`).
+
+Shipped (NOT committed, NOT deployed — working tree on `fix/site-audit-qa-and-security`):
+- `src/content/issues/416.ts` — instrument; ivory / asymmetric-left / accent tomato
+  (declared, not the pool default — the human frequency is warm); coverSeal SPECULATIVE
+  STUDY; defaultStop soulful. EXPANSIVE shown excerpted (disclosed), PRECISE verbatim,
+  SOULFUL trimmed of its closer (disclosed). Registered in `index.ts` → new LATEST_ISSUE.
+- `InstrumentSpread.dialLabel?` added (index.ts + InstrumentFeature.tsx) — optional,
+  back-compat; 399/405 keep the hardcoded "Effort" label, 416 says "Register — how the
+  machine sounds." No machinery extracted (interaction-language rule 7).
+- Retired the bespoke page: reverted `router.tsx` + `Layout.tsx`, deleted
+  `GptSolPage.{tsx,css}`. (Design preserved in this session's history if ever wanted.)
+
+Verified: `tsc --noEmit` clean, `npm run build` clean; landing shows the 416 cover,
+`/issues/416` renders the full spread, dial switches panels + measured meters correctly.
+NOTE: dev-server console shows stale `GptSolPage is not defined` HMR errors from the
+mid-session deletion — cosmetic, cleared by a fresh browser load; the production build
+is authoritative. This issue does NOT belong on the security branch — move to its own
+branch (or main-direct per PUBLISHING §VII) before committing/deploying.
+
+## Session 2026-07-10 — Site audit response: QA/design + P0/P1 security (branch `fix/site-audit-qa-and-security`)
+
+Started as a design/QA hand-off, escalated into a security pass when three
+cross-agent (Antigravity/Gemini) audit reports arrived mid-turn. Third
+application of [[feedback_verify_cross_agent_claims]] — this time the
+reports were *accurate*: every claim (edge RCE, RLS, SW cache, auth log,
+101 hex, 20 npm vulns, CI gap, stale E2E) grep/read-confirmed true. Still
+worth verifying — the discipline is cheap and the trust isn't automatic.
+
+Two commits on `fix/site-audit-qa-and-security` (NOT pushed, NOT deployed):
+- `1d2444a` — QA/design + P0/P1 security. Invisible ISSUE 415 body
+  (ink-on-ink → `.pop-close.pop-stock-ink` overrides mirroring
+  EssayFeature); brand convergence (owner's call: "City Coders" canonical
+  — rolled 28 issues 386+ back from "Agentic Engineering" to the existing
+  `街のコーダーのために` string, 56/56); 395 MAY→JUN; per-route titles in
+  Layout; MagazineFrame footer used global ISSUE; banner contrast via
+  scoped `--pop-tomato-deep` #C63D14 (brand `--pop-tomato` untouched).
+  Security: computer-engine `new Function` kill-switch
+  (`COMPUTER_ENGINE_EXEC_ENABLED`, default off) + guard; migration 093
+  drops shared_conversations public `USING(true)` (public viewing already
+  goes through the service-role `shared-conversation` edge fn, so no client
+  change needed); sw.ts Supabase→NetworkOnly + cache purge; useAuth stopped
+  logging the URL/token_hash; router error page tokenized; react-router-dom
+  7.13.1→7.18.1 (turbo-stream RCE); CI runs root vitest.
+- `c8bbe65` — protobufjs override ^7.6.5 (last critical; transitive via
+  posthog→otel; stays in otlp's ^7.3.0 range).
+
+DEPLOY still required for the two P0s: `supabase functions deploy
+computer-engine …` and `supabase db push` (migration 093). Prod audit
+criticals now 0.
+
+Verified backlog (NOT done — deliberate): 12 high/19 moderate npm vulns
+(triage, don't wholesale `audit fix` — churns 113 pkgs incl. kbot
+breaking); E2E suite tests retired chat-at-`/` (decide rewrite/retarget/
+retire, selector swap = false green); 101 page-level hex → tokens; eslint
+absent though `"lint"` references it; git pack ~631MB; kbot tests write to
+real `~/.kbot` (inject temp KBOT_HOME).
+
 ## Session 2026-07-09 — Verified a cross-agent routing plan; found `--model opus` broken
 
 Second application of [[feedback_verify_cross_agent_claims]], and it

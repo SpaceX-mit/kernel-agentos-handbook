@@ -68,6 +68,7 @@ import { ISSUE_412 } from './412'
 import { ISSUE_413 } from './413'
 import { ISSUE_414 } from './414'
 import { ISSUE_415 } from './415'
+import { ISSUE_416 } from './416'
 
 // Re-export accent types so issue files can import from a single place.
 export type { IssueAccent, InkSeedName, InkSeed } from './accents'
@@ -584,6 +585,11 @@ export interface InstrumentSpread extends SpreadCommon {
   /** The fixed question every stop answers. */
   prompt: string
   promptJp?: string
+  /** Accessible label for the dial radiogroup. Defaults to
+   *  "Effort — how hard the machine thinks" (the 399/405 framing).
+   *  Set it when the dial turns a different variable — e.g. register
+   *  rather than effort (416). */
+  dialLabel?: string
   /** The dial's stops, in order. */
   stops: InstrumentStop[]
   /** id of the initially selected stop. Defaults to the first. */
@@ -1260,6 +1266,7 @@ export const ALL_ISSUES: IssueRecord[] = [
   ISSUE_413,
   ISSUE_414,
   ISSUE_415,
+  ISSUE_416,
 ]
 
 /** The latest published issue — drives the landing cover. */

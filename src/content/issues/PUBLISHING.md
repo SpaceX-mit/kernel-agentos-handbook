@@ -200,7 +200,9 @@ recent same-format issue (`371.ts` for essay-as-profile,
 `403.ts` for forecast, `365.ts` for interview,
 `404.ts` for review (graded survey),
 `398.ts` for colloquy (two-voice),
-`405.ts` for instrument (interactive dial, second instance, measured meter),
+`405.ts` for instrument (interactive dial, measured meter) or
+`416.ts` for instrument (a *register* dial rather than effort — a real local
+model run three ways; adds the optional `dialLabel` field),
 `406.ts` for compare (interactive binary switch — first instance),
 `408.ts` for sequence (interactive ordered stages — first instance),
 `410.ts` for galley (interactive reader-markup — first instance),
@@ -425,8 +427,10 @@ branch — only main publishes.
 
 ---
 
-_Last updated: ISSUE 406 · JUL 2026 (seven-issue press day: 400–406;
-interaction language + system architecture codified in docs/; 405 is
-the second instrument with a measured meter; 406 introduces `compare`,
-the eighth editorial tool and second interactive spread — a binary
-switch, the cabinet's first shape distinct from the Dial)._
+_Last updated: ISSUE 416 · JUL 2026 (GPT 5.6 SOL — a speculative model
+study run as an honest instrument: the dial turns *register* rather than
+effort, and the meter is a real gemma3:12b run measured off the ollama
+API. Reuses `instrument` (no new shape — interaction-language rule 7),
+adding only the optional `dialLabel` field so a non-effort dial can be
+labelled honestly. 406 introduced `compare`, the eighth editorial tool;
+405 was the second instrument with a measured meter.)_
