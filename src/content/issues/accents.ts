@@ -173,6 +173,8 @@ export type IssueAccent = InkSeedName | (string & {})
  *                          about kernel.chat itself, definitionally)
  *    close     → oxblood (endings — the fit note is literally "endings";
  *                          shared register with colloquy and galley)
+ *    day       → cobalt  (the metropolitan register — transit-map civic
+ *                          blue; the day shape is the city lived in time)
  */
 export const DEFAULT_ACCENT_BY_SPREAD: Record<IssueSpread['type'], InkSeedName> = {
   essay: 'tomato',
@@ -189,6 +191,7 @@ export const DEFAULT_ACCENT_BY_SPREAD: Record<IssueSpread['type'], InkSeedName> 
   margin: 'coffee',
   press: 'amethyst',
   close: 'oxblood',
+  day: 'cobalt',
 }
 
 /** Pick the default accent for a spread type. */

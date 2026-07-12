@@ -259,6 +259,27 @@ before anything gets extracted.
 
 ---
 
+**The eighth shape — Day (`day`, ISSUE 418), and the axis it adds.**
+Every prior shape gave the reader's hand a variable (Dial), a
+comparison (Compare), a process (Sequence), a text (Galley, Margin),
+an artifact (Press), or an ending (Close). The Day gives it TIME
+LIVED: an authored metropolitan day of delegation moments, each
+carrying one two-state control — LET IT RIDE / STEP IN — and a
+midnight ledger that meters only the reader's real actions (marks,
+changes of mind, the session clock; the 415 clock precedent).
+What it settles: rule 4 can carry a *choice* shape without
+branching — both authored consequences stay printed and legible at
+every state; the mark selects which is the reader's, it never
+reveals or hides. And rule 6 runs double here: the reader's numbers
+are measured; the day itself (moments, attention costs) is authored
+representative composite, disclosed in the dossier — the two kinds
+of number are never allowed to blur. The no-grade ethic (411) holds:
+no split is scored; the ledger is a portrait, not a verdict.
+**Day is at instance one** — its machinery waits for a second
+time-lived story before anything is extracted.
+
+---
+
 ## Adding a new interactive spread — checklist
 
 1. Does the story *require* the reader's hand? (Rule 2 test:

@@ -69,6 +69,7 @@ import { ISSUE_413 } from './413'
 import { ISSUE_414 } from './414'
 import { ISSUE_415 } from './415'
 import { ISSUE_416 } from './416'
+import { ISSUE_418 } from './418'
 
 // Re-export accent types so issue files can import from a single place.
 export type { IssueAccent, InkSeedName, InkSeed } from './accents'
@@ -950,6 +951,61 @@ export interface CloseSpread extends SpreadCommon {
   outro?: SpreadSection[]
   pullQuote?: SpreadPullQuote
 }
+/** ─── day ───────────────────────────────────────────────────────
+ *  An authored metropolitan day carrying delegation moments — the
+ *  eighth interaction shape (ISSUE 418), and the first whose axis
+ *  is TIME LIVED rather than a variable, a text, or an artifact.
+ *  Nine time-stamped moments, 06:10 → 00:40, each an ambient city
+ *  vignette with one calibrated two-state control: LET IT RIDE /
+ *  STEP IN. Rule 4 is load-bearing here: BOTH authored consequences
+ *  are printed and stay legible at all times — the reader's mark
+ *  selects which one is theirs, it never hides the other. The
+ *  ledger at midnight meters ONLY real reader actions (marks,
+ *  changes of mind, the session clock — the 415 precedent); moment
+ *  copy and attention costs are authored representative composites,
+ *  disclosed in the dossier. Marks are session-state only, nothing
+ *  recorded, nothing sent — `ledgerNote` is mandatory equipment
+ *  (rule 6). ARIA: one radiogroup per moment, two radio buttons.
+ *  See docs/interaction-language.md for the birth entry. */
+export interface DayMoment {
+  /** Stable id, e.g. 'd1'. */
+  id: string
+  /** Clock time, 24h, e.g. '07:42'. */
+  time: string
+  /** Mono label, e.g. 'THE REROUTE'. */
+  label: string
+  labelJp?: string
+  /** Which ambient vignette the moment renders inside. */
+  vignette: 'kettle' | 'train' | 'crosswalk' | 'desk' | 'market' | 'window'
+  /** The city + what the agent just did on your behalf. */
+  situation: string
+  /** Authored consequence if the reader lets it ride. */
+  ride: string
+  /** Authored consequence if the reader steps in. */
+  stepIn: string
+  /** The attention toll of stepping in, e.g. '+6 MIN OF YOUR
+   *  ATTENTION' — authored, representative, disclosed. */
+  cost: string
+}
+
+export interface DaySpread extends SpreadCommon {
+  type: 'day'
+  dossier?: SpreadDossier
+  intro?: SpreadSection[]
+  /** Mono label above the day, e.g. 'THE DAY · 一日'. */
+  dayKicker?: string
+  /** The delegation moments, in clock order. */
+  moments: DayMoment[]
+  /** Mandatory honesty note under the ledger (rule 6): what the
+   *  ledger counts, that marks are session-only and unrecorded,
+   *  and that the moments themselves are authored composites. */
+  ledgerNote: string
+  /** Works-cited block — the behavioral-science file. */
+  references?: SpreadReferences
+  outro?: SpreadSection[]
+  pullQuote?: SpreadPullQuote
+}
+
 export type IssueSpread =
   | EssaySpread
   | InterviewSpread
@@ -965,6 +1021,7 @@ export type IssueSpread =
   | MarginSpread
   | PressSpread
   | CloseSpread
+  | DaySpread
 
 export interface IssueCredits {
   editorInChief: string
@@ -1267,6 +1324,9 @@ export const ALL_ISSUES: IssueRecord[] = [
   ISSUE_414,
   ISSUE_415,
   ISSUE_416,
+  // ISSUE 417 (PROOF OF HAND) is spec'd on this branch and inserts
+  // here when built — 418 was written first, ships second.
+  ISSUE_418,
 ]
 
 /** The latest published issue — drives the landing cover. */
