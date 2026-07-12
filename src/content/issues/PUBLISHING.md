@@ -90,6 +90,9 @@ Pick the editorial tool that fits the content:
 | `tutor` | A **manual that teaches the interaction grammar** — the reader operates a stakes-free version of each shape and becomes literate in all of them; a composite, not a fifth primitive | An array of `lessons`, one per shape (`dial`/`switch`/`sequence`/`galley`), each with a `teaches` line, `intro`, an operable practice control using that shape's real ARIA pattern, and a `consequence` line (always visible — rule 1). Teach by consequence, never by grade: no control is ever "wrong." Controls reimplemented inline, not imported (rule 7). Print shows every reading, hides every control (see 411). |
 | `margin` | A **text with a writable margin** — the first contribution control: the reader writes their own words beside each passage; when machines set the text, the note is the last unautomatable writing | One native labelled `<textarea>` per passage (rule 5 by definition); reader's notes in the house mono against machine-set serif (two voices, two faces); ruled margin space; a tally counting notes + words only (counted, never read); mandatory `marginNote` stating notes are session-only, reload erases, copy out what you keep. Print keeps the notes; empty margins print as pencil-ready ruled space (see 412). |
 | `press` | The **composing instrument** — the first artifact control: the reader operates the real production grammar (stocks, ink seeds, layouts, their own headline/seal/number) and a cover assembles live; selection + contribution composing toward a printable thing | Three roving radiogroups (stock/ink/layout — choice sets are the LIVE system constants, so off-grammar covers are impossible by construction) + labelled text inputs; a live miniature cover; a colophon line stating the composition and grading nothing; mandatory `pressNote` (session-only, reload resets, print to keep). Print renders the reader's cover and hides the instruments (see 413). |
+| `close` | A **feed with no natural end** — the stopping-cue demonstration: "one more" and "stop" as siblings at identical weight from the first item | Two sibling buttons sharing ONE class (the law: the stop is never demoted at any count — regression-tested); deliberately flat, non-escalating filler; a session clock from mount; a soft cap that is part of the argument; mandatory `closeNote` (nothing measured or stored, reload resets). Print renders the outcome receipt, never the live controls (see 415). |
+| `proof` | An **adjudicated machine draft** — the correction pass: a machine completed the screen before the reader arrived; per line the reader assigns KEEP MACHINE / TAKE THE HAND / STRIKE | One roving-tabindex radiogroup per line (three fates); all three versions of every line stay in the DOM — selection is emphasis, never presence; a live resolved screen plus a provenance ledger (N machine · N hand · N struck); mandatory `ledgerNote` (marks session-only, unrecorded) AND `machineNote` (machine lines are real model output, never hand-edited, raw run filed in the audit). Print stacks every version plus the ledger (see 417). |
+| `day` | An **authored day the reader marks** — time lived as the axis: metropolitan delegation moments, dawn to after-midnight, each marked LET IT RIDE / STEP IN | One radiogroup per moment (two marks, none preselected); both authored consequences always printed — the mark selects, it never reveals or hides; ambient CSS-only city vignettes at weather amplitude; a midnight ledger counting ONLY the reader's marks, changes of mind, and the session clock; mandatory `ledgerNote` (session-only, unrecorded; moments and attention costs disclosed as authored representative composites). Print stacks the day and snapshots the ledger (see 418). |
 
 **Profile of a person → essay, not interview**, unless you have the
 subject's actual answers. The magazine never publishes invented
@@ -427,10 +430,12 @@ branch — only main publishes.
 
 ---
 
-_Last updated: ISSUE 416 · JUL 2026 (GPT 5.6 SOL — a speculative model
-study run as an honest instrument: the dial turns *register* rather than
-effort, and the meter is a real gemma3:12b run measured off the ollama
-API. Reuses `instrument` (no new shape — interaction-language rule 7),
-adding only the optional `dialLabel` field so a non-effort dial can be
-labelled honestly. 406 introduced `compare`, the eighth editorial tool;
-405 was the second instrument with a measured meter.)_
+_Last updated: ISSUE 418 · JUL 2026 (ONE DAY — the ninth interaction
+shape, `day`: an authored metropolitan day of delegation moments the
+reader marks LET IT RIDE / STEP IN, with a midnight ledger metering
+only the reader's own actions. Shipped alongside ISSUE 417 (PROOF OF
+HAND), the eighth shape, `proof`: a real gemma3:12b-drafted screen the
+reader adjudicates line by line — KEEP MACHINE / TAKE THE HAND /
+STRIKE — into a resolved screen and a provenance ledger. Both shapes
+argue their seven-rule compliance in their issue-file headers; both
+ledgers count only the reader's session-only marks.)_

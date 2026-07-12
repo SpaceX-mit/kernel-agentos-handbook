@@ -69,6 +69,7 @@ import { ISSUE_413 } from './413'
 import { ISSUE_414 } from './414'
 import { ISSUE_415 } from './415'
 import { ISSUE_416 } from './416'
+import { ISSUE_417 } from './417'
 import { ISSUE_418 } from './418'
 
 // Re-export accent types so issue files can import from a single place.
@@ -951,9 +952,58 @@ export interface CloseSpread extends SpreadCommon {
   outro?: SpreadSection[]
   pullQuote?: SpreadPullQuote
 }
+/** ─── proof ─────────────────────────────────────────────────────
+ *  The correction pass — the eighth interaction shape (ISSUE 417)
+ *  and the cabinet's act of ADJUDICATION: a machine has completed
+ *  a draft screen before the reader arrived, and the reader's
+ *  remaining act is judgment, line by line — KEEP MACHINE / TAKE
+ *  THE HAND / STRIKE. Decisions compose live into a resolved
+ *  screen and a provenance ledger (N machine · N hand · N struck).
+ *  Completes the print-shop line the cabinet already speaks:
+ *  galley (410, raw type) → proof (417, the correction pass) →
+ *  press (413, the composing).
+ *  Rule-6 doubled: the ledger counts only the reader's marks
+ *  (session-only, unrecorded — `ledgerNote` mandatory), and the
+ *  machine lines are REAL local-model output, never hand-edited,
+ *  disclosed in `machineNote` and filed in the audit. Rule 1: all
+ *  lines default to KEEP MACHINE — untouched, the page shows the
+ *  machine's finished screen. Rule 4: all three versions of every
+ *  line stay in the DOM; print stacks them. ARIA: one three-radio
+ *  radiogroup per line. */
+export interface ProofLine {
+  /** Stable id, e.g. 'p1'. */
+  id: string
+  /** The screen slot, e.g. 'HEADLINE', 'PRIMARY ACTION'. */
+  slot: string
+  slotJp?: string
+  /** Real machine output — never hand-edited (rule 6). */
+  machine: string
+  /** The house rewrite — the warm/specific counter-voice. */
+  hand: string
+}
+
+export interface ProofSpread extends SpreadCommon {
+  type: 'proof'
+  dossier?: SpreadDossier
+  intro?: SpreadSection[]
+  /** Mono label above the proof, e.g. 'THE PROOF · 校正刷り'. */
+  proofKicker?: string
+  /** The machine's draft screen, in slot order. All default to
+   *  KEEP MACHINE. */
+  lines: ProofLine[]
+  /** Honesty note under the ledger (rule 6, mandatory): what the
+   *  ledger counts, that marks are session-only and unrecorded. */
+  ledgerNote: string
+  /** Provenance disclosure (rule 6, mandatory): which real model
+   *  drafted the lines, where it ran, where raw output is filed. */
+  machineNote: string
+  outro?: SpreadSection[]
+  pullQuote?: SpreadPullQuote
+}
+
 /** ─── day ───────────────────────────────────────────────────────
  *  An authored metropolitan day carrying delegation moments — the
- *  eighth interaction shape (ISSUE 418), and the first whose axis
+ *  ninth interaction shape (ISSUE 418), and the first whose axis
  *  is TIME LIVED rather than a variable, a text, or an artifact.
  *  Nine time-stamped moments, 06:10 → 00:40, each an ambient city
  *  vignette with one calibrated two-state control: LET IT RIDE /
@@ -1021,6 +1071,7 @@ export type IssueSpread =
   | MarginSpread
   | PressSpread
   | CloseSpread
+  | ProofSpread
   | DaySpread
 
 export interface IssueCredits {
@@ -1324,8 +1375,7 @@ export const ALL_ISSUES: IssueRecord[] = [
   ISSUE_414,
   ISSUE_415,
   ISSUE_416,
-  // ISSUE 417 (PROOF OF HAND) is spec'd on this branch and inserts
-  // here when built — 418 was written first, ships second.
+  ISSUE_417,
   ISSUE_418,
 ]
 

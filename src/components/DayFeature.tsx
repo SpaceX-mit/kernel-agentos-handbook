@@ -15,7 +15,7 @@ type Mark = 'ride' | 'step'
 
 /**
  * DayFeature — an authored metropolitan day the reader marks,
- * moment by moment. The eighth interaction shape (ISSUE 418).
+ * moment by moment. The ninth interaction shape (ISSUE 418).
  *
  * ARIA pattern: one RADIOGROUP per moment, two radio buttons
  * (LET IT RIDE / STEP IN), none checked until the reader decides.

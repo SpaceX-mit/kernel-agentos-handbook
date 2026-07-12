@@ -173,6 +173,8 @@ export type IssueAccent = InkSeedName | (string & {})
  *                          about kernel.chat itself, definitionally)
  *    close     → oxblood (endings — the fit note is literally "endings";
  *                          shared register with colloquy and galley)
+ *    proof     → pool    (systems / tool register — the machine drew
+ *                          first; the reader adjudicates its draft)
  *    day       → cobalt  (the metropolitan register — transit-map civic
  *                          blue; the day shape is the city lived in time)
  */
@@ -191,6 +193,7 @@ export const DEFAULT_ACCENT_BY_SPREAD: Record<IssueSpread['type'], InkSeedName> 
   margin: 'coffee',
   press: 'amethyst',
   close: 'oxblood',
+  proof: 'pool',
   day: 'cobalt',
 }
 

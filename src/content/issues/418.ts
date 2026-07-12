@@ -23,7 +23,9 @@
    totals the reader's own split. The reader is the subject; the
    day is the apparatus.
 
-   THE SHAPE (eighth): `day` — the first whose axis is time lived.
+   THE SHAPE (ninth): `day` — the first whose axis is time lived.
+   (Built before 417's `proof` but ships after it; by publication
+   count proof is eighth and day is ninth.)
    Which rules it stresses, and why it complies (checklist §7):
      • Rule 2 — the hand is required: the argument IS the reader's
        own defer/verify split; without marks the ledger has nothing
@@ -286,7 +288,7 @@ export const ISSUE_418: IssueRecord = {
   audit: {
     drafted: 'brainstormed with the editor-in-chief · claude-fable-5 session, VII·26',
     verified: '4 works cited, 4 real (Bainbridge 83 · Parasuraman/Riley 97 · Skitka 99 · Lee/See 04); no other measurement claimed',
-    adherence: 'eighth shape `day` — rules 2/3/4/6 argued in the file header; ledger meters reader actions only; motion at weather amplitude',
+    adherence: 'ninth shape `day` — rules 2/3/4/6 argued in the file header; ledger meters reader actions only; motion at weather amplitude',
     readCut: 'nine moments kept from a drafted fourteen; the five cut were suburban',
     pressed: 'VII·26 · 2026-07-12',
   },

@@ -17,6 +17,7 @@ import { MarginFeature } from './MarginFeature'
 import { PressFeature } from './PressFeature'
 import { CloseFeature } from './CloseFeature'
 import { DayFeature } from './DayFeature'
+import { ProofFeature } from './ProofFeature'
 
 interface IssueFeatureProps {
   issue: IssueRecord
@@ -68,6 +69,8 @@ export function IssueFeature({ issue }: IssueFeatureProps) {
       return <PressFeature spread={spread} issue={issue} />
     case 'close':
       return <CloseFeature spread={spread} issue={issue} />
+    case 'proof':
+      return <ProofFeature spread={spread} issue={issue} />
     case 'day':
       return <DayFeature spread={spread} issue={issue} />
     default: {

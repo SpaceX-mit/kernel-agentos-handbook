@@ -1,0 +1,439 @@
+/* ──────────────────────────────────────────────────────────────
+   ProofFeature — ISSUE 417 · PROOF OF HAND · the eighth shape.
+
+   Ivory / pool grammar: the machine that drew first is the cool
+   accent; the reader's pencil is the ink. All three versions of
+   every line are always present (rule 4) — the standing version
+   carries full ink, the others recede but stay legible. Motion is
+   CSS transitions only, ambient amplitude, collapsed by the
+   site-wide reduced-motion override.
+   ────────────────────────────────────────────────────────────── */
+
+.pop-proof {
+  padding: 4.5rem 1.5rem 5rem;
+  border-top: 1px solid var(--pop-hairline-soft);
+  border-bottom: 1px solid var(--pop-hairline-soft);
+}
+
+.pop-proof-inner {
+  max-width: 44rem;
+  margin: 0 auto;
+}
+
+/* ─── header ─────────────────────────────────────────────────── */
+
+.pop-proof-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.pop-proof-title {
+  margin: 0.75rem 0 0.25rem;
+}
+
+.pop-proof-title-jp {
+  margin: 0 0 1rem;
+}
+
+.pop-proof-deck {
+  max-width: 34rem;
+  margin: 0 auto 1rem;
+}
+
+.pop-proof-byline {
+  color: var(--pop-coffee);
+}
+
+/* ─── dossier ────────────────────────────────────────────────── */
+
+.pop-proof-spec {
+  margin: 0 0 3rem;
+}
+
+.pop-proof-spec-frame {
+  position: relative;
+  border: 1px solid var(--pop-ink);
+  padding: 1.5rem 1.5rem 1.25rem;
+  background: var(--pop-ivory);
+}
+
+.pop-proof-spec-badge {
+  position: absolute;
+  top: -0.6rem;
+  right: 1.25rem;
+}
+
+.pop-proof-spec-kicker {
+  color: var(--pop-coffee);
+}
+
+.pop-proof-spec-note {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0.75rem 0 1rem;
+}
+
+.pop-proof-spec-list {
+  margin: 0;
+}
+
+.pop-proof-spec-row {
+  display: flex;
+  gap: 1rem;
+  padding: 0.4rem 0;
+  border-top: 1px solid var(--pop-hairline-soft);
+}
+
+.pop-proof-spec-label {
+  flex: 0 0 9rem;
+  color: var(--pop-coffee);
+}
+
+.pop-proof-spec-value {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+/* ─── prose ──────────────────────────────────────────────────── */
+
+.pop-proof-prose {
+  margin: 0 0 1rem;
+}
+
+.pop-proof-section {
+  margin-bottom: 2rem;
+}
+
+.pop-proof-section-heading {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
+}
+
+.pop-proof-section-heading-jp {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  color: var(--pop-coffee);
+  margin-top: 0.2rem;
+}
+
+.pop-proof-paragraph {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0 0 1rem;
+}
+
+.pop-proof-rule {
+  margin: 2.5rem 0;
+}
+
+.pop-proof-kicker-line {
+  text-align: center;
+  color: var(--pop-coffee);
+  margin: 0 0 2rem;
+}
+
+/* ─── the proof lines ────────────────────────────────────────── */
+
+.pop-proof-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pop-proof-line {
+  border: 1px solid var(--pop-hairline);
+  background: var(--pop-ivory);
+  padding: 1.1rem 1.25rem 1.2rem;
+  margin-bottom: 1.75rem;
+}
+
+.pop-proof-line-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.9rem;
+}
+
+.pop-proof-line-slot {
+  color: var(--issue-accent-base);
+}
+
+.pop-proof-line-slot-jp {
+  font-family: var(--font-serif);
+  font-style: italic;
+  letter-spacing: 0.03em;
+  color: var(--pop-coffee);
+}
+
+.pop-proof-line-fate {
+  color: var(--pop-coffee);
+}
+
+/* Rule 4: three versions, all present, all legible. The standing
+   version carries full ink and the accent spine; the others recede
+   to secondary ink but never below legibility. */
+.pop-proof-versions {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.pop-proof-version {
+  position: relative;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.55;
+  margin: 0;
+  padding: 0.55rem 0.75rem 0.55rem 5.75rem;
+  border-left: 3px solid var(--pop-hairline);
+  color: var(--pop-coffee);
+  transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+}
+
+.pop-proof-version--stands {
+  color: var(--pop-ink);
+  border-left-color: var(--issue-accent-base);
+  background: color-mix(in srgb, var(--issue-accent-base) 6%, transparent);
+}
+
+.pop-proof-version-tag {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  width: 4.4rem;
+  color: var(--pop-coffee);
+}
+
+.pop-proof-version--stands .pop-proof-version-tag {
+  color: var(--issue-accent-base);
+}
+
+/* The blank version — a ruled empty line, the canvas returned. */
+.pop-proof-blank-rule {
+  display: inline-block;
+  width: 9rem;
+  height: 1px;
+  background: var(--pop-ink);
+  vertical-align: middle;
+  margin-right: 0.6rem;
+}
+
+.pop-proof-blank-word {
+  font-style: italic;
+  font-size: 0.88rem;
+}
+
+/* ─── the fates control ──────────────────────────────────────── */
+
+.pop-proof-fates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pop-proof-radio {
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pop-ink);
+  background: none;
+  border: 1px solid var(--pop-ink);
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.pop-proof-radio[aria-checked='true'] {
+  background: var(--pop-ink);
+  color: var(--pop-ivory);
+}
+
+.pop-proof-radio:focus-visible {
+  outline: 2px solid var(--issue-accent-base);
+  outline-offset: 2px;
+}
+
+/* ─── machine note ───────────────────────────────────────────── */
+
+.pop-proof-machine-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--pop-coffee);
+  margin: 0 0 2.5rem;
+}
+
+/* ─── the resolved screen ────────────────────────────────────── */
+
+.pop-proof-screen {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.pop-proof-screen-kicker {
+  color: var(--pop-coffee);
+}
+
+.pop-proof-screen-frame {
+  border: 1px solid var(--pop-ink);
+  background: var(--pop-ivory);
+  margin-top: 0.85rem;
+  padding: 2.25rem 1.75rem;
+  display: grid;
+  gap: 1.1rem;
+  text-align: left;
+}
+
+.pop-proof-screen-slot {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.pop-proof-screen-slot-tag {
+  font-size: 0.62rem;
+  color: var(--pop-coffee);
+}
+
+.pop-proof-screen-text {
+  font-family: var(--font-serif);
+  line-height: 1.4;
+  transition: opacity 180ms ease;
+}
+
+/* Slot-scale typography — the miniature reads as a screen, not a list. */
+.pop-proof-screen-slot--p1 .pop-proof-screen-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.pop-proof-screen-slot--p2 .pop-proof-screen-text {
+  font-size: 1rem;
+}
+
+.pop-proof-screen-slot--p3 .pop-proof-screen-text {
+  display: inline-block;
+  justify-self: start;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pop-ivory);
+  background: var(--issue-accent-base);
+  padding: 0.5rem 1rem;
+}
+
+.pop-proof-screen-slot--p4 .pop-proof-screen-text,
+.pop-proof-screen-slot--p5 .pop-proof-screen-text {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--pop-coffee);
+}
+
+.pop-proof-screen-slot--p6 .pop-proof-screen-text {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+/* A struck slot renders as ruled blank space — the canvas back. */
+.pop-proof-screen-blank {
+  display: block;
+  height: 1.1rem;
+  border-bottom: 1px solid var(--pop-hairline);
+}
+
+/* ─── ledger ─────────────────────────────────────────────────── */
+
+.pop-proof-ledger {
+  border: 1px solid var(--pop-ink);
+  background: var(--pop-ivory);
+  padding: 1.5rem 1.5rem 1.25rem;
+  text-align: center;
+}
+
+.pop-proof-ledger-kicker {
+  color: var(--pop-coffee);
+}
+
+.pop-proof-ledger-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  margin: 0.85rem 0 1rem;
+}
+
+.pop-proof-ledger-note {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--pop-coffee);
+  text-align: left;
+  margin: 0;
+}
+
+/* ─── pull quote + signoff ───────────────────────────────────── */
+
+.pop-proof-pullquote {
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.pop-proof-pullquote-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  color: var(--issue-accent-base);
+  margin: 0 0 0.75rem;
+}
+
+.pop-proof-pullquote-cite {
+  font-style: normal;
+  color: var(--pop-coffee);
+}
+
+.pop-proof-signoff {
+  text-align: center;
+  margin-top: 3.5rem;
+}
+
+.pop-proof-signoff-text {
+  margin: 1rem 0 2rem;
+}
+
+.pop-proof-monument {
+  justify-content: center;
+}
+
+/* ─── print — the archive holds every position ───────────────── */
+
+@media print {
+  .pop-proof-version {
+    color: var(--pop-ink);
+  }
+  .pop-proof-line,
+  .pop-proof-screen-frame,
+  .pop-proof-ledger {
+    break-inside: avoid;
+  }
+}

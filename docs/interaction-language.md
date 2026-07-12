@@ -259,11 +259,32 @@ before anything gets extracted.
 
 ---
 
-**The eighth shape — Day (`day`, ISSUE 418), and the axis it adds.**
+**The eighth shape — Proof (`proof`, ISSUE 417), and the act it
+adds: adjudication.** The machine has completed a draft before the
+reader arrived; the reader's remaining act is judgment, line by
+line — KEEP MACHINE / TAKE THE HAND / STRIKE — composing a resolved
+screen and a provenance ledger (N machine · N hand · N struck).
+Completes the print-shop sentence the cabinet already speaks:
+galley (410, raw type) → proof (417, the correction pass) → press
+(413, the composing). Not a galley: the base text is
+machine-authored, the polarity is inverted (what must a machine
+draft *earn*, not what can a human text *lose*), and a real third
+provenance — the hand's rewrite — exists. What it settles: rule 6
+runs doubled when a machine speaks on the page — the ledger counts
+only the reader's marks (session-only, unrecorded), AND the machine
+lines must be real model output, never hand-edited, disclosed
+on-surface (`machineNote`) and filed in the audit. Calm default is
+the thesis itself: untouched, every line keeps the machine — which
+is exactly the 2026 default the issue is about. **Proof is at
+instance one** — no machinery extracted from Galley/Press.
+
+---
+
+**The ninth shape — Day (`day`, ISSUE 418), and the axis it adds.**
 Every prior shape gave the reader's hand a variable (Dial), a
 comparison (Compare), a process (Sequence), a text (Galley, Margin),
-an artifact (Press), or an ending (Close). The Day gives it TIME
-LIVED: an authored metropolitan day of delegation moments, each
+an artifact (Press), an ending (Close), or an adjudication (Proof).
+The Day gives it TIME LIVED: an authored metropolitan day of delegation moments, each
 carrying one two-state control — LET IT RIDE / STEP IN — and a
 midnight ledger that meters only the reader's real actions (marks,
 changes of mind, the session clock; the 415 clock precedent).
